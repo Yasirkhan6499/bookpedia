@@ -55,14 +55,35 @@ const AddItem = () => {
 
 
     // add a book to the library
-    const handleAddIem=(e,book)=>{
+    const handleAddIem= async (e,bookData)=>{
         e.preventDefault();
         
-      console.log("searched book : ", book)
+        console.log("searched book : ", bookData)
+        const {volumeInfo:book} = bookData;
+        console.log(book);
+        
+        try{
+        const response = await axios.post("/api/books/additem",{
+          title: book.title || "",
+          author: book.authors[0] || "",
+          publishedDate: book.publishedDate.split('-')[0] || 0,
+          pages: book.pageCount || 0,
+          publisher: book.publisher || "",
+          isbn13: book.industryIdentifiers[1].identifier || 0,
+          isbn10: book.industryIdentifiers[0].identifier || 0,
+          addedDate: new Date(),
+          description: book.description || ""
+          
+        })
+        console.log(response.data);
+      }catch(error){
+       console.log(error)
+      }
 
     }
 
     useEffect(()=>{
+      
       const getCollectionsArr = async ()=>{
         try{
         const response = await axios.get("/api/books/collections/getCollectionsArray");

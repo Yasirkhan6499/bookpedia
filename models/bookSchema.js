@@ -1,4 +1,4 @@
-const { default: mongoose, model } = require("mongoose");
+const { default: mongoose, model, Schema } = require("mongoose");
 
 
 
@@ -6,43 +6,46 @@ const { default: mongoose, model } = require("mongoose");
 
 const bookSchema = new mongoose.Schema({
     userId: {
-        
-    }
+        type: Schema.Types.ObjectId,
+        ref: "User",
+
+        required: true
+    },
     title:{
         type: String,
         required: [true, "Provide a title"]
     },
     author:{
         type: String,
-        required: [true, "Provide an author"]
+        
     },
     publishedDate:{
-        type: Date,
-        required: [true, "Provide a published Date"]
+        type: Number,
+       
     },
     pages:{
         type: Number,
-        required: [true, "Provide pages number"]
+        
     },
     publisher:{
         type: String,
-        required: [true, "Provide publisher name"]
+       
     },
     isbn13:{
         type: Number,
-        required: [true, "Provide an ISBN13"]
+        
     },
     isbn10:{
         type: Number,
-        required: [true, "Provide an ISBN10"]
+        // required: [true, "Provide an ISBN10"]
     },
     addedDate:{
         type: Date,
-        required: [true, "provide added date"]
+        // required: [true, "provide added date"]
     },
     description:{
         type: String,
-        required: [true, "Provide book description"]
+        // required: [true, "Provide book description"]
     }
 
 });

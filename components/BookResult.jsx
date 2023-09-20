@@ -24,6 +24,7 @@ const BookResult = ({book}) => {
          src={volumeInfo.imageLinks?.thumbnail}
          width={1150}
          height={1150}
+         alt='Book Icon'
         /> 
     </div>
 
