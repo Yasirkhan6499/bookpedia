@@ -2,10 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+h2{
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+h3{
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+input{
+  @apply block m-4 p-2 border-2 
+  w-full rounded-md
+  
+}
+p{
+  @apply text-slate-900 text-sm leading-relaxed;
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+ 
 }
 
 @media (prefers-color-scheme: dark) {
@@ -16,12 +38,97 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+/* nav section */
+
+.logo-icon{
+  @apply text-4xl;
+}
+.nav-items li{
+  @apply text-xl cursor-pointer mt-1;
+}
+
+/* login-section */
+.login-section{
+  height: 50vh;
+  @apply mt-10
+}
+.form{
+  @apply shadow-2xl shadow-gray-500 
+  p-12 flex flex-col justify-center items-center
+  
+}
+.form-body{
+ @apply w-full mt-4
+}
+.loginContainer{
+  @apply w-1/3 min-w-max mx-auto
+}
+.switch-acc-link{
+  @apply text-cyan-500 hover:text-cyan-700 font-semibold
+}
+
+/* Main menu */
+.menu-section{
+  @apply bg-gray-100 p-4 px-8 h-screen fixed pt-10;
+}
+.main-menu{
+  @apply mt-8 flex flex-col ;
+}
+.main-menu-item{
+  @apply hover:translate-x-3 hover:ease-in ease-out duration-100 text-black 
+  py-4 px-1 cursor-pointer;
+}
+
+/* body  */
+.body-container{
+  @apply absolute left-80 top-8 right-32;
+}
+
+/* Collection-section */
+.page-title{
+  @apply text-4xl font-bold pb-10 border-b-2 border-gray-200 mb-12;
+}
+.page-label{
+  @apply text-2xl font-bold;
+}.page-input{
+  @apply ml-0;
+}
+.page-btn{
+  @apply ml-0;
+}
+.page-select{
+  @apply w-full border-2 p-2 mt-4;
+}
+.feild-note{
+  @apply text-sm italic -mt-4;
+}
+
+/* Book container */
+.pic-content-cont{
+  @apply border-b border-gray-200
+}
+.book-container{
+  @apply p-6 flex gap-6 my-6;
+}
+/* .book-pic{
+  @apply w-full max-w-[18rem] ;
+} */
+
+.book-title{
+  @apply text-2xl font-bold;
+}
+.book-author{
+  @apply  text-slate-400 mb-4 mt-1;
+}
+.book-publish-info{
+  @apply flex gap-4;
+}
+.book-publish-info p{
+  @apply text-base;
+}
+.book-publishDate{
+  @apply text-black font-semibold text-base;
+}
+.book-isbn-info{
+  @apply flex gap-4 mb-6;
 }
