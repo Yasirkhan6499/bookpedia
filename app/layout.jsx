@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import Menu from '@/components/Menu';
 import { Nav } from "@/components/Nav";
 import { AuthContextProvider } from '@/context/authContext';
+import { BooksProvider } from '@/context/booksContext';
 
 export const metadata = {
   title: 'Create Next App',
@@ -16,8 +17,11 @@ export default function RootLayout({ children }) {
       <body >
         
         <AuthContextProvider>
+        <BooksProvider>
         {children}
+        </BooksProvider>
         </AuthContextProvider>
+        
       </body>
     </html>
   )

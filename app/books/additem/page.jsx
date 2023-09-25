@@ -4,6 +4,7 @@ import Button from '@/components/Button';
 import Input from '@/components/Input';
 import ResultsSearch from '@/components/ResultsSearch';
 import Select from '@/components/Select';
+import { useBooks } from '@/context/booksContext';
 import { isOnlyNumbers } from '@/helpers/helperMethods';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
@@ -14,7 +15,8 @@ const AddItem = () => {
     const [collections, setCollections] = useState([]);
     const [collection, setCollection] = useState("");
     const [booksList, setBooksList] = useState(undefined);
-
+    // const [addedBookIdArr, setAddedBookIdArr] = useState([]);
+    const {addBookIdArr, setAddBookIdArr} = useBooks();
     // search the books
     const handleSearch = async (e)=>{
       e.preventDefault();
@@ -36,7 +38,7 @@ const AddItem = () => {
                    books = await data.json();
                 }
                 console.log("books: ",books.items)
-                setBooksList(books.items || []);
+                setBooksList(books.items || undefined);
                 // console.log(books)
               } catch (err) {
                   if(err.response && err.response.status === 429) {
@@ -53,33 +55,72 @@ const AddItem = () => {
       setCollection(e.target.value);
     }
 
+    const isItemAlreadyExistsInDb = async (bookId)=>{
+      try{
+        // const bookIsbn13 = bookData.volumeInfo.industryIdentifiers[0].identifier; 
+        // console.log("bookdataaa",bookIsbn13)
+        const response = await axios.post("/api/books/isItemExist",{
+          bookid: bookId
+        });
+        // console.log("response.data.success", response.data.message);
+        console.log("response for exisiting book: ",response.data)
+        if(response.data.success)
+        return true;
+        else return false;
+      }catch(error){
+        console.log(error);
+      } 
+    
+    }
 
     // add a book to the library
     const handleAddIem= async (e,bookData)=>{
         e.preventDefault();
-        
+
+        if(collection && collection!==0){
+        console.log("book:",bookData)
+        const bookId = bookData.id;
+        if(await isItemAlreadyExistsInDb(bookId)){
+          alert("item already exists in database")
+          
+          setAddBookIdArr(prevArr=>[...prevArr, bookId])
+
+          
+        }
+        else{
         console.log("searched book : ", bookData)
         const {volumeInfo:book} = bookData;
-        console.log(book);
+        // console.log(book);
         
         try{
         const response = await axios.post("/api/books/additem",{
+          bookid: bookId,
           title: book.title || "",
+          collectionId: collection,
           author: book.authors[0] || "",
           publishedDate: book.publishedDate.split('-')[0] || 0,
           pages: book.pageCount || 0,
           publisher: book.publisher || "",
-          isbn13: book.industryIdentifiers[1].identifier || 0,
-          isbn10: book.industryIdentifiers[0].identifier || 0,
+          isbn13: book.industryIdentifiers[0].identifier || 0,
+          isbn10: book.industryIdentifiers[1].identifier || 0,
           addedDate: new Date(),
           description: book.description || ""
           
         })
-        console.log(response.data);
+        if(response.status===200){
+          // console.log(response.data.newBook.isbn13)
+          // const newIsbn13 = book.industryIdentifiers[0].identifier || 0;
+          setAddBookIdArr(prevArr=>[...prevArr, bookId]);
+          alert("New Book Added!")
+        }
+        console.log("bookIdarr222 ",addBookIdArr);
       }catch(error){
-       console.log(error)
+       console.log(error);
       }
+    } 
 
+  } //if(collection !==0)
+  else alert("Please Select A Collection")
     }
 
     useEffect(()=>{
@@ -105,7 +146,7 @@ const AddItem = () => {
         <form onSubmit={handleSearch}>
 
         <label className='page-label ' htmlFor="title">
-             Select Collection</label>
+             Collections</label>
             {/* {console.log(collections)} */}
             <Select 
             arr={collections}
@@ -115,6 +156,7 @@ const AddItem = () => {
             
             <p className='mt-0 text-sm italic'>Choose the collection you're adding items to.</p>
 
+            
             <label className='page-label block mt-4' htmlFor="title">
              Search For Books</label>
             {/* <input className="page-input" onChange={(e)=>setCollection(e.target.value)} type="text" /> */}
@@ -141,6 +183,7 @@ const AddItem = () => {
           <ResultsSearch
           booksList={booksList}
           onClick={handleAddIem}
+          itemAddIdArr={addBookIdArr}
           />
 
           </div>

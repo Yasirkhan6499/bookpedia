@@ -6,14 +6,15 @@ import jwt  from 'jsonwebtoken';
 
 export const POST = async (req,res)=>{
     try {
-        console.log("addddd itemmmmmmmm1111")
-        connectDB();
-        console.log("addddd itemmmmmmmm22222")
-        const {title, author,publishedDate, pages, publisher,
+        // console.log("addddd itemmmmmmmm1111")
+      await connectDB();
+        // console.log("addddd itemmmmmmmm22222")
+        const {bookid,title,collectionId, author,publishedDate, pages, publisher,
              isbn13,isbn10,addedDate,description} = await req.json();
-             console.log("addddd itemmmmmmmm3333")  
-             console.log({title, author, publishedDate, pages, publisher, isbn13, isbn10, addedDate, description});  
+            //  console.log("addddd itemmmmmmmm3333")  
+            //  console.log({title, author, publishedDate, pages, publisher, isbn13, isbn10, addedDate, description});  
         // Convert to numbers
+        console.log("collectionID ",collectionId);
         const numPublishedDate = Number(publishedDate);
         const numPages = Number(pages);
         const numIsbn13 = Number(isbn13);
@@ -27,11 +28,11 @@ export const POST = async (req,res)=>{
         const token = req.cookies.get("token")?.value;
         if(!token)
         return NextResponse.json({error: "Token is missing"},{status: 401});
-        console.log("cookiesssssssssssss");
+        // console.log("cookiesssssssssssss");
         // decoding token
         const decodedToken = jwt.decode(token);
         
-        console.log("cookiesssssss222222222222");
+        // console.log("cookiesssssss222222222222");
         if(!decodedToken || !decodedToken.id)
         return NextResponse.json({
             error:"Invalid token or user id missing"
@@ -39,9 +40,11 @@ export const POST = async (req,res)=>{
             {status: 401}
             )
 
-        console.log(decodedToken.id);
+        // console.log(decodedToken.id);
         const newBook = new Book({
             userId: decodedToken.id,
+            collectionId,
+            bookid,
             title,
             author,
             publishedDate: numPublishedDate,
@@ -52,9 +55,9 @@ export const POST = async (req,res)=>{
             addedDate,
             description
         });
-        console.log("addddd itemmmmmmmm4444")
+        // console.log("addddd itemmmmmmmm4444")
        await newBook.save();
-       console.log("addddd itemmmmmmm5555")
+    //    console.log("addddd itemmmmmmm5555")
         return NextResponse.json({
             message: "Book Added Succesfully",
             newBook

@@ -11,6 +11,16 @@ const bookSchema = new mongoose.Schema({
 
         required: true
     },
+    // add collection id
+    collectionId: {
+        type: Schema.Types.ObjectId,
+        ref:"Collection"
+    },
+    bookid: {
+        type: String,
+        required: [true, "provide a book id"],
+        
+    },
     title:{
         type: String,
         required: [true, "Provide a title"]
