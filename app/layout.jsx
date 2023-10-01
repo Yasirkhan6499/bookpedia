@@ -2,6 +2,7 @@ import './globals.css'
 import Hero from "@/components/Hero";
 import Menu from '@/components/Menu';
 import { Nav } from "@/components/Nav";
+import { BookListProvider } from '@/context/BookListContext';
 import { AuthContextProvider } from '@/context/authContext';
 import { BooksProvider } from '@/context/booksContext';
 
@@ -17,9 +18,11 @@ export default function RootLayout({ children }) {
       <body >
         
         <AuthContextProvider>
+          <BookListProvider>
         <BooksProvider>
         {children}
         </BooksProvider>
+        </BookListProvider>
         </AuthContextProvider>
         
       </body>

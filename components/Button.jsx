@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Button = ({title,onClick, type, width,className}) => {
+const Button = ({title,onClick, type, width,className,addedAlready}) => {
 
   const setClasses = ()=>{
     let classes = `bg-cyan-500 p-2 px-4 m-4 
@@ -17,7 +17,9 @@ const Button = ({title,onClick, type, width,className}) => {
         
         type={type?type:""}
         >
-            {title}
+          {addedAlready?
+          <div className='text-xs'>Already in Collection.</div>:""}
+            {title}{addedAlready?"?":""}
     </button>
   )
 }

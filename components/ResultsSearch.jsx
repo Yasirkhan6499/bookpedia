@@ -1,23 +1,28 @@
 "use client";
 
 import Image from 'next/image';
-import React from 'react'
+import React, { useState } from 'react'
 import BookResult from './BookResult';
 import Button from './Button';
 import axios from 'axios';
 import { useBooks } from '@/context/booksContext';
+import BookEdit from './BookEdit';
+import { useRouter } from 'next/navigation';
 
 
-const ResultsSearch = ({booksList, onClick, itemAddIdArr}) => {
+const ResultsSearch = ({booksList, onClick}) => {
 
+  const router = useRouter();
 
   const { addBookIdArr,setAddBookIdArr } = useBooks();  // Use the context
+  const [bookEditId, setbookEditId] = useState();
+  
 
   // console.log("itemAddedIdArr: ",itemAddIdArr);
    // handling delete
    const handleDelete = async (bookId)=>{
     try{
-      console.log(addBookIdArr)
+      // console.log(addBookIdArr)
       // alert(isbn13)
       const response = await axios.post("/api/books/delete",{
         bookid: bookId
@@ -25,12 +30,22 @@ const ResultsSearch = ({booksList, onClick, itemAddIdArr}) => {
       alert("Book deleted!")
     console.log(response.data.book," Book deleted!");
 
-    setAddBookIdArr(prevArr => prevArr.filter(id => id !== bookId));
+    // setAddBookIdArr(prevArr => prevArr.filter(id => id !== bookId));
+    setAddBookIdArr(prevArr => prevArr.filter(entry => entry.bookId !== bookId));
+
     
     }catch(error){
       console.log(error);
     } 
   } 
+  // Book edit 
+
+  const handleBookEdit = (bookId)=>{
+    setbookEditId(bookId);
+   
+    
+  }
+
   console.log("addedBookIdArr :",addBookIdArr);
   return (
     <div className='results'>
@@ -40,25 +55,36 @@ const ResultsSearch = ({booksList, onClick, itemAddIdArr}) => {
           //  console.log("bookId",bookId);
           
             // console.log("book info :",book.volumeInfo.imageLinks)
+            let addedAlready;
+            const isBookAdded = addBookIdArr?.some(entry => {
+              addedAlready = entry.addedAlready;
+             return entry.bookId === bookId;
+            
+            });
 
+           
+            
             return (
                 
                 <div className='pic-content-cont' key={book.id || index}>
                 <BookResult 
                 book={book}
                 />
-                {addBookIdArr?.includes(bookId)?
+                {isBookAdded?
                 <div className='flex flex-col gap-5'>
                 <Button 
-                title={`Delete`}
+                title={"Delete Item"}
                 width={"w-fit "}
-                className={" bg-red-500 hover:bg-red-700 ml-16 px-8 -translate-y-8 text-base"}
+                className={" bg-red-500 hover:bg-red-700 px-8 -translate-y-8 text-base"
+              +` ${addedAlready?" ml-[2.9rem]":" ml-[3.9rem]"}`}
                 onClick={()=>handleDelete(bookId)}
+                addedAlready={addedAlready}
                 />
                 <Button 
-                title={"View/Edit"}
+                title={"View/Edit Item"}
                 width={"w-fit "}
                 className={"ml-[3.2rem] px-8 -mt-6 -translate-y-8 text-base  "}
+                onClick={()=>handleBookEdit(bookId)}
                 />
                </div>
                 
@@ -69,6 +95,14 @@ const ResultsSearch = ({booksList, onClick, itemAddIdArr}) => {
                 className={"ml-16 -mt-6 -translate-y-8 text-base"}
                 />
               }
+              {/* show Book Edit Screen */}
+            {bookEditId===bookId?(
+              <div className='bookEdit-container'>
+                < BookEdit 
+                bookId = {bookId}
+                />
+              </div>
+              ): "" }
                
              </div>
             );

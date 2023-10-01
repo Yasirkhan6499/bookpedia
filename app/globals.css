@@ -132,3 +132,8 @@ p{
 .book-isbn-info{
   @apply flex gap-4 mb-6;
 }
+
+/* Book Edit container */
+.bookEdit-container{
+  @apply fixed left-72 top-0 bg-white w-full h-full pt-10;
+}

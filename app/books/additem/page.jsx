@@ -4,6 +4,8 @@ import Button from '@/components/Button';
 import Input from '@/components/Input';
 import ResultsSearch from '@/components/ResultsSearch';
 import Select from '@/components/Select';
+import { useBookListContext } from '@/context/BookListContext';
+// import { useBookListContext } from '@/context/BookListContext';
 import { useBooks } from '@/context/booksContext';
 import { isOnlyNumbers } from '@/helpers/helperMethods';
 import axios from 'axios';
@@ -13,10 +15,11 @@ const AddItem = () => {
 
     const [searchTitle,setSearchTitle] = useState("");
     const [collections, setCollections] = useState([]);
-    const [collection, setCollection] = useState("");
-    const [booksList, setBooksList] = useState(undefined);
+    // const [collection, setCollection] = useState("");
+    // const [booksList, setBooksList] = useState(undefined);
     // const [addedBookIdArr, setAddedBookIdArr] = useState([]);
     const {addBookIdArr, setAddBookIdArr} = useBooks();
+    const { booksList, setBooksList, collection, setCollection } = useBookListContext(); 
     // search the books
     const handleSearch = async (e)=>{
       e.preventDefault();
@@ -83,7 +86,7 @@ const AddItem = () => {
         if(await isItemAlreadyExistsInDb(bookId)){
           alert("item already exists in database")
           
-          setAddBookIdArr(prevArr=>[...prevArr, bookId])
+          setAddBookIdArr(prevArr=>[...prevArr, {bookId, addedAlready:true}])
 
           
         }
@@ -110,7 +113,7 @@ const AddItem = () => {
         if(response.status===200){
           // console.log(response.data.newBook.isbn13)
           // const newIsbn13 = book.industryIdentifiers[0].identifier || 0;
-          setAddBookIdArr(prevArr=>[...prevArr, bookId]);
+          setAddBookIdArr(prevArr=>[...prevArr, {bookId, addedAlready:false}]);
           alert("New Book Added!")
         }
         console.log("bookIdarr222 ",addBookIdArr);
@@ -183,7 +186,7 @@ const AddItem = () => {
           <ResultsSearch
           booksList={booksList}
           onClick={handleAddIem}
-          itemAddIdArr={addBookIdArr}
+          
           />
 
           </div>
