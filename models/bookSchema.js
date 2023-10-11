@@ -56,7 +56,14 @@ const bookSchema = new mongoose.Schema({
     description:{
         type: String,
         // required: [true, "Provide book description"]
+    },
+    image:{
+        type: String
+    },
+    copies:{
+        type: Number
     }
+   
 
 });
 

@@ -20,6 +20,10 @@ const AddItem = () => {
     // const [addedBookIdArr, setAddedBookIdArr] = useState([]);
     const {addBookIdArr, setAddBookIdArr} = useBooks();
     const { booksList, setBooksList, collection, setCollection } = useBookListContext(); 
+   
+  //    custom css
+  // let pageSelectCss = booksList?"page-select min-w-full w-[80vh]":"page-select";
+   
     // search the books
     const handleSearch = async (e)=>{
       e.preventDefault();
@@ -107,7 +111,9 @@ const AddItem = () => {
           isbn13: book.industryIdentifiers[0].identifier || 0,
           isbn10: book.industryIdentifiers[1].identifier || 0,
           addedDate: new Date(),
-          description: book.description || ""
+          description: book.description || "",
+          image: book.imageLinks.thumbnail || "",
+          copies: 1,
           
         })
         if(response.status===200){
@@ -153,7 +159,7 @@ const AddItem = () => {
             {/* {console.log(collections)} */}
             <Select 
             arr={collections}
-            classes="page-select"
+            classes= "page-select"
             onChange={handleCollectionChange}
             />
             

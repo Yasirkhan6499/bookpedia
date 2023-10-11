@@ -41,9 +41,8 @@ const ResultsSearch = ({booksList, onClick}) => {
   // Book edit 
 
   const handleBookEdit = (bookId)=>{
-    setbookEditId(bookId);
-   
-    
+    // setbookEditId(bookId);
+    router.push(`/books/additem/${bookId}`);
   }
 
   console.log("addedBookIdArr :",addBookIdArr);
@@ -96,13 +95,13 @@ const ResultsSearch = ({booksList, onClick}) => {
                 />
               }
               {/* show Book Edit Screen */}
-            {bookEditId===bookId?(
+            {/* {bookEditId===bookId?(
               <div className='bookEdit-container'>
                 < BookEdit 
                 bookId = {bookId}
                 />
               </div>
-              ): "" }
+              ): "" } */}
                
              </div>
             );

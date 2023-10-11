@@ -10,7 +10,7 @@ export const POST = async (req,res)=>{
       await connectDB();
         // console.log("addddd itemmmmmmmm22222")
         const {bookid,title,collectionId, author,publishedDate, pages, publisher,
-             isbn13,isbn10,addedDate,description} = await req.json();
+             isbn13,isbn10,addedDate,description,image, copies} = await req.json();
             //  console.log("addddd itemmmmmmmm3333")  
             //  console.log({title, author, publishedDate, pages, publisher, isbn13, isbn10, addedDate, description});  
         // Convert to numbers
@@ -53,7 +53,9 @@ export const POST = async (req,res)=>{
             isbn13: numIsbn13,
             isbn10: numIsbn10,
             addedDate,
-            description
+            description,
+            image,
+            copies
         });
         // console.log("addddd itemmmmmmmm4444")
        await newBook.save();
@@ -64,7 +66,6 @@ export const POST = async (req,res)=>{
         })
     } catch (error) {
         return NextResponse.json({error: error.message}, {status: 500});
-        
     }
   
 }

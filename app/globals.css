@@ -81,7 +81,7 @@ p{
 
 /* body  */
 .body-container{
-  @apply absolute left-80 top-8 right-32;
+  @apply absolute left-80 top-8 right-0 xl:right-48;
 }
 
 /* Collection-section */
@@ -90,14 +90,15 @@ p{
 }
 .page-label{
   @apply text-2xl font-bold;
-}.page-input{
+}
+.page-input{
   @apply ml-0;
 }
 .page-btn{
   @apply ml-0;
 }
 .page-select{
-  @apply w-full border-2 p-2 mt-4;
+  @apply w-full border-2 p-2 mt-4 ;
 }
 .feild-note{
   @apply text-sm italic -mt-4;
@@ -132,8 +133,20 @@ p{
 .book-isbn-info{
   @apply flex gap-4 mb-6;
 }
+/* .book-desc{
+  @apply mr-24; 
+} */
 
 /* Book Edit container */
 .bookEdit-container{
   @apply fixed left-72 top-0 bg-white w-full h-full pt-10;
+}
+
+/* single book edit */
+.book-collection{
+  @apply text-xl mb-4
+}
+.editOption{
+  @apply hover:bg-slate-200 px-2 py-[0.1rem] rounded-md
+  cursor-pointer;
 }

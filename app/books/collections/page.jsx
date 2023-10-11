@@ -30,7 +30,7 @@ const page = () => {
         setCollection(inputRef.current.value);
 
         try{
-        const res = await axios.post("/api/books/collections",{name: collection});
+        const res = await axios.post("/api/books/collections",{name: inputRef.current.value});
 
         if(res.data){
             alert("New Collection Added");
