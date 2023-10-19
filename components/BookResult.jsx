@@ -42,12 +42,12 @@ let desc_css = `book-desc ${descCss}`
   
 
   return (
-    <div className='book-container'>
+    <div className='book-container z-0'>
     <div className='book-pic'>
 
         {/* image */}
         <Image 
-        className='min-w-[12rem] w-full rounded-md'
+        className='min-w-[12rem] w-full rounded-md h-[200px] object-cover'
          src={image}
          width={1150}
          height={1150}
@@ -95,6 +95,13 @@ let desc_css = `book-desc ${descCss}`
          {isbn10}
         </p>
         </div>
+
+        {/* price */}
+        {titleCss?<p className='book-addedDate mb-4 -mt-2'><span className='text-black font-semibold text-base'>
+          Price: </span>
+         <span className="bg-green-100 p-1 rounded-sm">${volumeInfo.price+".00"}</span>
+        </p>:""}
+
         {/* added date */}
         {titleCss?<p className='book-addedDate mb-4 -mt-2'><span className='text-black font-semibold text-base'>
           Added: </span>
@@ -106,6 +113,8 @@ let desc_css = `book-desc ${descCss}`
           Copies: </span>
          {volumeInfo.copies}
         </p>:""}
+
+        
         
         {/* description */}
         {descCss? 

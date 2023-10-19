@@ -12,17 +12,22 @@ import { useRouter } from 'next/navigation';
 import { useBooks } from '@/context/booksContext';
 import PomptWindow from './PomptWindow';
 
-const BookEditingOptions = ({bookid}) => {
+
+const BookEditingOptions = ({bookid, collectionid, handleEditBook}) => {
     const router = useRouter();
     const { addBookIdArr,setAddBookIdArr } = useBooks();
-    const [showPrompt, setShowPrompt] = useState();
+    const [showPrompt, setShowPrompt] = useState(null);
+    
     
     const handlePromptCancel = ()=>{
-        setShowPrompt(false);
+        setShowPrompt(null);
+        // setShowEditPage(null);
     }
+
+    // handle delete option
    
     const handleDeleteOption = async ()=>{
-        
+       
         try {
             const response = await axios.post("/api/books/delete",{
                 bookid
@@ -35,25 +40,70 @@ const BookEditingOptions = ({bookid}) => {
         }
     }
 
+    // handle move option
+    const handleMoveOption = async (collection)=>{
+        // console.log("bookid ",bookid)
+        // console.log("move to , ",collection);
+        if(!collection || collection==="0")
+        alert("please select a collection");
+        else{
+            try {
+                const response = await axios.post("/api/books/collections/updateBookCollection",{
+                    bookid,
+                    collectionId: collection
+                });
+                if(response.data.success){
+                    alert(response.data.message);
+                    setShowPrompt(null);
+                    window.location.reload();
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+
   return (
     
     <div>
         
-        <ul className="editOptions flex gap-20  
+        <ul className="editOptions flex gap-20   
              ">
-            <li className="editOption"><FontAwesomeIcon className='mb-[0.1rem]' icon={faPen} /> Edit</li>
+                {/* Edit page  */}
+            <li onClick={handleEditBook}
+             className="editOption"><FontAwesomeIcon className='mb-[0.1rem]' icon={faPen} /> Edit</li>
             <li className="editOption"><FontAwesomeIcon className='mb-[0.1rem]' icon={faStar} /> Details</li>
-            <li className="editOption"><FontAwesomeIcon className='mb-[0.1rem]' icon={faRightLeft} /> Move</li>
-            <li onClick={()=>setShowPrompt(true)} className="editOption text-red-400 hover:bg-red-100">
+ 
+            {/* move option */}
+            <li onClick={()=>setShowPrompt({
+                heading: "Move Item?",
+                action:"Move",
+                handlePromptAction:handleMoveOption,
+                handlePromptCancel : handlePromptCancel
+            })} className="editOption"><FontAwesomeIcon className='mb-[0.1rem]' icon={faRightLeft} /> Move</li>
+
+            {/* delete option */}
+            <li onClick={()=>setShowPrompt({
+                heading: "Delete this Item?",
+                action:"Delete",
+                handlePromptAction:handleDeleteOption,
+                handlePromptCancel : handlePromptCancel
+            })} className="editOption text-red-400 hover:bg-red-100">
                 <FontAwesomeIcon className='mb-[0.1rem]' icon={faTrash} /> 
                 Delete</li>
         </ul>
+        {/* prompt */}
         {showPrompt && <PomptWindow 
-            heading="Delete this Item?"
-            action={"Delete"}
-            handlePromptAction={handleDeleteOption}
-            handlePromptCancel = {handlePromptCancel}
+            heading={showPrompt.heading}
+            action= {showPrompt.action}
+            handlePromptAction={showPrompt.handlePromptAction}
+            handlePromptCancel = {showPrompt.handlePromptCancel}
+            collectionId = {collectionid}
                 />}
+        {/* Edit book page
+        {showEditPage && <EditBookPage 
+           
+        />} */}
     </div>
   )
 }

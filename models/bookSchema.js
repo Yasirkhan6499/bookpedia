@@ -62,6 +62,9 @@ const bookSchema = new mongoose.Schema({
     },
     copies:{
         type: Number
+    },
+    price:{
+        type: Number
     }
    
 

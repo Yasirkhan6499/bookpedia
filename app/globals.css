@@ -111,10 +111,15 @@ p{
 .book-container{
   @apply p-6 flex gap-6 my-6;
 }
-/* .book-pic{
-  @apply w-full max-w-[18rem] ;
-} */
-
+.book-pic{
+  /* @apply w-[20%]; */
+}
+.book-content{
+  @apply w-[70%];
+}
+.bookEdit-label{
+  @apply ml-4 -mb-3;
+}
 .book-title{
   @apply text-2xl font-bold;
 }

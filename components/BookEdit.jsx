@@ -1,11 +1,16 @@
+"use client";
 
+import { useState } from 'react';
 import BookEditingOptions from './BookEditingOptions';
 import BookResult from './BookResult';
 import CloseButton from './CloseButton';
+import EditBookForm from './EditBookForm';
 
 
   const BookEdit = ({book, collection}) => {
   
+    const [showEditForm, setShowEditForm] = useState(null);
+
     // const [bookDate, setBookDate] = useState();
   // useEffect(()=>{
   //   console.log("colleciton: ",collection);
@@ -24,14 +29,23 @@ import CloseButton from './CloseButton';
     // }
     // getBookDate();
     // },[]);
-    console.log("bookEdit", book);
+   const handleEditBook = ()=>{
+    setShowEditForm(true);
+   }
+
+   const handleCancelForm = ()=>{
+    setShowEditForm(false);
+   }
+
   return (
     <div>
 
       <div className='flex justify-between sticky xl:w-[126.79%] top-0 p-4 pl-14 
-      -ml-[4.4rem] -mt-7 shadow-md'>
+      -ml-[4.4rem] -mt-7 shadow-md bg-white/100 z-50'>
       <BookEditingOptions 
        bookid={book.bookid}
+       collectionid = {book.collectionId}
+       handleEditBook={handleEditBook}
       />
       <CloseButton
       url={"/books/additem"}
@@ -39,13 +53,20 @@ import CloseButton from './CloseButton';
       </div>
 
       <div className='-ml-14'>
-      <BookResult 
+      {!showEditForm && <BookResult 
       book={book}
       collection={collection}
       titleCss={"!text-4xl"}
       authorCss={"!text-2xl"}
       descCss={"!text-[1rem]"}
-      />
+
+      />}
+
+      {/* Edit book */}
+    {showEditForm && <EditBookForm 
+     book={book}
+     handleCancleForm = {handleCancelForm}
+    />}
       </div>
       
     </div>
