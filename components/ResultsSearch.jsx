@@ -68,6 +68,7 @@ const ResultsSearch = ({booksList, onClick}) => {
                 <div className='pic-content-cont' key={book.id || index}>
                 <BookResult 
                 book={book}
+                imgCss={"w-full min-w-[12rem] h-[250px]"}
                 />
                 {isBookAdded?
                 <div className='flex flex-col gap-5'>

@@ -3,9 +3,17 @@
 import BookEdit from "@/components/BookEdit";
 import axios from "axios";
 import { useEffect, useState } from "react"
-
+import { useRouter } from 'next/navigation'; // Importing useRouter
 
 const page = ({params}) => {
+
+  const router = useRouter(); // Initializing useRouter
+
+  // getting the return url
+    const url = new URL(window.location.href);
+    const paramss = new URLSearchParams(url.search);
+    const returnUrl = paramss.get('returnUrl');
+
   const [book, setBook] = useState();
   const [collection, setCollection] = useState();
 
@@ -39,6 +47,7 @@ const page = ({params}) => {
       {book?<BookEdit 
       book={book}
       collection={collection}
+      cancelBtnUrl={returnUrl?returnUrl:"/books/additem"}
       />:""}
       
     </div>

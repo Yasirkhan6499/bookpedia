@@ -4,6 +4,7 @@ import Menu from '@/components/Menu';
 import { Nav } from "@/components/Nav";
 import { BookListProvider } from '@/context/BookListContext';
 import { AuthContextProvider } from '@/context/authContext';
+import { BodyContainerProvider } from '@/context/bodyContainerContext';
 import { BooksProvider } from '@/context/booksContext';
 
 export const metadata = {
@@ -17,14 +18,16 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body >
 
-
+      <BodyContainerProvider>
         <AuthContextProvider>
         <BookListProvider>
         <BooksProvider>
         {children}
+        
         </BooksProvider>
         </BookListProvider>
         </AuthContextProvider>
+        </BodyContainerProvider>
         
       </body>
     </html>

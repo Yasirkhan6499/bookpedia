@@ -81,7 +81,7 @@ p{
 
 /* body  */
 .body-container{
-  @apply absolute left-80 top-8 right-0 xl:right-48;
+  @apply absolute left-80 top-8 right-0;
 }
 
 /* Collection-section */
@@ -138,9 +138,9 @@ p{
 .book-isbn-info{
   @apply flex gap-4 mb-6;
 }
-/* .book-desc{
-  @apply mr-24; 
-} */
+.book-desc{
+  @apply  xl:w-[120%]; 
+}
 
 /* Book Edit container */
 .bookEdit-container{
@@ -154,4 +154,11 @@ p{
 .editOption{
   @apply hover:bg-slate-200 px-2 py-[0.1rem] rounded-md
   cursor-pointer;
+}
+
+/* file css */
+.hidden-file-input {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
 }

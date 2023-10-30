@@ -13,7 +13,7 @@ import { useBooks } from '@/context/booksContext';
 import PomptWindow from './PomptWindow';
 
 
-const BookEditingOptions = ({bookid, collectionid, handleEditBook}) => {
+const BookEditingOptions = ({bookid, collectionid, handleEditBook, handleBookReview, cancelBtnUrl}) => {
     const router = useRouter();
     const { addBookIdArr,setAddBookIdArr } = useBooks();
     const [showPrompt, setShowPrompt] = useState(null);
@@ -34,7 +34,7 @@ const BookEditingOptions = ({bookid, collectionid, handleEditBook}) => {
             })
             alert(response.data.message);
             setAddBookIdArr(prevArr => prevArr.filter(entry => entry.bookId!==bookid));
-            router.push("/books/additem");
+            router.push(cancelBtnUrl);
         } catch (error) {
             console.log(error);
         }
@@ -72,7 +72,10 @@ const BookEditingOptions = ({bookid, collectionid, handleEditBook}) => {
                 {/* Edit page  */}
             <li onClick={handleEditBook}
              className="editOption"><FontAwesomeIcon className='mb-[0.1rem]' icon={faPen} /> Edit</li>
-            <li className="editOption"><FontAwesomeIcon className='mb-[0.1rem]' icon={faStar} /> Details</li>
+                {/* Details Page */}
+
+            <li onClick={handleBookReview} 
+            className="editOption"><FontAwesomeIcon className='mb-[0.1rem]' icon={faStar} /> Details</li>
  
             {/* move option */}
             <li onClick={()=>setShowPrompt({

@@ -10,6 +10,7 @@ import { useBooks } from '@/context/booksContext';
 import { isOnlyNumbers } from '@/helpers/helperMethods';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { useBodyContainerContext } from '@/context/bodyContainerContext';
 
 const AddItem = () => {
 
@@ -21,6 +22,14 @@ const AddItem = () => {
     const {addBookIdArr, setAddBookIdArr} = useBooks();
     const { booksList, setBooksList, collection, setCollection } = useBookListContext(); 
    
+    // we will set the bodyContainer css to set the layout of "addItem"=>"page.jsx"
+    const {setBodyContainerCss} = useBodyContainerContext();
+
+    // Change the bodyContainerCss here for Library layout
+    useEffect(() => {
+      setBodyContainerCss("xl:right-2");
+    }, []);
+
   //    custom css
   // let pageSelectCss = booksList?"page-select min-w-full w-[80vh]":"page-select";
    

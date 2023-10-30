@@ -65,6 +65,12 @@ const bookSchema = new mongoose.Schema({
     },
     price:{
         type: Number
+    },
+    rating:{
+        type: Number
+    },
+    review:{
+        type: String
     }
    
 

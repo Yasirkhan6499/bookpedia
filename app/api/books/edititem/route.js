@@ -11,7 +11,7 @@ export const POST = async (req,res)=>{
     const {bookid,title,author,description,price,image} = await req.json();
     
     const existingBook = await Book.findOne({bookid});
-
+        console.log("existinnnggg booook:", existingBook)
     if(!existingBook)
     return NextResponse.json({message: "Book not found!"},{status: 500});
     

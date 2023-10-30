@@ -6,13 +6,15 @@ import { Nav } from "@/components/Nav";
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useBookListContext } from "./BookListContext";
+import { useBodyContainerContext } from "./bodyContainerContext";
 
 const AuthContext = createContext();
     
 export const AuthContextProvider = ({children}) => {
     const [userToken, setUserToken] = useState("");
-    
 
+    // To set the bodyContainer CSS
+    const { bodyContainerCss } = useBodyContainerContext();
 
     useEffect(()=>{
         const checkTokenData = async ()=>{
@@ -34,7 +36,7 @@ export const AuthContextProvider = ({children}) => {
     return(
         <AuthContext.Provider value={{userToken, setUserToken}}>
             {userToken?<Menu /> : <><Nav /> <Hero /> </> }
-            <div className={userToken?"body-container":""}>
+            <div className={userToken?`body-container ${bodyContainerCss}`:""}>
             {children}
             </div>
         </AuthContext.Provider>

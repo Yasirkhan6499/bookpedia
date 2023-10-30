@@ -4,8 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLayerGroup } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image'
 import React, { useState } from 'react'
+import StarRatings from 'react-star-ratings';
 
-const BookResult = ({book,collection,titleCss,authorCss,descCss}) => {
+const BookResult = ({book,collection,titleCss,authorCss,descCss, imgCss,
+  starSize,descReviewCss,isBookEdit,handleEditIcon}) => {
 
   const [activeTab, setActiveTab] = useState('Description');
 
@@ -27,10 +29,13 @@ const BookResult = ({book,collection,titleCss,authorCss,descCss}) => {
 // ------------extra Css-----------------
 let title_css =  `book-title ${titleCss}`;
 let author_css = `book-author ${authorCss}`;
-let desc_css = `book-desc ${descCss}` 
+let desc_css = `book-desc ${descCss}`;
+let img_css = `rounded-md object-cover ${imgCss}` 
+let descReview_css = `flex gap-8 text-stone-400  font-bold mb-4 mt-9 cursor-pointer 
+border-b-2 xl:w-[120%] ${descReviewCss}`;
 
     // Helper function to truncate the description
-    const truncateDescription = (description, length = 800) => {
+    const truncateDescription = (description, length = 600) => {
       if (!description) return '';
       if (description.length > length) {
           return description.slice(0, length) + '...';
@@ -39,27 +44,46 @@ let desc_css = `book-desc ${descCss}`
       }
   }
 
-  
+  // if its book editing then the text will be a bit large
+  //  if its books displaying in the Library, then the text will be small
+
 
   return (
-    <div className='book-container z-0'>
+    <div className='book-container z-0 '>
     <div className='book-pic'>
 
         {/* image */}
         <Image 
-        className='min-w-[12rem] w-full rounded-md h-[200px] object-cover'
+        className={img_css}
+        onClick={handleEditIcon?()=>handleEditIcon(volumeInfo.bookid):()=>{}}
          src={image}
-         width={1150}
-         height={1150}
+         width={2400}
+         height={2400}
          alt='Book Icon'
         /> 
+
+     {/* stars */}
+      <div className="text-center mt-3">
+        {volumeInfo.rating && 
+        <StarRatings
+          rating={volumeInfo.rating}
+          starRatedColor="gold" // Color of filled stars
+          starEmptyColor="lightgray" // Color of empty stars
+          starDimension={starSize} // Size of stars
+          starSpacing="2px" // Spacing between stars
+          numberOfStars={5} // Total number of stars
+          name="rating"
+        />}
+        </div>
+
+
     </div>
     
 
     {/* book content container */}
     <div className='book-content'>
       {/* book collection */}
-      {collection ? (
+      {(collection && !isBookEdit) ? (
     <div className="flex items-center">
       <FontAwesomeIcon icon={faLayerGroup} className="text-blue-300 mr-2 pb-3" />
       <p className='book-collection'>{collection.name}</p>
@@ -70,7 +94,9 @@ let desc_css = `book-desc ${descCss}`
 
 
       {/* Title & Author */}
-       <h3 className={title_css}>
+       <h3 className={title_css}
+       onClick={handleEditIcon?()=>handleEditIcon(volumeInfo.bookid):()=>{}}
+       >
          {volumeInfo.title}
        </h3>
        <p className={author_css}>{author}</p>
@@ -97,7 +123,7 @@ let desc_css = `book-desc ${descCss}`
         </div>
 
         {/* price */}
-        {titleCss?<p className='book-addedDate mb-4 -mt-2'><span className='text-black font-semibold text-base'>
+        {(titleCss&&volumeInfo.price)?<p className='book-addedDate mb-4 -mt-6'><span className='text-black font-semibold text-base'>
           Price: </span>
          <span className="bg-green-100 p-1 rounded-sm">${volumeInfo.price+".00"}</span>
         </p>:""}
@@ -117,35 +143,36 @@ let desc_css = `book-desc ${descCss}`
         
         
         {/* description */}
-        {descCss? 
+        {titleCss? 
         <>
        {/* Tab navigation */}
-       <ul className="flex gap-8 text-2xl text-stone-400  font-bold mb-4 mt-9 cursor-pointer">
+       <ul className={descReview_css}>
           <li 
             onClick={() => setActiveTab('Description')}
             className={activeTab === 'Description' ? 'border-b-2 text-black border-cyan-500 pb-4' : 'hover:text-black'}
           >
             Description
           </li>
-          <li 
+          {(volumeInfo?.rating || volumeInfo?.review) && <li 
             onClick={() => setActiveTab('Review')}
             className={activeTab === 'Review' ? 'border-b-2 text-black border-cyan-500 pb-4' : 'hover:text-black'}
           >
             Review
-          </li>
+          </li>}
+          
         </ul>
 
         {/* Conditional rendering based on active tab */}
         {activeTab === 'Description' && (
-          <p className={desc_css}>{volumeInfo.description}</p>
+          <p className={desc_css}>{truncateDescription(volumeInfo.description)}</p>
         )}
         {activeTab === 'Review' && (
           <p className={desc_css}> {/* Replace with your review content */}
-            Reviews will go here.
+            {truncateDescription(volumeInfo.review)}
           </p>
         )}
         </>
-        :volumeInfo.description }
+        :truncateDescription(volumeInfo.description) }
        
        
     </div>   
