@@ -83,7 +83,7 @@ border-b-2 xl:w-[120%] ${descReviewCss}`;
     {/* book content container */}
     <div className='book-content'>
       {/* book collection */}
-      {(collection && !isBookEdit) ? (
+      {(collection && isBookEdit) ? (
     <div className="flex items-center">
       <FontAwesomeIcon icon={faLayerGroup} className="text-blue-300 mr-2 pb-3" />
       <p className='book-collection'>{collection.name}</p>
@@ -164,11 +164,12 @@ border-b-2 xl:w-[120%] ${descReviewCss}`;
 
         {/* Conditional rendering based on active tab */}
         {activeTab === 'Description' && (
-          <p className={desc_css}>{truncateDescription(volumeInfo.description)}</p>
+          <p className={desc_css}>{
+            (isBookEdit)?volumeInfo.description:truncateDescription(volumeInfo.description)}</p>
         )}
         {activeTab === 'Review' && (
           <p className={desc_css}> {/* Replace with your review content */}
-            {truncateDescription(volumeInfo.review)}
+            {(isBookEdit)?volumeInfo.review:truncateDescription(volumeInfo.review)}
           </p>
         )}
         </>

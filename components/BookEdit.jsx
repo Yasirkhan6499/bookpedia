@@ -81,6 +81,7 @@ import { useBodyContainerContext } from '@/context/bodyContainerContext';
       imgCss={"w-full min-w-[12rem] h-[250px]"}
       starSize={"30px"}
       descReviewCss={"text-2xl"}
+      isBookEdit={true}
       />}
 
       {/* Edit book */}

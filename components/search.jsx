@@ -2,8 +2,15 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
-const Search = ({handleSearchBar, value}) => {
-  
+const Search = ({handleSearchWriting,handleBooksSearch, value}) => {
+
+   // Function to handle Enter key press
+   const handleEnterKeyPress = (e) => {
+    if (e.keyCode === 13 || e.which === 13) {
+      handleBooksSearch(e.target.value);
+    }
+  };
+
   return (
    <div className='relative'>
     <FontAwesomeIcon
@@ -14,7 +21,8 @@ const Search = ({handleSearchBar, value}) => {
     className='border-none mx-0 outline-none pl-12 mt-0 text-xl' 
     type='text' 
     placeholder='Start Searching...'
-    onChange={(e)=>handleSearchBar(e.target.value)}
+    onChange={(e)=>handleSearchWriting(e.target.value)}
+    onKeyDown={handleEnterKeyPress} // Listen for Enter key press here
     value={value}
     />
     {/* <button onClick={handleSearchBtn} type='submit'>Search</button> */}
