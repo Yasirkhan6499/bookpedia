@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/navigation';
 import Search from '@/components/search';
+import Select from '@/components/Select';
 
 const Library = () => {
 
@@ -44,9 +45,13 @@ useEffect(()=>{
   
   const fetchCollectionsArr = async ()=>{
     try{
+      
     const response = await axios.get("/api/books/collections/getCollectionsArray");
-    setCollections(response.data.collections);
-    console.log("collections :",response.data.collections);
+    const CollectionsList = response.data.collections;
+    setCollections(CollectionsList);
+    // setting a default collection
+    setSelectedCollection(CollectionsList[CollectionsList.length-1]._id)
+    
     }catch(error){
       console.log(error.message);
     }
@@ -54,10 +59,19 @@ useEffect(()=>{
   fetchCollectionsArr();
 },[])
 
-// select Collection
-useEffect(()=>{
-  setSelectedCollection(collections[collections.length - 1]);
-},[selectedCollection])
+  // update the books array with those books which are 
+  //avalaible in the selected collection
+  useEffect(()=>{
+    // alert("col chang")
+    const newBooks = books.filter(book=>{
+      console.log(book.collectionId," === ",selectedCollection)
+    return(book.collectionId===selectedCollection)
+    }
+      );
+    console.log("newBooks :",newBooks);
+    setBooksUpdated(newBooks);
+
+  },[selectedCollection])
 
     // handling edit icon
     const handleEditIcon = (bookid)=>{
@@ -132,10 +146,10 @@ useEffect(()=>{
 
 
 const getBooksList = (booksList) =>{
-
+  console.log("selectedddd Col:",selectedCollection);
   return booksList.map((book)=>
     <div className='border rounded-md mb-10 hover:shadow-xl relative'>
-       {console.log(book)}
+       {/* {console.log(book)} */}
        <FontAwesomeIcon
        className="absolute right-10 top-10 border-2 p-3 rounded-full 
        cursor-pointer hover:bg-slate-100 transition duration-300"
@@ -165,6 +179,16 @@ const getBooksList = (booksList) =>{
       handleBooksSearch={handleBooksSearch}
       value={searchTerm}
       />
+      {/* Collection, sorting and filtering features */}
+      <div>
+        <Select 
+        arr={collections}
+        onChange= {(e)=>setSelectedCollection(e.target.value)}
+        classes= {""}
+        
+        />
+
+      </div>
 
       {/* books in library */}
       {(booksUpdated?getBooksList(booksUpdated):getBooksList(books))}
