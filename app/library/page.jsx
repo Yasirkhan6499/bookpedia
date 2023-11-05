@@ -9,8 +9,11 @@ import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/navigation';
 import Search from '@/components/search';
 import Select from '@/components/Select';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 const Library = () => {
+
+const [isLoading, setIsLoading] = useState(true);
 
 const router = useRouter();
 
@@ -50,7 +53,8 @@ useEffect(()=>{
     const CollectionsList = response.data.collections;
     setCollections(CollectionsList);
     // setting a default collection
-    setSelectedCollection(CollectionsList[CollectionsList.length-1]._id)
+    if(CollectionsList)
+    setSelectedCollection(CollectionsList[0]._id)
     
     }catch(error){
       console.log(error.message);
@@ -58,6 +62,24 @@ useEffect(()=>{
   }
   fetchCollectionsArr();
 },[])
+
+  // Filter books based on selectedCollection
+  // useEffect(() => {
+  //  alert("reached1")
+  //     const filterBooks = () => {
+  //       const filteredBooks = books.filter(book => book.collectionId === selectedCollection);
+  //       if (filteredBooks.length > 0) {
+  //         setBooksUpdated(filteredBooks);
+  //       } else {
+  //         setBooksUpdated([]);
+  //         // Optionally you can show the message here or handle it in the rendering logic
+  //         console.log("No books available in this collection!");
+  //       }
+  //     };
+
+  //     filterBooks();
+   
+  // }, [selectedCollection, books]);
 
   // update the books array with those books which are 
   //avalaible in the selected collection
@@ -69,9 +91,13 @@ useEffect(()=>{
     }
       );
     console.log("newBooks :",newBooks);
+
+    if(newBooks.length<=0)
+    setBooksUpdated(undefined);
+    else
     setBooksUpdated(newBooks);
 
-  },[selectedCollection])
+  },[selectedCollection, books])
 
     // handling edit icon
     const handleEditIcon = (bookid)=>{
@@ -98,7 +124,7 @@ useEffect(()=>{
       const booksSearched = [];
       const bookIds = new Set(); // To keep track of unique book IDs
     
-      books.forEach((book) => {
+      booksUpdated.forEach((book) => {
         const bookInfo = [book.title.toLowerCase(), book.author.toLowerCase(), book.description.toLowerCase()];
     
         let allWordsMatch = true;
@@ -141,7 +167,10 @@ useEffect(()=>{
     
       console.log("books searched:", booksSearched);
     // show result
-      setBooksUpdated(booksSearched);
+     if(booksSearched.length===0)
+     setBooksUpdated(undefined); //so that the "No books avaliable msg is render"
+    else
+     setBooksUpdated(booksSearched);
     };
 
 
@@ -181,17 +210,25 @@ const getBooksList = (booksList) =>{
       />
       {/* Collection, sorting and filtering features */}
       <div>
+        <div className="selectDropdown relative">
+        <FontAwesomeIcon 
+          icon={faCaretDown} 
+          className='text-black absolute right-5 text-2xl top-5 cursor-pointer'
+        />
         <Select 
         arr={collections}
         onChange= {(e)=>setSelectedCollection(e.target.value)}
-        classes= {""}
-        
+        classes= {"p-5 w-full bg-gray-100 mb-8 rounded-md text-2xl font-semibold cursor-pointer appearance-none"}
+        defaultValue={selectedCollection}
         />
+        </div>
 
       </div>
 
       {/* books in library */}
-      {(booksUpdated?getBooksList(booksUpdated):getBooksList(books))}
+      {(booksUpdated?getBooksList(booksUpdated):
+      <p className='text-center font-semibold text-xl'>No Books Available!</p>
+      )}
         
     </div>
   )
