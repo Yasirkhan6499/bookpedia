@@ -10,6 +10,10 @@ import { useRouter } from 'next/navigation';
 import Search from '@/components/search';
 import Select from '@/components/Select';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import LayoutStyles from '@/components/LayoutStyles';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faTableCells } from '@fortawesome/free-solid-svg-icons';
+import { faTablet } from '@fortawesome/free-solid-svg-icons';
 
 const Library = () => {
 
@@ -22,22 +26,29 @@ const [booksUpdated, setBooksUpdated] = useState(undefined);
 const [collections, setCollections] = useState([]);
 const [selectedCollection, setSelectedCollection] = useState();
 const [searchTerm, setSearchTerm] = useState("");
+const [layoutStyle, setLayoutStyle] = useState([]);
 
 // body container Context :=> to change the css of bodyContainer
 const {bodyContainerCss, setBodyContainerCss} = useBodyContainerContext();
 // Change the bodyContainerCss here for Library layout
 useEffect(() => {
    setBodyContainerCss("xl:right-12");
+
+   // setting default layout style
+   setLayoutStyle(3);
 }, []);
 
 // fetching books
 useEffect(() => {
+  
   const fetchBooksArr = async () => {
     const response = await axios.post("/api/books/getBooks");
     if (response.data.success){
       // alert("Data fetched!")
       setBooks(response.data.books);
       console.log("booksArr",response.data.books );
+
+      
     }
   };
   fetchBooksArr();
@@ -98,6 +109,8 @@ useEffect(()=>{
     setBooksUpdated(newBooks);
 
   },[selectedCollection, books])
+
+
 
     // handling edit icon
     const handleEditIcon = (bookid)=>{
@@ -184,6 +197,7 @@ const getBooksList = (booksList) =>{
        cursor-pointer hover:bg-slate-100 transition duration-300"
        onClick={()=>handleEditIcon(book.bookid)}
        icon={faPen} />
+       {(layoutStyle==="3")? //-------------Summary Layout Style-------------
       <BookResult 
       book={book}
       collection={selectedCollection}
@@ -193,9 +207,48 @@ const getBooksList = (booksList) =>{
       descReviewCss={"!-mt-[0.3rem] font-semibold"}
       isBookEdit={false}
       handleEditIcon={handleEditIcon}
-      />
+      />:(layoutStyle==="1")? //------------List Layout Style-----------------
+      <BookResult 
+      book={book}
+      collection={selectedCollection}
+      titleCss={"!text-2xl border-black hover:border-b-[3px] w-fit cursor-pointer"}
+      imgCss={"w-[8rem] min-w-[4rem] h-[140px] cursor-pointer hover:shadow-2xl hover:-translate-y-2 hover:brightness-75 transition duration-300 ease-in-out "}
+      starSize={"20px"}
+      descReviewCss={"!-mt-[0.3rem] font-semibold"}
+      isBookEdit={false}
+      handleEditIcon={handleEditIcon}
+      isListStyle={true}
+      />:
+      <BookResult //------------Cover Layout Style------------------------
+      book={book}
+      collection={selectedCollection}
+      titleCss={"!text-base border-none w-fit text-slate-500 -mb-2 "}
+      imgCss={"w-[8rem] -mb-9 min-w-[7rem] h-[190px] cursor-pointer hover:shadow-2xl hover:-translate-y-2 hover:brightness-75 transition duration-300 ease-in-out "}
+      starSize={"20px"}
+      descReviewCss={"!-mt-[0.3rem] font-semibold"}
+      isBookEdit={false}
+      handleEditIcon={handleEditIcon}
+      isListStyle={false}
+      isCoverStyle={true}
+      bookContainerCss={"!flex-col "}
+      authorCss={"text-xs "}
+      />}
+      
     </div>
     )
+}
+
+// get layout style icon for the dropdown
+const getLayoutStyleIcon = ()=>{
+  console.log(layoutStyle)
+  if(layoutStyle==="1"){
+  return <FontAwesomeIcon icon={faBars} />
+  }
+  else if(layoutStyle==="2")
+  return <FontAwesomeIcon icon={faTableCells} />
+  else 
+  return  <FontAwesomeIcon icon={faTablet} />
+
 }
 
 
@@ -208,9 +261,10 @@ const getBooksList = (booksList) =>{
       handleBooksSearch={handleBooksSearch}
       value={searchTerm}
       />
-      {/* Collection, sorting and filtering features */}
-      <div>
-        <div className="selectDropdown relative">
+      {/* Collection, layouts and filtering features */}
+      {/* collection selecting */}
+      <div className='flex place-items-baseline w-full space-x-4'>
+        <div className="selectDropdown relative flex-grow ">
         <FontAwesomeIcon 
           icon={faCaretDown} 
           className='text-black absolute right-5 text-2xl top-5 cursor-pointer'
@@ -220,6 +274,15 @@ const getBooksList = (booksList) =>{
         onChange= {(e)=>setSelectedCollection(e.target.value)}
         classes= {"p-5 w-full bg-gray-100 mb-8 rounded-md text-2xl font-semibold cursor-pointer appearance-none"}
         defaultValue={selectedCollection}
+        />
+        </div>
+
+        {/* Layouts */}
+        <div className="w-auto flex-none relative cursor-pointer">
+        <p className='absolute left-3 top-[0.37rem] cursor-pointer'>{getLayoutStyleIcon()}</p>
+        <LayoutStyles 
+        onChange={(e)=>setLayoutStyle(e.target.value)}
+        value={layoutStyle}
         />
         </div>
 
