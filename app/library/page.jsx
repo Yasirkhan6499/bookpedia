@@ -14,6 +14,7 @@ import LayoutStyles from '@/components/LayoutStyles';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { faTableCells } from '@fortawesome/free-solid-svg-icons';
 import { faTablet } from '@fortawesome/free-solid-svg-icons';
+import Filterselect from '@/components/Filterselect';
 
 const Library = () => {
 
@@ -22,11 +23,13 @@ const [isLoading, setIsLoading] = useState(true);
 const router = useRouter();
 
 const [books, setBooks] = useState([]);
+const [booksCollection, setBooksCollection] = useState([]);
 const [booksUpdated, setBooksUpdated] = useState(undefined); 
 const [collections, setCollections] = useState([]);
 const [selectedCollection, setSelectedCollection] = useState();
 const [searchTerm, setSearchTerm] = useState("");
 const [layoutStyle, setLayoutStyle] = useState([]);
+const [filter, setFilter] = useState("1");
 
 // body container Context :=> to change the css of bodyContainer
 const {bodyContainerCss, setBodyContainerCss} = useBodyContainerContext();
@@ -34,8 +37,9 @@ const {bodyContainerCss, setBodyContainerCss} = useBodyContainerContext();
 useEffect(() => {
    setBodyContainerCss("xl:right-12");
 
-   // setting default layout style
-   setLayoutStyle(3);
+   // setting defa"ult layout style
+   setLayoutStyle("3");
+   
 }, []);
 
 // fetching books
@@ -283,6 +287,15 @@ const getLayoutStyleIcon = ()=>{
         <LayoutStyles 
         onChange={(e)=>setLayoutStyle(e.target.value)}
         value={layoutStyle}
+        />
+        </div>
+
+        {/* --Filters-- */}
+        <div className="w-auto flex-none relative cursor-pointer">
+      
+        <Filterselect
+        onChange={(e)=>setFilter(e.target.value)}
+        value={filter}
         />
         </div>
 
