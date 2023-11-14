@@ -42,11 +42,11 @@ const bookSchema = new mongoose.Schema({
        
     },
     isbn13:{
-        type: Number,
+        type: String,
         
     },
     isbn10:{
-        type: Number,
+        type: String,
         // required: [true, "Provide an ISBN10"]
     },
     addedDate:{

@@ -17,11 +17,20 @@ export const POST = async (req,res)=>{
         console.log("collectionID ",collectionId);
         const numPublishedDate = Number(publishedDate);
         const numPages = Number(pages);
-        const numIsbn13 = Number(isbn13);
-        const numIsbn10 = Number(isbn10);
+        // const numIsbn13 = Number(isbn13);
+        // const numIsbn10 = Number(isbn10);
+
+         // Validate ISBNs (example validation, adjust as necessary)
+         const validateISBN = (isbn) => {
+            return typeof isbn === 'string' && (isbn.length === 10 || isbn.length === 13);
+        };
+
+        if (!validateISBN(isbn13) || !validateISBN(isbn10)) {
+            return NextResponse.json({error: "Invalid ISBN format"}, {status: 400});
+        }
 
         // Check if values are convertible to numbers
-        if (isNaN(numPublishedDate) || isNaN(numPages) || isNaN(numIsbn13) || isNaN(numIsbn10)) {
+        if (isNaN(numPublishedDate) || isNaN(numPages)) {
             return NextResponse.json({error: "Invalid number format in the data provided"}, {status: 400});
         }
         
@@ -50,8 +59,8 @@ export const POST = async (req,res)=>{
             publishedDate: numPublishedDate,
             pages: numPages,
             publisher,
-            isbn13: numIsbn13,
-            isbn10: numIsbn10,
+            isbn13,
+            isbn10,
             addedDate,
             description,
             image,

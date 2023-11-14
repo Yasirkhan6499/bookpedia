@@ -92,13 +92,13 @@ p{
   @apply text-2xl font-bold;
 }
 .page-input{
-  @apply ml-0;
+  @apply ml-0 w-full max-w-3xl;
 }
 .page-btn{
   @apply ml-0;
 }
 .page-select{
-  @apply w-full border-2 p-2 mt-4 ;
+  @apply w-full max-w-3xl block border-2 p-2 mt-4 ;
 }
 .feild-note{
   @apply text-sm italic -mt-4;
