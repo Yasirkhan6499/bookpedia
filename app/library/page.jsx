@@ -15,6 +15,8 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { faTableCells } from '@fortawesome/free-solid-svg-icons';
 import { faTablet } from '@fortawesome/free-solid-svg-icons';
 import Filterselect from '@/components/Filterselect';
+import FilterUpDown from '@/components/FilterUpDown';
+import { sortBooks } from '@/helpers/sortBooks';
 
 const Library = () => {
 
@@ -22,14 +24,15 @@ const [isLoading, setIsLoading] = useState(true);
 
 const router = useRouter();
 
+const [allBooks, setAllBooks] = useState([]);
 const [books, setBooks] = useState([]);
-const [booksCollection, setBooksCollection] = useState([]);
 const [booksUpdated, setBooksUpdated] = useState(undefined); 
 const [collections, setCollections] = useState([]);
 const [selectedCollection, setSelectedCollection] = useState();
 const [searchTerm, setSearchTerm] = useState("");
 const [layoutStyle, setLayoutStyle] = useState([]);
 const [filter, setFilter] = useState("1");
+const [arrowFilter, setArrowFilter] = useState("up");
 
 // body container Context :=> to change the css of bodyContainer
 const {bodyContainerCss, setBodyContainerCss} = useBodyContainerContext();
@@ -49,7 +52,7 @@ useEffect(() => {
     const response = await axios.post("/api/books/getBooks");
     if (response.data.success){
       // alert("Data fetched!")
-      setBooks(response.data.books);
+      setAllBooks(response.data.books);
       console.log("booksArr",response.data.books );
 
       
@@ -100,21 +103,34 @@ useEffect(()=>{
   //avalaible in the selected collection
   useEffect(()=>{
     // alert("col chang")
-    const newBooks = books.filter(book=>{
+    const newBooks = allBooks.filter(book=>{
       console.log(book.collectionId," === ",selectedCollection)
     return(book.collectionId===selectedCollection)
     }
       );
     console.log("newBooks :",newBooks);
 
-    if(newBooks.length<=0)
-    setBooksUpdated(undefined);
-    else
+    if(newBooks.length<=0){
+    setBooks(undefined);   
+    setBooksUpdated(undefined);  
+    }
+    else{
+    setBooks(newBooks);
     setBooksUpdated(newBooks);
+    }
+    
+    // search input empty
+    setSearchTerm("");
 
-  },[selectedCollection, books])
+  },[selectedCollection, allBooks])
 
-
+   // useEffect hook for sorting based on filter
+  useEffect(() => {
+    if (books && books.length > 0) {
+      const sortedBooks = sortBooks([...books], filter, arrowFilter);
+      setBooksUpdated(sortedBooks);
+    }
+  }, [filter, arrowFilter, books]);
 
     // handling edit icon
     const handleEditIcon = (bookid)=>{
@@ -141,7 +157,7 @@ useEffect(()=>{
       const booksSearched = [];
       const bookIds = new Set(); // To keep track of unique book IDs
     
-      booksUpdated.forEach((book) => {
+      books.forEach((book) => {
         const bookInfo = [book.title.toLowerCase(), book.author.toLowerCase(), book.description.toLowerCase()];
     
         let allWordsMatch = true;
@@ -192,6 +208,7 @@ useEffect(()=>{
 
 
 const getBooksList = (booksList) =>{
+ 
   console.log("selectedddd Col:",selectedCollection);
   return booksList.map((book)=>
     <div className='border rounded-md mb-10 hover:shadow-xl relative'>
@@ -256,6 +273,8 @@ const getLayoutStyleIcon = ()=>{
 }
 
 
+
+
   return (
     <div>
 
@@ -268,7 +287,7 @@ const getLayoutStyleIcon = ()=>{
       {/* Collection, layouts and filtering features */}
       {/* collection selecting */}
       <div className='flex place-items-baseline w-full space-x-4'>
-        <div className="selectDropdown relative flex-grow ">
+        <div className="selectDropdown relative w-full">
         <FontAwesomeIcon 
           icon={faCaretDown} 
           className='text-black absolute right-5 text-2xl top-5 cursor-pointer'
@@ -276,7 +295,7 @@ const getLayoutStyleIcon = ()=>{
         <Select 
         arr={collections}
         onChange= {(e)=>setSelectedCollection(e.target.value)}
-        classes= {"p-5 w-full bg-gray-100 mb-8 rounded-md text-2xl font-semibold cursor-pointer appearance-none"}
+        classes= {"p-5 w-full  bg-gray-100 mb-8 rounded-md text-2xl font-semibold cursor-pointer appearance-none"}
         defaultValue={selectedCollection}
         />
         </div>
@@ -297,6 +316,11 @@ const getLayoutStyleIcon = ()=>{
         onChange={(e)=>setFilter(e.target.value)}
         value={filter}
         />
+        {/* filter up and down arrows */}
+        <FilterUpDown 
+        onArrowFilterClicked={(arrow)=>setArrowFilter(arrow)}
+        />
+        
         </div>
 
       </div>

@@ -170,6 +170,7 @@ const AddItem = () => {
             arr={collections}
             classes= "page-select"
             onChange={handleCollectionChange}
+            defaultValue={collection}
             />
             
             <p className='mt-0 text-sm italic'>Choose the collection you're adding items to.</p>

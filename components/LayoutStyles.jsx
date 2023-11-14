@@ -6,7 +6,7 @@ const LayoutStyles = ({onChange, value}) => {
   return (
     <Select 
     arr={layoutArr}
-    classes={"p-1 px-4 pl-8 border-2 rounded-md appearance-none cursor-pointer"}
+    classes={"p-1 px-10 pl-8 border-2 rounded-md appearance-none cursor-pointer"}
     onChange={onChange}
     defaultValue={value}
     />
