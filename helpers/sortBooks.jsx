@@ -27,7 +27,7 @@ export const sortBooks = (booksArray, sortBy, order) => {
         default:
           return 0;
       }
-      if(sortBy==="3" || sortBy==="4" || sortBy==="5" ){
+      if(sortBy==="3" || sortBy==="4" || sortBy==="5" ){ //sort for numeric values
         if (order === 'down') {
           return valueA - valueB; // For ascending order
       } else {

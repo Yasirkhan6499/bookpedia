@@ -127,7 +127,7 @@ useEffect(()=>{
    // useEffect hook for sorting based on filter
   useEffect(() => {
     if (books && books.length > 0) {
-      const sortedBooks = sortBooks([...books], filter, arrowFilter);
+      const sortedBooks = sortBooks([...booksUpdated], filter, arrowFilter);
       setBooksUpdated(sortedBooks);
     }
   }, [filter, arrowFilter, books]);
