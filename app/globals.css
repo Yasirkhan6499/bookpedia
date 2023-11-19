@@ -86,11 +86,12 @@ p{
 
 /* Collection-section */
 .page-title{
-  @apply text-4xl font-bold pb-10 border-b-2 border-gray-200 mb-12;
+  @apply  border-b-2 border-gray-200 mb-12;
 }
 .page-label{
   @apply text-2xl font-bold;
 }
+
 .page-input{
   @apply ml-0 w-full max-w-3xl;
 }
@@ -120,6 +121,9 @@ p{
 .bookEdit-label{
   @apply ml-4 -mb-3;
 }
+/* .manual-label{
+  @apply  !w-[40%];
+} */
 .book-title{
   @apply text-2xl font-bold;
 }

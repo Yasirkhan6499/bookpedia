@@ -228,6 +228,7 @@ const getBooksList = (booksList) =>{
       descReviewCss={"!-mt-[0.3rem] font-semibold"}
       isBookEdit={false}
       handleEditIcon={handleEditIcon}
+      starContainerCss={"ml-2"}
       />:(layoutStyle==="1")? //------------List Layout Style-----------------
       <BookResult 
       book={book}
@@ -243,7 +244,7 @@ const getBooksList = (booksList) =>{
       <BookResult //------------Cover Layout Style------------------------
       book={book}
       collection={selectedCollection}
-      titleCss={"!text-base border-none w-fit text-slate-500 -mb-2 "}
+      titleCss={"!text-base border-none w-fit text-slate-500 -mb-2 mt-3 "}
       imgCss={"w-[8rem] -mb-9 min-w-[7rem] h-[190px] cursor-pointer hover:shadow-2xl hover:-translate-y-2 hover:brightness-75 transition duration-300 ease-in-out "}
       starSize={"20px"}
       descReviewCss={"!-mt-[0.3rem] font-semibold"}
@@ -252,7 +253,8 @@ const getBooksList = (booksList) =>{
       isListStyle={false}
       isCoverStyle={true}
       bookContainerCss={"!flex-col "}
-      authorCss={"text-xs "}
+      authorCss={"text-xs"}
+      starContainerCss={"hidden"}
       />}
       
     </div>

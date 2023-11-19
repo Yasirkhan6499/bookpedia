@@ -7,7 +7,8 @@ import React, { useState } from 'react'
 import StarRatings from 'react-star-ratings';
 
 const BookResult = ({book,collection,titleCss,authorCss,descCss, imgCss,
-  starSize,descReviewCss,isBookEdit,handleEditIcon, isListStyle, isCoverStyle, bookContainerCss}) => {
+  starSize,descReviewCss,isBookEdit,handleEditIcon, isListStyle, isCoverStyle, bookContainerCss
+,starContainerCss}) => {
 
   const [activeTab, setActiveTab] = useState('Description');
 
@@ -34,6 +35,8 @@ let img_css = `rounded-md object-cover ${imgCss}`
 let descReview_css = `flex gap-8 text-stone-400  font-bold mb-4 mt-9 cursor-pointer 
 border-b-2 xl:w-[120%] ${descReviewCss}`;
 let bookContainer_css = `book-container z-0 ${bookContainerCss}`;
+let starCont_css = ` mt-3 ${starContainerCss}`;
+
     // Helper function to truncate the description
     const truncateDescription = (description, length = 600) => {
       if (!description) return '';
@@ -66,7 +69,7 @@ let bookContainer_css = `book-container z-0 ${bookContainerCss}`;
         
 
      {/* stars */}
-     {!isListStyle?  <div className="text-center mt-3">
+     {!isListStyle?  <div className={starCont_css}>
         {volumeInfo.rating && 
         <StarRatings
           rating={volumeInfo.rating}
@@ -119,7 +122,7 @@ let bookContainer_css = `book-container z-0 ${bookContainerCss}`;
          {/* ISBN info */}
         <div className='book-isbn-info'>
          <p className='isbn-13'><span className='text-black font-semibold text-base'>
-           ISBN13:</span> 
+           ISBN13: </span> 
           {isbn13}
          </p>
          <p className='isbn-10'><span className='text-black font-semibold text-base'>

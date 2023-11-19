@@ -11,11 +11,13 @@ import { isOnlyNumbers } from '@/helpers/helperMethods';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useBodyContainerContext } from '@/context/bodyContainerContext';
+import ManualEntry from '@/components/ManualEntry';
 
 const AddItem = () => {
 
     const [searchTitle,setSearchTitle] = useState("");
     const [collections, setCollections] = useState([]);
+    const [activeTab, setActiveTab] = useState("search");
     // const [collection, setCollection] = useState("");
     // const [booksList, setBooksList] = useState(undefined);
     // const [addedBookIdArr, setAddedBookIdArr] = useState([]);
@@ -157,10 +159,24 @@ const AddItem = () => {
   return (
     
     <section className='addItem-section'>
-         <h2 className='page-title'>Add Item</h2>
+      <div className='page-title'>
+        <h2 className='text-4xl font-bold' >Add Item</h2>
+        {/* Add item options */}
+        <div className='flex gap-10 mt-9'>
+          <h3 onClick={()=>setActiveTab("search")}
+          className={activeTab === 'search' ? 'border-b-2 text-black border-cyan-500 pb-4 cursor-pointer':" cursor-pointer"}>
+            Search</h3>
+          <h3 
+           className={activeTab === 'manual' ? 'border-b-2 text-black border-cyan-500 pb-4  cursor-pointer':" cursor-pointer"} 
+          onClick={()=>setActiveTab("manual")}
+          >Manual Entry</h3>
+        </div>
+      </div>
         <p className="mb-8"></p>
 
         {/* Add item form */}
+        {activeTab==="search"?
+        <React.Fragment>
         <form onSubmit={handleSearch}>
 
         <label className='page-label ' htmlFor="title">
@@ -208,6 +224,14 @@ const AddItem = () => {
           </div>
       
         :""}
+        </React.Fragment> 
+        :<ManualEntry 
+        collections={collections}
+        onChange={handleCollectionChange}
+        />}
+
+       
+       
 
     </section>
   )
