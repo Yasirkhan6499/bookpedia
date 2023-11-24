@@ -3,12 +3,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLayerGroup } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import StarRatings from 'react-star-ratings';
 
 const BookResult = ({book,collection,titleCss,authorCss,descCss, imgCss,
   starSize,descReviewCss,isBookEdit,handleEditIcon, isListStyle, isCoverStyle, bookContainerCss
-,starContainerCss}) => {
+,starContainerCss, setIsbnPresent}) => {
 
   const [activeTab, setActiveTab] = useState('Description');
 
@@ -47,11 +47,30 @@ let starCont_css = ` mt-3 ${starContainerCss}`;
       }
   }
 
+  useEffect(()=>{
+   
+    // if(!isbn10 || !isbn13)
+    // setIsbnPresent(false);
+    // if (isbn10 && isbn10.includes(':')) {
+    //   isbn10 = isbn10.split(':')[1];
+    // }
+    // if(isbn10===undefined)
+    // isbn10="0";
+    // if(isbn13===undefined)
+    // isbn13="0";
+    // console.log("isbn10 :",isbn10," isbn13 :",isbn13);
+    // else if (isbn13 && isbn13.includes(':')) {
+    //   isbn13 = isbn13.split(':')[1];
+    // } 
+  },[]);
+
   // if its book editing then the text will be a bit large
   //  if its books displaying in the Library, then the text will be small
 
 
   return (
+    <React.Fragment>
+      
     <div className={bookContainer_css}>
     <div className='book-pic'>
 
@@ -191,6 +210,7 @@ let starCont_css = ` mt-3 ${starContainerCss}`;
        
     </div>   
   </div>
+  </React.Fragment>
   )
 }
 

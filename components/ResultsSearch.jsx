@@ -1,7 +1,7 @@
 "use client";
 
 import Image from 'next/image';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BookResult from './BookResult';
 import Button from './Button';
 import axios from 'axios';
@@ -16,7 +16,7 @@ const ResultsSearch = ({booksList, onClick}) => {
 
   const { addBookIdArr,setAddBookIdArr } = useBooks();  // Use the context
   const [bookEditId, setbookEditId] = useState();
-  
+  // const [isbnPresent, setIsbnPresent] = useState(true);
 
   // console.log("itemAddedIdArr: ",itemAddIdArr);
    // handling delete
@@ -53,6 +53,10 @@ const ResultsSearch = ({booksList, onClick}) => {
            const bookId = book.id;
           //  console.log("bookId",bookId);
           
+                 // Check if either isbn10 or isbn13 is present
+          const isbn10 = book.volumeInfo?.industryIdentifiers?.[0]?.identifier || book.isbn10;
+          const isbn13 = book.volumeInfo?.industryIdentifiers?.[1]?.identifier || book.isbn13;
+          const isIsbnPresent = isbn10 && isbn13; 
             // console.log("book info :",book.volumeInfo.imageLinks)
             let addedAlready;
             const isBookAdded = addBookIdArr?.some(entry => {
@@ -61,12 +65,14 @@ const ResultsSearch = ({booksList, onClick}) => {
             
             });
 
-           
+          
             
             return (
                 
                 <div className='pic-content-cont' key={book.id || index}>
-                <BookResult 
+                 {isIsbnPresent &&  <>
+                 
+                 <BookResult 
                 book={book}
                 imgCss={"w-full min-w-[12rem] h-[250px]"}
                 />
@@ -103,6 +109,10 @@ const ResultsSearch = ({booksList, onClick}) => {
                 />
               </div>
               ): "" } */}
+              
+              </>
+              } 
+               
                
              </div>
             );
