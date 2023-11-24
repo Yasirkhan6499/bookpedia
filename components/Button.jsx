@@ -3,7 +3,7 @@ import React from 'react'
 const Button = ({title,onClick, type, width,className,addedAlready}) => {
 
   const setClasses = ()=>{
-    let classes = `bg-cyan-500 p-2 px-4 m-4 
+    let classes = `bg-cyan-500 p-2 px-4 mt-4
     text-2xl ${width?width:"w-full"} font-semibold 
     text-white rounded-md
     hover:bg-cyan-600 ${className}`;

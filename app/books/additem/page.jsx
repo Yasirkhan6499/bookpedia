@@ -108,7 +108,7 @@ const AddItem = () => {
         else{
         console.log("searched book : ", bookData)
         const {volumeInfo:book} = bookData;
-        // console.log(book);
+        console.log("book: ",book);
         
         try{
         const response = await axios.post("/api/books/additem",{
@@ -116,15 +116,16 @@ const AddItem = () => {
           title: book.title || "",
           collectionId: collection,
           author: book.authors[0] || "",
-          publishedDate: book.publishedDate.split('-')[0] || 0,
+          publishedDate: book?.publishedDate.split('-')[0] || 0,
           pages: book.pageCount || 0,
           publisher: book.publisher || "",
-          isbn13: book.industryIdentifiers[0].identifier || 0,
-          isbn10: book.industryIdentifiers[1].identifier || 0,
+          isbn13: book?.industryIdentifiers[0]?.identifier || 0,
+          isbn10: book?.industryIdentifiers[1]?.identifier || 0,
           addedDate: new Date(),
           description: book.description || "",
-          image: book.imageLinks.thumbnail || "",
+          image: book?.imageLinks?.thumbnail || "",
           copies: 1,
+          price:""
           
         })
         if(response.status===200){
@@ -135,7 +136,7 @@ const AddItem = () => {
         }
         console.log("bookIdarr222 ",addBookIdArr);
       }catch(error){
-       console.log(error);
+       console.log(error.message);
       }
     } 
 
@@ -227,7 +228,7 @@ const AddItem = () => {
         </React.Fragment> 
         :<ManualEntry 
         collections={collections}
-        onChange={handleCollectionChange}
+        handleAddIem={handleAddIem}
         />}
 
        

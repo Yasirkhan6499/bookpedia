@@ -123,11 +123,11 @@ let starCont_css = ` mt-3 ${starContainerCss}`;
         <div className='book-isbn-info'>
          <p className='isbn-13'><span className='text-black font-semibold text-base'>
            ISBN13: </span> 
-          {isbn13}
+          {isbn13 || 0}
          </p>
          <p className='isbn-10'><span className='text-black font-semibold text-base'>
            ISBN10: </span>
-          {isbn10}
+          {isbn10 || 0}
          </p>
          </div>
  
