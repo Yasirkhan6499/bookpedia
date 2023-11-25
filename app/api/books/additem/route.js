@@ -6,9 +6,9 @@ import jwt  from 'jsonwebtoken';
 
 export const POST = async (req,res)=>{
     try {
-        console.log("addddd itemmmmmmmm1111")
+        // console.log("addddd itemmmmmmmm1111")
       await connectDB();
-        console.log("addddd itemmmmmmmm22222")
+        // console.log("addddd itemmmmmmmm22222")
         const {bookid,title,collectionId, author,publishedDate, pages, publisher,
              isbn13,isbn10,addedDate,description,image, copies, price} = await req.json();
              console.log("addddd itemmmmmmmm3333")  
@@ -34,14 +34,15 @@ export const POST = async (req,res)=>{
             return NextResponse.json({error: "Invalid number format in the data provided"}, {status: 400});
         }
         
+        // getting user id from the browser token
         const token = req.cookies.get("token")?.value;
         if(!token)
         return NextResponse.json({error: "Token is missing"},{status: 401});
-        console.log("cookiesssssssssssss");
+        // console.log("cookiesssssssssssss");
         // decoding token
         const decodedToken = jwt.decode(token);
         
-        console.log("cookiesssssss222222222222");
+        // console.log("cookiesssssss222222222222");
         if(!decodedToken || !decodedToken.id)
         return NextResponse.json({
             error:"Invalid token or user id missing"
@@ -67,9 +68,9 @@ export const POST = async (req,res)=>{
             copies,
             price
         });
-        console.log("addddd itemmmmmmmm4444")
+        // console.log("addddd itemmmmmmmm4444")
        await newBook.save();
-       console.log("addddd itemmmmmmm5555")
+    //    console.log("addddd itemmmmmmm5555")
         return NextResponse.json({
             message: "Book Added Succesfully",
             newBook
