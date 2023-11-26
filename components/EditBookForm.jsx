@@ -58,6 +58,7 @@ const EditBookForm = ({ book, handleCancleForm }) => {
         <label className='bookEdit-label mt-6' htmlFor="title">Title</label>
         <Input
           id="title"
+          className="w-[98%]"
           type="text"
           placeholder="Title"
           value={title}
@@ -67,6 +68,7 @@ const EditBookForm = ({ book, handleCancleForm }) => {
         <label className='bookEdit-label' htmlFor="authors">Authors</label>
         <Input
           id="authors"
+          className="w-[98%]"
           type="text"
           placeholder="Authors"
           value={author}
@@ -138,6 +140,7 @@ const EditBookForm = ({ book, handleCancleForm }) => {
       <SaveAndCancelBtns 
         handleSaveEditForm={handleSaveEditForm}
         handleCancleForm={handleCancleForm}
+        classes={"xl:w-[120.1%] sm:w-[101.7%] md:w-[101.26%]"}
       />
       </div>
     </div>

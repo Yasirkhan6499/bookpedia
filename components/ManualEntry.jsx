@@ -268,7 +268,7 @@ const resetAllFields = ()=>{
         <textarea
           id="description"
           placeholder="Description..."
-          className="p-2 mt-1 border rounded-md block w-100%"
+          className="p-2 mt-1 mb-5 border rounded-md block w-100%"
           rows="6"
           cols="100"
           value={description}

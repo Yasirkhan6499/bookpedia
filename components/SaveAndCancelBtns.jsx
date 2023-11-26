@@ -1,11 +1,13 @@
 import React from 'react'
 import Button from './Button'
 
-const SaveAndCancelBtns = ({handleSaveEditForm, handleCancleForm}) => {
+const SaveAndCancelBtns = ({handleSaveEditForm, handleCancleForm, classes}) => {
+
+  const class_names = `flex gap-4 sticky bottom-0 p-4  
+  shadow-md bg-white/100  w-full    
+  -ml-3 mt-2 shadow-black ${classes}`
   return (
-    <div className='flex gap-4 sticky bottom-0 p-4  
-    shadow-md bg-white/100  w-full  xl:w-[120.1%] sm:w-[101.7%] md:w-[101.26%] 
-    -ml-3 mt-2 shadow-black'>
+    <div className={class_names}>
   <Button
     title="Save"
     type="submit"

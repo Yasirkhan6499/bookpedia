@@ -82,6 +82,7 @@ import { useBodyContainerContext } from '@/context/bodyContainerContext';
       starSize={"30px"}
       descReviewCss={"text-2xl"}
       isBookEdit={true}
+      starContainerCss={"text-center"}
       />}
 
       {/* Edit book */}

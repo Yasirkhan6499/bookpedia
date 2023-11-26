@@ -15,18 +15,19 @@ export async function POST(req, res){
      const token = req.cookies.get("token")?.value;
      if(!token)
      return NextResponse.json({error: "Token is missing"},{status: 401});
-     console.log("cookiesssssssssssss22222222222222");
+    //  console.log("cookiesssssssssssss22222222222222");
      // decoding token
      const decodedToken = jwt.decode(token);
      
-     console.log("cookiesssssss33333333333");
+    //  console.log("cookiesssssss33333333333");
      if(!decodedToken || !decodedToken.id)
      return NextResponse.json({
          error:"Invalid token or user id missing"
          },
          {status: 401}
          )
-         console.log("cookiesssssssssssss4444444444444");
+        //  console.log("cookiesssssssssssss4444444444444");
+        console.log("decoded tokeeeennnnnn :",decodedToken.id);
     const newCollection = new Collection({
         userId: decodedToken.id,
         name 

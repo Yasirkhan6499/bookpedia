@@ -92,7 +92,7 @@ const BookEditingOptions = ({bookid, collectionid, handleEditBook, handleBookRev
                 handlePromptAction:handleDeleteOption,
                 handlePromptCancel : handlePromptCancel
             })} className="editOption text-red-400 hover:bg-red-100">
-                <FontAwesomeIcon className='mb-[0.1rem]' icon={faTrash} /> 
+                <FontAwesomeIcon className='mb-[0.1rem] mr-1' icon={faTrash} /> 
                 Delete</li>
         </ul>
         {/* prompt */}

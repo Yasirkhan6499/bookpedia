@@ -1,3 +1,4 @@
+import { GetDataFromToken } from "@/helpers/getDataFromToken";
 import Collection from "@/models/collectionSchema";
 import { NextResponse } from "next/server"
 
@@ -6,12 +7,16 @@ export const GET = async (req,res)=>{
         // console.log("getCollectionsArrrrrrrrrrrr")
         const userId = GetDataFromToken(req);
         
-        const collectionsArr = await Collection.find(userId);
+        // console.log("userrrIDDDDDD : ",userId);
+
+        const collectionsArr = await Collection.find({userId});
+        // console.log("collectionssssARRRRR : ",collectionsArr);
         return NextResponse.json({
             message:"Successfully got the collections array",
             collections: collectionsArr
         })
     } catch (error) {
-        return NextResponse.json({error:error.message},{status:500});
+        console.error("Error fetching collections:", error);
+        return NextResponse.json({error: error.message}, {status: 500});
     }
 }

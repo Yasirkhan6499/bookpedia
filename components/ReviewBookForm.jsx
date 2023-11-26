@@ -78,6 +78,7 @@ const ReviewBookForm = ({book,handleCancleForm}) => {
       <SaveAndCancelBtns 
         handleCancleForm={handleCancleForm}
         handleSaveEditForm = {handleSaveEditForm}
+        classes={"translate-y-4 xl:w-[120.1%] sm:w-[101.7%] md:w-[101.26%]"}
         />
 
       </div>
