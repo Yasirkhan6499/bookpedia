@@ -75,10 +75,26 @@ p{
   @apply mt-8 flex flex-col ;
 }
 .main-menu-item{
-  @apply hover:translate-x-3 hover:ease-in ease-out duration-100 text-black 
+  @apply  text-black 
   py-4 px-1 cursor-pointer;
 }
+.item-container{
+  @apply hover:translate-x-6 hover:ease-in ease-out duration-100 flex flex-row;
+}
+.item-icon{
+  @apply hidden mt-5 -ml-3 mr-2 text-xl text-cyan-500;
+}
+.item-container:hover .item-icon{
+display: block;
 
+}
+.active-item{
+  @apply translate-x-6 duration-100 flex flex-row;
+}
+
+.active-item .item-icon{
+  @apply !block;
+}
 /* body  */
 .body-container{
   @apply absolute left-80 top-8 right-0;

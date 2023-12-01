@@ -9,6 +9,8 @@ import { useBooks } from '@/context/booksContext';
 import BookEdit from './BookEdit';
 import { useRouter } from 'next/navigation';
 
+import { useToast } from '@/context/ToastContext';
+
 
 const ResultsSearch = ({booksList, onClick}) => {
 
@@ -18,6 +20,8 @@ const ResultsSearch = ({booksList, onClick}) => {
   const [bookEditId, setbookEditId] = useState();
   // const [isbnPresent, setIsbnPresent] = useState(true);
 
+  // toast
+  const {triggerToast} = useToast()
   // console.log("itemAddedIdArr: ",itemAddIdArr);
    // handling delete
    const handleDelete = async (bookId)=>{
@@ -27,7 +31,7 @@ const ResultsSearch = ({booksList, onClick}) => {
       const response = await axios.post("/api/books/delete",{
         bookid: bookId
       })
-      alert("Book deleted!")
+      triggerToast("Item removed from this collection!", "success")
     console.log(response.data.book," Book deleted!");
 
     // setAddBookIdArr(prevArr => prevArr.filter(id => id !== bookId));

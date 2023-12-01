@@ -12,6 +12,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useBodyContainerContext } from '@/context/bodyContainerContext';
 import ManualEntry from '@/components/ManualEntry';
+import { useToast } from '@/context/ToastContext';
 
 const AddItem = () => {
 
@@ -26,6 +27,9 @@ const AddItem = () => {
    
     // we will set the bodyContainer css to set the layout of "addItem"=>"page.jsx"
     const {setBodyContainerCss} = useBodyContainerContext();
+
+    // toast
+    const { triggerToast } = useToast();
 
     // Change the bodyContainerCss here for Library layout
     useEffect(() => {
@@ -132,7 +136,8 @@ const AddItem = () => {
           // console.log(response.data.newBook.isbn13)
           // const newIsbn13 = book.industryIdentifiers[0].identifier || 0;
           setAddBookIdArr(prevArr=>[...prevArr, {bookId, addedAlready:false}]);
-          alert("New Book Added!")
+          triggerToast("Item Added To Your Collection","success");
+          return;
         }
         console.log("bookIdarr222 ",addBookIdArr);
       }catch(error){
@@ -141,7 +146,7 @@ const AddItem = () => {
     } 
 
   } //if(collection !==0)
-  else alert("Please Select A Collection")
+  triggerToast("Please select a collection!","error");
     }
 
     useEffect(()=>{

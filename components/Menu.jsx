@@ -1,14 +1,22 @@
+"use client";
+
+import { useToast } from '@/context/ToastContext'
 import { useAuthContext } from '@/context/authContext'
 import { faBook } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+// reaact icons 
+import { FaBook, FaPlus, FaLayerGroup, FaLifeRing, FaSignOutAlt } from 'react-icons/fa';
+import { MdLibraryBooks, MdCollectionsBookmark, MdExitToApp } from 'react-icons/md';
+import { AiOutlinePlus, AiOutlineQuestionCircle } from 'react-icons/ai';
 
 const Menu = () => {
 
     const {userToken, setUserToken} = useAuthContext();
     const router = useRouter();
+    const [activeItem, setActiveItem] = useState("library");
 
     const handleLogout = async()=>{
         try{
@@ -26,7 +34,9 @@ const Menu = () => {
             alert("logout failed");
         }
     }
-
+    // useEffect(()=>{
+    //     alert(activeItem);
+    // },[activeItem])
   return (
     <div className='menu-section w-1/6 min-w-[250px]'>
         {/* logo */}
@@ -38,20 +48,53 @@ const Menu = () => {
         </div>
         {/* main menu */}
         <ul className='main-menu'>
+
+            {/* Library */}
             <Link href="/library"> 
-            <li className="main-menu-item">Library</li>
+            <div className={activeItem==="library"?"active-item":'item-container'} 
+            onClick={()=>setActiveItem("library")}>
+            <MdLibraryBooks className='item-icon'/> 
+            <li className="main-menu-item"
+            >Library</li>
+            </div>
             </Link>
 
+            {/* add items */}
             <Link href="/books/additem"> 
-           <li className="main-menu-item"> Add Items</li>
+            <div className={activeItem==="additem"?"active-item":'item-container'} 
+            onClick={()=>setActiveItem("additem")}>
+            <FaPlus className='item-icon'/>
+           <li className="main-menu-item"> 
+           Add Items</li>
+           </div>
             </Link>
+            
+            {/* add collection */}
 
-           <Link href="/books/collections"> 
-           <li className="main-menu-item"> Add Collection</li>
+           <Link href="/books/collections">
+           <div className={activeItem==="addcollection"?"active-item":'item-container'} 
+           onClick={()=>setActiveItem("addcollection")}>
+            <MdCollectionsBookmark className='item-icon'/> 
+           <li className={"main-menu-item"}> 
+           Add Collection</li>
+           </div>
            </Link>
            
-            <li className="main-menu-item">Suppport</li>
-            <li className="main-menu-item " onClick={handleLogout}>Logout</li>
+           {/* support */}
+           <div className={activeItem==="support"?"active-item":'item-container'}  
+           onClick={()=>setActiveItem("support")}>
+            <FaLifeRing className='item-icon'/> 
+            <li className={"main-menu-item"}>
+                Support</li>
+            </div>
+
+            {/* logout */}
+            <div className={activeItem==="logout"?"active-item":'item-container'}  
+            onClick={()=>setActiveItem("logout")}>
+            <FaSignOutAlt className='item-icon'/> 
+            <li className={"main-menu-item"}
+             onClick={handleLogout}>Logout</li>
+            </div>
         </ul>
     </div>
   )

@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import Menu from '@/components/Menu';
 import { Nav } from "@/components/Nav";
 import { BookListProvider } from '@/context/BookListContext';
+import { ToastProvider } from '@/context/ToastContext';
 import { AuthContextProvider } from '@/context/authContext';
 import { BodyContainerProvider } from '@/context/bodyContainerContext';
 import { BooksProvider } from '@/context/booksContext';
@@ -17,7 +18,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body >
-
+      <ToastProvider>
       <BodyContainerProvider>
         <AuthContextProvider>
         <BookListProvider>
@@ -28,7 +29,7 @@ export default function RootLayout({ children }) {
         </BookListProvider>
         </AuthContextProvider>
         </BodyContainerProvider>
-        
+        </ToastProvider>
       </body>
     </html>
   )

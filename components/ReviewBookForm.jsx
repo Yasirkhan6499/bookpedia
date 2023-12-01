@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react'
 import SaveAndCancelBtns from './SaveAndCancelBtns';
 import Button from "./Button";
 import axios from 'axios';
+import { useToast } from '@/context/ToastContext';
 
 const ReviewBookForm = ({book,handleCancleForm}) => {
     const [rating, setRating] = useState('None');
     const [review, setReview] = useState('');
-
+    // toast
+    const {triggerToast} = useToast();
 
     useEffect(()=>{
       if(book.rating || book.review){
@@ -25,7 +27,7 @@ const ReviewBookForm = ({book,handleCancleForm}) => {
             review
           })
           if(response.data.success){
-          alert(response.data.message);
+          triggerToast("User item details successfully edited!");
           handleCancleForm();
           window.location.reload();  
           }

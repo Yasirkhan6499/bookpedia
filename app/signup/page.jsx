@@ -8,6 +8,8 @@ import Link from 'next/link';
 import SwitchAccount from '@/components/SwitchAccount';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { useToast } from '@/context/ToastContext';
+
 
 
 const SignupPage = () => {
@@ -20,6 +22,9 @@ const SignupPage = () => {
     // const [buttonDisabled, setButtonDisabled] = useState(false);
     const [loading, setLoading] = useState(false);
     
+    // toast
+    const { triggerToast } = useToast();
+
     const handleSignup = async (e)=>{
         console.log("submit2")
         e.preventDefault();
@@ -37,8 +42,11 @@ const SignupPage = () => {
            console.log("after processing...")
            console.log("Signup success", response);
            
-           if(response.ok)
-           router.push("/login"); 
+           if(response.ok){
+           triggerToast("Sign up complete","success");
+            router.push("/login");
+           
+           }
         // i think going to login and coming back to signup page
         //  causes the problem of not registering another user
         } catch (error) {

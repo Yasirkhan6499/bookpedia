@@ -7,6 +7,8 @@ import CloseButton from './CloseButton';
 import EditBookForm from './EditBookForm';
 import ReviewBookForm from './ReviewBookForm';
 import { useBodyContainerContext } from '@/context/bodyContainerContext';
+import { useToast } from '@/context/ToastContext';
+import Copies from './Copies';
 
   const BookEdit = ({book, collection, cancelBtnUrl}) => {
   
@@ -15,6 +17,9 @@ import { useBodyContainerContext } from '@/context/bodyContainerContext';
 
      // we will set the bodyContainer css to set the layout for <BookEdit.jsx>
      const {setBodyContainerCss} = useBodyContainerContext();
+
+    //  toast
+    const {triggerToast} = useToast();
 
      // Change the bodyContainerCss for <BookEdit.jsx>
      useEffect(() => {
@@ -40,6 +45,9 @@ import { useBodyContainerContext } from '@/context/bodyContainerContext';
     // getBookDate();
     // },[]);
    const handleEditBook = ()=>{
+
+  
+
     setShowBookReviewForm(false);
     setShowEditForm(true);
    }
@@ -96,8 +104,11 @@ import { useBodyContainerContext } from '@/context/bodyContainerContext';
     book={book}
     handleCancleForm = {handleCancelForm}
     />}
+
+       
       </div>
       
+   
     </div>
   )
 }

@@ -5,6 +5,7 @@ import { faLayerGroup } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import StarRatings from 'react-star-ratings';
+import Copies from './Copies';
 
 const BookResult = ({book,collection,titleCss,authorCss,descCss, imgCss,
   starSize,descReviewCss,isBookEdit,handleEditIcon, isListStyle, isCoverStyle, bookContainerCss
@@ -206,7 +207,8 @@ let starCont_css = ` mt-3 ${starContainerCss}`;
         </>:""} {/* end of the !isCoverStyle condition */}
         
        
-       
+       {/* add copies section */}
+       {isBookEdit && <Copies /> }
        
     </div>   
   </div>

@@ -11,13 +11,15 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useBooks } from '@/context/booksContext';
 import PomptWindow from './PomptWindow';
-
+import { useToast } from '@/context/ToastContext';
 
 const BookEditingOptions = ({bookid, collectionid, handleEditBook, handleBookReview, cancelBtnUrl}) => {
     const router = useRouter();
     const { addBookIdArr,setAddBookIdArr } = useBooks();
     const [showPrompt, setShowPrompt] = useState(null);
     
+    // toast 
+  const {triggerToast} = useToast();
     
     const handlePromptCancel = ()=>{
         setShowPrompt(null);
@@ -32,8 +34,9 @@ const BookEditingOptions = ({bookid, collectionid, handleEditBook, handleBookRev
             const response = await axios.post("/api/books/delete",{
                 bookid
             })
-            alert(response.data.message);
+            
             setAddBookIdArr(prevArr => prevArr.filter(entry => entry.bookId!==bookid));
+            triggerToast("Item removed from this collection!", "success")
             router.push(cancelBtnUrl);
         } catch (error) {
             console.log(error);
@@ -53,7 +56,7 @@ const BookEditingOptions = ({bookid, collectionid, handleEditBook, handleBookRev
                     collectionId: collection
                 });
                 if(response.data.success){
-                    alert(response.data.message);
+                    triggerToast("Item copies moved!", "success")
                     setShowPrompt(null);
                     window.location.reload();
                 }
@@ -83,7 +86,9 @@ const BookEditingOptions = ({bookid, collectionid, handleEditBook, handleBookRev
                 action:"Move",
                 handlePromptAction:handleMoveOption,
                 handlePromptCancel : handlePromptCancel
-            })} className="editOption"><FontAwesomeIcon className='mb-[0.1rem]' icon={faRightLeft} /> Move</li>
+            })} className="editOption"><FontAwesomeIcon className='mb-[0.1rem]' icon={faRightLeft} />
+             Move
+             </li>
 
             {/* delete option */}
             <li onClick={()=>setShowPrompt({

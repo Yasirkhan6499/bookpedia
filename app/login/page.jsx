@@ -11,6 +11,7 @@ import { getCookie } from "cookies-next";
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useToast } from '@/context/ToastContext';
 
 
 const LoginPage = () => {
@@ -24,6 +25,9 @@ const LoginPage = () => {
 const {userToken, setUserToken} = useAuthContext(); 
 const router = useRouter();
     
+// toast
+const { triggerToast } = useToast();
+
   const handleLogin = async (e)=>{
     e.preventDefault();
     
@@ -44,6 +48,7 @@ const router = useRouter();
       // const token = response.headers.get('Set-Cookie');
       // const token = getCookie("token");
      
+      triggerToast("Successfully Logged in!", "success");
      
       const res = await axios.get("/api/users/myprofile");
       // const resData = await res.json();
@@ -54,7 +59,7 @@ const router = useRouter();
       router.push("/library");
     }
     else{
-      alert("Login failed")
+      triggerToast(`Login Failed,  ${responseData}`,"error");
       console.log(responseData);
     }
   }

@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import SaveAndCancelBtns from './SaveAndCancelBtns';
+import { useToast } from '@/context/ToastContext';
 
 
 const EditBookForm = ({ book, handleCancleForm }) => {
@@ -17,6 +18,9 @@ const EditBookForm = ({ book, handleCancleForm }) => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
+
+  // toast
+  const {triggerToast} = useToast();
 
   useEffect(() => {
     console.log("edit Book :", book);
@@ -41,7 +45,7 @@ const EditBookForm = ({ book, handleCancleForm }) => {
       });
 
       if (response.data.success) {
-        alert(response.data.message);
+        triggerToast("Item edited successfully!", "success")
         handleCancleForm();
         window.location.reload();
       }
