@@ -17,10 +17,10 @@ import { useToast } from '@/context/ToastContext';
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [user,setUser] = useState({
-    
     email: "",
     password: ""
 });
+const [disabledValue, setDisabledValue] = useState(false);  
 // Context API (in simple words, its a global state. when we set a new "userid" to it when user logsin, then the user will have a different interface)
 const {userToken, setUserToken} = useAuthContext(); 
 const router = useRouter();
@@ -47,7 +47,7 @@ const { triggerToast } = useToast();
     if(response.ok){
       // const token = response.headers.get('Set-Cookie');
       // const token = getCookie("token");
-     
+     setDisabledValue(true);
       triggerToast("Successfully Logged in!", "success");
      
       const res = await axios.get("/api/users/myprofile");
@@ -102,6 +102,7 @@ const { triggerToast } = useToast();
               
               title={!loading?"Login":"Processing..."}
               type={"submit"}
+              disabled={disabledValue}
               />
           </div>
           {/* forgot password */}

@@ -34,13 +34,17 @@ const EditBookForm = ({ book, handleCancleForm }) => {
 
   // save edit form
   const handleSaveEditForm = async () => {
+    if(!title){
+      triggerToast("Title is required!","error");
+      return;
+    }
     try {
       const response = await axios.post("/api/books/edititem", {
         bookid: book.bookid,
         title,
         author,
         description,
-        price,
+        price:price||0,
         image
       });
 

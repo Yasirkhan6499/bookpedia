@@ -103,10 +103,9 @@ const AddItem = () => {
         console.log("book:",bookData)
         const bookId = bookData.id;
         if(await isItemAlreadyExistsInDb(bookId)){
-          alert("item already exists in database")
-          
+          // triggerToast("item already exists in database","error");
           setAddBookIdArr(prevArr=>[...prevArr, {bookId, addedAlready:true}])
-
+          return;
           
         }
         else{

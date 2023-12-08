@@ -208,7 +208,7 @@ let starCont_css = ` mt-3 ${starContainerCss}`;
         
        
        {/* add copies section */}
-       {isBookEdit && <Copies /> }
+       {/* {isBookEdit && <Copies /> } */}
        
     </div>   
   </div>

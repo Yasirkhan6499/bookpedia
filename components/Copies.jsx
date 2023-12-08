@@ -29,15 +29,15 @@ const Copies = () => {
 
   return (
     <div className="flex flex-col justify-center items-start ">
-        <h3 className="text-center">Copies</h3>
+        <h3 className="font-bold text-2xl mt-4 ml-3 ">Add Copies</h3>
         {/* plus btn */}
 
-        <div className="flex flex-row">
+        <div className="flex flex-row -mb-4">
         <Button 
         title ="+"
         onClick={handleAddCopy} 
         width = "1rem"
-        className={"w-10 h-10 !text-xl !px-0 !p-0"}
+        className={"w-10 h-10 !text-sm !px-0 !p-0"}
         />
         <Input 
         type="text"
@@ -54,7 +54,7 @@ const Copies = () => {
         title ="-"
         onClick={handleDeleteCopy} 
         width = "1rem"
-        className={"w-10 h-10 !text-xl !px-0 !p-0"}
+        className={"w-10 h-10 !text-sm !px-0 !p-0"}
         />
         </div>
         {/* save btn */}
@@ -62,6 +62,7 @@ const Copies = () => {
         title ="Save"
         onClick={handleSave} 
         width = "10rem"
+        className="ml-8 !text-sm"
         />
     </div>
   )

@@ -10,6 +10,7 @@ import { uploadToS3 } from '@/aws-config';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
+import { useToast } from '@/context/ToastContext';
 
 const ManualEntry = ({collections, handleAddIem}) => {
     const [collection, setCollection] = useState(undefined);
@@ -28,6 +29,7 @@ const ManualEntry = ({collections, handleAddIem}) => {
      // Add a new state to track form errors
 const [formErrors, setFormErrors] = useState({});
     
+const { triggerToast } = useToast();
     // useEffect(()=>{
     //     console.log("manual collection : ",collection);
     // },[collection])
@@ -163,20 +165,22 @@ const handleSubmit = async (e) => {
   e.preventDefault();
   if (Object.keys(formErrors).length > 0) {
     // Handle the case where there are errors
-    alert('Please correct the form errors before submitting!');
+    triggerToast("Please correct the form errors before submitting!","error");
     return;
   }
   console.log("collectionnn", collection)
   if(!collection){
-    alert("Please Select a collection",collection);
+   triggerToast("Please Select a collection!","error");
     return;
   }
   else if(!title){
-    alert("Please Enter a title");
+   
+    triggerToast("Please Enter a title!","error");
     return;
   } 
   else if(!isbn10 || !isbn13){
-    alert("Both ISBN's are required");
+    
+    triggerToast("Both ISBN's are required!","error");
     return;
   } 
   
@@ -201,12 +205,14 @@ const handleSubmit = async (e) => {
     })
   
     if(response.status===200){
-      alert("New Book Added Manually!")
-      // alert("price: ",price);
+     
+      triggerToast("New Book Added Manually!","success");
+      
       resetAllFields();
     }
     else{
-      alert("Book Not added")
+      
+      triggerToast("Book Not added!","error");
     }
   }
   catch(error){

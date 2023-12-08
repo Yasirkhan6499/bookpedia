@@ -12,7 +12,7 @@ const Search = ({handleSearchWriting,handleBooksSearch, value}) => {
   };
 
   return (
-   <div className='relative'>
+   <div className='relative w-[80%]'>
     <FontAwesomeIcon
     className='absolute left-0 top-3 text-2xl' 
     icon={faMagnifyingGlass} 

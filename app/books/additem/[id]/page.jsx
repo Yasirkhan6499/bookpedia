@@ -10,9 +10,19 @@ const page = ({params}) => {
   const router = useRouter(); // Initializing useRouter
 
   // getting the return url
-    const url = new URL(window.location.href);
-    const paramss = new URLSearchParams(url.search);
-    const returnUrl = paramss.get('returnUrl');
+    // const url = new URL(window.location.href);
+    // const paramss = new URLSearchParams(url.search);
+    // const returnUrl = paramss.get('returnUrl');
+
+    // adding this code because the above code was making problem
+    useEffect(() => {
+      if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href);
+        const params = new URLSearchParams(url.search);
+        const returnUrl = params.get('returnUrl');
+        console.log('Return URL:', returnUrl);
+      }
+    }, []);
 
   const [book, setBook] = useState();
   const [collection, setCollection] = useState();

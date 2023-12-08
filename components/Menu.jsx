@@ -11,6 +11,7 @@ import React, { useState, useEffect } from 'react'
 import { FaBook, FaPlus, FaLayerGroup, FaLifeRing, FaSignOutAlt } from 'react-icons/fa';
 import { MdLibraryBooks, MdCollectionsBookmark, MdExitToApp } from 'react-icons/md';
 import { AiOutlinePlus, AiOutlineQuestionCircle } from 'react-icons/ai';
+import Cookies from 'js-cookie';
 
 const Menu = () => {
 
@@ -18,11 +19,25 @@ const Menu = () => {
     const router = useRouter();
     const [activeItem, setActiveItem] = useState("library");
 
+    const handleMenuItemClick = (itemName) => {
+        setActiveItem(itemName);
+        Cookies.set('activeMenuItem', itemName, { expires: 1 }); // Set the cookie to expire in 1 day
+      };
+    
+      useEffect(() => {
+        // Check for the active item in the cookie when the component mounts
+        const storedActiveItem = Cookies.get('activeMenuItem');
+        if (storedActiveItem) {
+          setActiveItem(storedActiveItem);
+        }
+      }, []);
+
     const handleLogout = async()=>{
         try{
         const response = await fetch("/api/users/logout");
         if(response.ok){
-            
+
+            Cookies.remove('activeMenuItem'); // Remove the cookie on logout
             await fetch("/api/users/myprofile");
             setUserToken(null);
             router.push("/login");
@@ -34,9 +49,10 @@ const Menu = () => {
             alert("logout failed");
         }
     }
-    // useEffect(()=>{
-    //     alert(activeItem);
-    // },[activeItem])
+    useEffect(()=>{
+        // get the cookie of the selected menu item and set it to
+        //  to the activeItem
+    },[])
   return (
     <div className='menu-section w-1/6 min-w-[250px]'>
         {/* logo */}
@@ -52,7 +68,7 @@ const Menu = () => {
             {/* Library */}
             <Link href="/library"> 
             <div className={activeItem==="library"?"active-item":'item-container'} 
-            onClick={()=>setActiveItem("library")}>
+            onClick={()=>handleMenuItemClick("library")}>
             <MdLibraryBooks className='item-icon'/> 
             <li className="main-menu-item"
             >Library</li>
@@ -62,7 +78,7 @@ const Menu = () => {
             {/* add items */}
             <Link href="/books/additem"> 
             <div className={activeItem==="additem"?"active-item":'item-container'} 
-            onClick={()=>setActiveItem("additem")}>
+            onClick={()=>handleMenuItemClick("additem")}>
             <FaPlus className='item-icon'/>
            <li className="main-menu-item"> 
            Add Items</li>
@@ -73,7 +89,7 @@ const Menu = () => {
 
            <Link href="/books/collections">
            <div className={activeItem==="addcollection"?"active-item":'item-container'} 
-           onClick={()=>setActiveItem("addcollection")}>
+           onClick={()=>handleMenuItemClick("addcollection")}>
             <MdCollectionsBookmark className='item-icon'/> 
            <li className={"main-menu-item"}> 
            Add Collection</li>
@@ -82,7 +98,7 @@ const Menu = () => {
            
            {/* support */}
            <div className={activeItem==="support"?"active-item":'item-container'}  
-           onClick={()=>setActiveItem("support")}>
+           onClick={()=>handleMenuItemClick("support")}>
             <FaLifeRing className='item-icon'/> 
             <li className={"main-menu-item"}>
                 Support</li>

@@ -85,8 +85,7 @@ p{
   @apply hidden mt-5 -ml-3 mr-2 text-xl text-cyan-500;
 }
 .item-container:hover .item-icon{
-display: block;
-
+  display: block;
 }
 .active-item{
   @apply translate-x-6 duration-100 flex flex-row;

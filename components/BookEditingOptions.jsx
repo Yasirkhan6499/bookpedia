@@ -48,7 +48,7 @@ const BookEditingOptions = ({bookid, collectionid, handleEditBook, handleBookRev
         // console.log("bookid ",bookid)
         // console.log("move to , ",collection);
         if(!collection || collection==="0")
-        alert("please select a collection");
+        triggerToast("Please select a collection","error");
         else{
             try {
                 const response = await axios.post("/api/books/collections/updateBookCollection",{
@@ -86,7 +86,8 @@ const BookEditingOptions = ({bookid, collectionid, handleEditBook, handleBookRev
                 action:"Move",
                 handlePromptAction:handleMoveOption,
                 handlePromptCancel : handlePromptCancel
-            })} className="editOption"><FontAwesomeIcon className='mb-[0.1rem]' icon={faRightLeft} />
+            })} className="editOption"><FontAwesomeIcon className='mb-[0rem] mr-1' 
+            icon={faRightLeft} />
              Move
              </li>
 

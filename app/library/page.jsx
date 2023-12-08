@@ -17,6 +17,7 @@ import { faTablet } from '@fortawesome/free-solid-svg-icons';
 import Filterselect from '@/components/Filterselect';
 import FilterUpDown from '@/components/FilterUpDown';
 import { sortBooks } from '@/helpers/sortBooks';
+import Profile from '@/components/Profile';
 
 const Library = () => {
 
@@ -278,14 +279,20 @@ const getLayoutStyleIcon = ()=>{
 
 
   return (
-    <div>
-
+    // className='relative'
+    <div >
+      <div className="flex justify-between align-center items-center">
+      
       {/* search tab */}
       <Search 
       handleSearchWriting={handleSearchWriting}
       handleBooksSearch={handleBooksSearch}
       value={searchTerm}
       />
+
+      <Profile />
+
+      </div>
       {/* Collection, layouts and filtering features */}
       {/* collection selecting */}
       <div className='flex place-items-baseline w-full space-x-4'>
