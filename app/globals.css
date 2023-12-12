@@ -46,7 +46,10 @@ p{
 .nav-items li{
   @apply text-xl cursor-pointer mt-1;
 }
-
+.nav-item{
+  @apply px-2 px-10 sm:p-2 sm:px-10 hover:bg-cyan-600 hover:text-white
+   sm:hover:bg-transparent sm:hover:text-black;
+}
 /* login-section */
 .login-section{
   height: 50vh;

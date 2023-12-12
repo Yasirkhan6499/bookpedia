@@ -8,21 +8,27 @@ import { useRouter } from 'next/navigation'; // Importing useRouter
 const page = ({params}) => {
 
   const router = useRouter(); // Initializing useRouter
+  // Declare returnUrl using useState
+  // const [returnUrl, setReturnUrl] = useState(null);
 
   // getting the return url
-    // const url = new URL(window.location.href);
-    // const paramss = new URLSearchParams(url.search);
-    // const returnUrl = paramss.get('returnUrl');
+    const url = new URL(window.location.href);
+    const paramss = new URLSearchParams(url.search);
+    const returnUrl = paramss.get('returnUrl');
+    
 
     // adding this code because the above code was making problem
-    useEffect(() => {
-      if (typeof window !== 'undefined') {
-        const url = new URL(window.location.href);
-        const params = new URLSearchParams(url.search);
-        const returnUrl = params.get('returnUrl');
-        console.log('Return URL:', returnUrl);
-      }
-    }, []);
+    // useEffect(() => {
+    //   if (typeof window !== 'undefined') {
+    //     const url = new URL(window.location.href);
+    //     const params = new URLSearchParams(url.search);
+    //     const returnUrl = params.get('returnUrl');
+    //     console.log('Return URL:', returnUrl);
+  
+    //     // Set returnUrl using the state
+    //     setReturnUrl(returnUrl);
+    //   }
+    // }, []);
 
   const [book, setBook] = useState();
   const [collection, setCollection] = useState();
@@ -64,4 +70,4 @@ const page = ({params}) => {
   )
 }
 
-export default page
+export default page;

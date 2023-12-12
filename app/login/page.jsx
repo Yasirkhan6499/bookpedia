@@ -88,6 +88,7 @@ const { triggerToast } = useToast();
                placeholder="Email"
                onChange = {(e)=>setUser({...user, email:e.target.value})}
                value={user.email}
+               className={"!m-0 mb-3"}
               />
                <Input
                type="password"
@@ -97,6 +98,7 @@ const { triggerToast } = useToast();
                onChange = {(e)=>setUser({...user, password:e.target.value})}
                value={user.password}
                forgotPass = {true}
+               className={"!m-0 mb-2"}
               />
               <Button 
               
