@@ -47,7 +47,7 @@ p{
   @apply text-xl cursor-pointer mt-1;
 }
 .nav-item{
-  @apply px-2 px-10 sm:p-2 sm:px-10 hover:bg-cyan-600 hover:text-white
+  @apply px-2 px-10 sm:p-2 sm:px-4 hover:bg-cyan-600 hover:text-white
    sm:hover:bg-transparent sm:hover:text-black;
 }
 /* login-section */
@@ -72,7 +72,7 @@ p{
 
 /* Main menu */
 .menu-section{
-  @apply bg-gray-100 p-4 px-8 h-screen fixed pt-10;
+  @apply bg-gray-100 p-4 px-8 h-screen fixed pt-10 ;
 }
 .main-menu{
   @apply mt-8 flex flex-col ;
@@ -81,26 +81,35 @@ p{
   @apply  text-black 
   py-4 px-1 cursor-pointer;
 }
+.item-full-container{
+  @apply bg-white w-full;
+}
 .item-container{
-  @apply hover:translate-x-6 hover:ease-in ease-out duration-100 flex flex-row;
+  @apply hover:translate-x-6 hover:ease-in ease-out duration-100 flex flex-row mt-4;
+}
+.item-container:hover{
+  @apply bg-white w-[110%];
 }
 .item-icon{
-  @apply hidden mt-5 -ml-3 mr-2 text-xl text-cyan-500;
+  @apply hidden mt-5 -ml-1 mr-0  text-cyan-500;
 }
 .item-container:hover .item-icon{
   display: block;
 }
 .active-item{
-  @apply translate-x-6 duration-100 flex flex-row;
+  @apply translate-x-6 duration-100 flex flex-row mt-4 bg-white w-[110%];
 }
 
 .active-item .item-icon{
   @apply !block;
 }
 /* body  */
-.body-container{
-  @apply absolute left-80 top-8 right-0;
+.body-container-pc{
+  @apply absolute left-80 top-8 right-0 ;
 }
+/* .body-container-mobile{
+  @apply 
+} */
 
 /* Collection-section */
 .page-title{

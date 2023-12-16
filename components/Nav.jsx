@@ -24,8 +24,8 @@ export const Nav = () => {
 
         <div className={`sm:block ${isMenuOpen ? 'block absolute top-10 right-0 bg-white  cursor-pointer'
          : 'hidden'}`}>
-          <ul className='nav-items flex flex-col sm:flex-row gap-6'> 
-            <li className='nav-item'> <Link href='/support'> Support </Link></li>
+          <ul className='nav-items flex flex-col sm:flex-row gap-3'> 
+            {/* <li className='nav-item'> <Link href='/support'> Support </Link></li> */}
             <li className='nav-item'> <Link href='/contact'> Contact </Link></li>
             <li className='nav-item'> <Link href='/about'> About </Link></li>
           </ul>

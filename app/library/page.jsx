@@ -34,6 +34,7 @@ const [searchTerm, setSearchTerm] = useState("");
 const [layoutStyle, setLayoutStyle] = useState([]);
 const [filter, setFilter] = useState("1");
 const [arrowFilter, setArrowFilter] = useState("up");
+const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
 // body container Context :=> to change the css of bodyContainer
 const {bodyContainerCss, setBodyContainerCss} = useBodyContainerContext();
@@ -45,6 +46,18 @@ useEffect(() => {
    setLayoutStyle("3");
    
 }, []);
+// set the screen width
+useEffect(()=>{
+   // Handle window resize
+   const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
+  window.addEventListener("resize", handleResize);
+
+// Clean up the event listener
+  return () => window.removeEventListener("resize", handleResize);
+},[]);
 
 // fetching books
 useEffect(() => {
@@ -104,7 +117,7 @@ useEffect(()=>{
   //avalaible in the selected collection
   useEffect(()=>{
     // alert("col chang")
-    const newBooks = allBooks.filter(book=>{
+      const newBooks = allBooks.filter(book=>{
       console.log(book.collectionId," === ",selectedCollection)
     return(book.collectionId===selectedCollection)
     }
@@ -289,8 +302,9 @@ const getLayoutStyleIcon = ()=>{
       handleBooksSearch={handleBooksSearch}
       value={searchTerm}
       />
-
-      <Profile />
+      {/* profile/logout */}
+      {(windowWidth>768)?<Profile />:""}
+      
 
       </div>
       {/* Collection, layouts and filtering features */}
