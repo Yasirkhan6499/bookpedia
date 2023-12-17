@@ -72,7 +72,7 @@ p{
 
 /* Main menu */
 .menu-section{
-  @apply bg-gray-100 p-4 px-8 h-screen fixed pt-10 ;
+  @apply bg-gray-100 p-4 px-8 h-screen fixed pt-10 flex justify-between flex-col;
 }
 .main-menu{
   @apply mt-8 flex flex-col ;
@@ -103,13 +103,31 @@ p{
 .active-item .item-icon{
   @apply !block;
 }
+
+/* Base menu style */
+.menu-section {
+  transition: all 0.5s ease-in-out;
+}
+
+/* Animation for sliding in */
+.menu-slide-in {
+  transform: translateY(100%);
+}
+
+/* Animation for sliding out */
+.menu-slide-out {
+  transform: translateY(0);
+}
+/*********************************** */
+
+
 /* body  */
 .body-container-pc{
   @apply absolute left-80 top-8 right-0 ;
 }
-/* .body-container-mobile{
-  @apply 
-} */
+.body-container-mobile{
+  @apply mt-[4.2rem];
+}
 
 /* Collection-section */
 .page-title{
@@ -193,4 +211,12 @@ p{
   position: absolute;
   z-index: -1;
   display: none;
+}
+
+/* profile */
+.profile-menu{
+  @apply bg-slate-200 p-4 rounded-2xl -translate-y-14 z-10 px-6;
+}
+.btn-logout{
+  @apply bg-cyan-600 text-white p-2 rounded-lg hover:bg-cyan-700 font-bold mt-4;
 }

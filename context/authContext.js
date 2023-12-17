@@ -55,7 +55,7 @@ export const AuthContextProvider = ({children}) => {
     return(
         <AuthContext.Provider value={{userToken, setUserToken}}>
             {!userToken?<><Nav /> <Hero /></> :(windowWidth <= 768 )?<MenuMobile />:<Menu />  }
-            <div className={userToken?`${containerClass} ${bodyContainerCss}`:""}>
+            <div className={userToken?`${containerClass} ${bodyContainerCss} `:""}>
             {children}
             </div>
         </AuthContext.Provider>

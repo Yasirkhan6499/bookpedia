@@ -4,13 +4,19 @@ import axios from 'axios';
 import { useAuthContext } from '@/context/authContext';
 import { useRouter } from 'next/navigation'
 
-const Profile = () => {
+const Profile = ({isMobileMenu}) => {
     const [userName, setUserName] = useState("");
     const [email, setEmail] = useState("");
     const [showProfileMenu, setShowProfileMenu] = useState(false);
     const profileMenuRef = useRef();
     const {userToken, setUserToken} = useAuthContext();
     const router = useRouter();
+
+
+    // css classes
+    const profile_menu_css = (!isMobileMenu?"profile-menu absolute right-0 top-5 ":"profile-menu text-left w-full mt-20")
+    const btn_css = (!isMobileMenu?"btn-logout":"btn-logout ml-5 px-6")
+
     useEffect(() => {
         const getUserName = async () => {
             const response = await axios.get("/api/user/getusername");
@@ -46,8 +52,8 @@ const Profile = () => {
     }
 
     return (
-        <div className='relative'>
-            { !showProfileMenu && (
+        <div className='relative z-30'>
+            { (!showProfileMenu && !isMobileMenu ) && (
                 <div className='bg-slate-200 p-2 rounded-2xl flex cursor-pointer hover:scale-105 transition duration-200'
                      onClick={() => setShowProfileMenu(true)}> 
                     <FaUser size={20} className="text-cyan-700 mt-2" />
@@ -55,16 +61,26 @@ const Profile = () => {
                 </div>
             )}
 
-            { showProfileMenu && (
-                <div ref={profileMenuRef} className='bg-slate-200 p-4 rounded-2xl absolute right-0 top-5 -translate-y-14
-                 z-10 px-6 '>
-                    <p className="font-bold text-lg">{userName}</p>
-                    <p className="text-slate-500 -mt-1">{email}</p>
-                    <button className='bg-cyan-600 text-white p-2 rounded-lg hover:bg-cyan-700 font-bold mt-4'
+            { (showProfileMenu || isMobileMenu ) && (
+                <div ref={profileMenuRef} className={profile_menu_css}>
+                  <div className={(isMobileMenu?"flex gap-1":"")}>
+                    {isMobileMenu && 
+                    <FaUser size={20} className="text-cyan-700 mt-2 h-4" />
+                    }
+                  
+                  <div>
+                  <p className="font-bold text-lg">{userName}</p>
+                  <p className="text-slate-500 -mt-1">{email}</p>
+                  </div>
+                  </div>
+                    
+                    
+                    <button className={btn_css}
                     onClick={handleLogout}
                     >Logout</button>
                 </div>
             )}
+           
         </div>
     );
 };

@@ -1,16 +1,30 @@
 "use client";
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { faBook, faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Menu from './Menu';
+import Profile from './Profile';
 
 const MenuMobile = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // const [itemNotClicked, setItemNotClicked] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    // setItemNotClicked(true);
   };
+
+   // Function to be called when an item in the menu is clicked
+  //  const handleMenuItemClick = () => {
+  //   setItemNotClicked(false);
+  //   setIsMenuOpen(!isMenuOpen);
+  // };
+
+  // useEffect(()=>{
+  //   console.log("ItemNotClicked : ",itemNotClicked);
+  //   console.log("isMenuOpen : ",isMenuOpen);
+  // },[itemNotClicked]);
 
   return (
     <div>
@@ -20,10 +34,15 @@ const MenuMobile = () => {
       </div>
       
       <div>
-      <Menu 
-      isMobileMenu={true}
-      />
+       {/* menu  */}
+        <Menu 
+        isMobileMenu={true}
+        isMenuActive = {isMenuOpen}
+        onMenuItemClick={toggleMenu} // Pass the function as a prop 
+        />
+     
       </div>
+      
     </div>
   )
 }
