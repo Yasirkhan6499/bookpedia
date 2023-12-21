@@ -155,13 +155,13 @@ p{
   @apply border-b border-gray-200
 }
 .book-container{
-  @apply p-6 flex gap-6 my-6;
+  @apply p-6 custom-md:flex gap-6 my-6;
 }
 .book-pic{
   /* @apply w-[20%]; */
 }
 .book-content{
-  @apply w-[70%];
+  @apply md:w-[70%] w-full;
 }
 .bookEdit-label{
   @apply ml-4 -mb-3;
@@ -176,7 +176,7 @@ p{
   @apply  text-slate-400 mb-4 mt-1;
 }
 .book-publish-info{
-  @apply flex gap-4;
+  @apply custom-sm:flex gap-4;
 }
 .book-publish-info p{
   @apply text-base;

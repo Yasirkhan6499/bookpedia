@@ -9,7 +9,7 @@ import Copies from './Copies';
 
 const BookResult = ({book,collection,titleCss,authorCss,descCss, imgCss,
   starSize,descReviewCss,isBookEdit,handleEditIcon, isListStyle, isCoverStyle, bookContainerCss
-,starContainerCss, setIsbnPresent}) => {
+,starContainerCss, setIsbnPresent, isMobileMenu}) => {
 
   const [activeTab, setActiveTab] = useState('Description');
 
@@ -29,7 +29,7 @@ const BookResult = ({book,collection,titleCss,authorCss,descCss, imgCss,
   // image
   let image = volumeInfo.imageLinks?.thumbnail || book.image;
 // ------------extra Css-----------------
-let title_css =  `book-title ${titleCss}`;
+let title_css =  `book-title ${titleCss} ${isMobileMenu?"mt-3 ":""}`;
 let author_css = `book-author ${authorCss}`;
 let desc_css = `book-desc ${descCss}`;
 let img_css = `rounded-md object-cover ${imgCss}` 
@@ -73,9 +73,8 @@ let starCont_css = ` mt-3 ${starContainerCss}`;
     <React.Fragment>
       
     <div className={bookContainer_css}>
-    <div className='book-pic'>
-
-    
+      
+    <div className={`book-pic`}>
     
         {/* image */}
         {!isListStyle?<Image 
@@ -108,7 +107,9 @@ let starCont_css = ` mt-3 ${starContainerCss}`;
     
 
     {/* book content container */}
-    <div className='book-content'>
+    
+    {/* added these classes for mobile optimization */}
+    <div className={`book-content ${isMobileMenu?"flex flex-wrap":""}`}>
       {/* book collection */}
       {(collection && isBookEdit) ? (
     <div className="flex items-center">
@@ -118,8 +119,8 @@ let starCont_css = ` mt-3 ${starContainerCss}`;
       ) : (
         ""
       )}
-
-
+        {/* added this new div for mobile optimization */}
+        <div className={`${isMobileMenu?" float-right":""}`}> 
       {/* Title & Author */}
        <h3 className={title_css}
        onClick={handleEditIcon?()=>handleEditIcon(volumeInfo.bookid):()=>{}}
@@ -127,9 +128,12 @@ let starCont_css = ` mt-3 ${starContainerCss}`;
          {volumeInfo.title}
        </h3>
        <p className={author_css}>{author}</p>
-
+       </div>
+       
         {/* publishing info */}
-        
+
+        {/* added this new div for mobile optimization */}
+        <div className="">
         {!isCoverStyle? <> {/* start of isCoverStyle Condition */}
         <div className='book-publish-info'>
         <p className='book-publishDate'>{publishDate}</p>
@@ -168,7 +172,7 @@ let starCont_css = ` mt-3 ${starContainerCss}`;
            Copies: </span>
           {volumeInfo.copies}
          </p>:""}
- 
+       
          
          
          {/* description */}
@@ -205,7 +209,7 @@ let starCont_css = ` mt-3 ${starContainerCss}`;
          :(!isListStyle)?truncateDescription(volumeInfo.description):"" }
 
         </>:""} {/* end of the !isCoverStyle condition */}
-        
+        </div>
        
        {/* add copies section */}
        {/* {isBookEdit && <Copies /> } */}

@@ -11,7 +11,7 @@ const Select = ({arr, classes, onChange, defaultValue}) => {
 
     {!defaultValue?<option value={0}>Select Collection:</option>:""}  
         {arr.map(item =>(
-            <option  key={item._id} value={item._id}>
+            <option key={item._id} value={item._id}>
             {item.name}
             </option>
         ))}

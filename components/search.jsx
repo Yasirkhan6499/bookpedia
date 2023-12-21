@@ -2,7 +2,7 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
-const Search = ({handleSearchWriting,handleBooksSearch, value}) => {
+const Search = ({handleSearchWriting,handleBooksSearch, value,isMobileMenu }) => {
 
    // Function to handle Enter key press
    const handleEnterKeyPress = (e) => {
@@ -12,9 +12,9 @@ const Search = ({handleSearchWriting,handleBooksSearch, value}) => {
   };
 
   return (
-   <div className='relative w-[80%]'>
+   <div className={`relative w-[80%] ${isMobileMenu?"mt-4":""}`}>
     <FontAwesomeIcon
-    className='absolute left-0 top-3 text-2xl' 
+    className={`absolute left-0 top-3  ${isMobileMenu?"ml-4 text-xl":"text-2xl"}`} 
     icon={faMagnifyingGlass} 
     />
     <input

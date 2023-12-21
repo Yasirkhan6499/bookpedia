@@ -42,8 +42,8 @@ const page = () => {
 
   return (
     <section className='collection-section'>
-        <h2 className='page-title'>Add Collection</h2>
-        <p className="mb-8">
+        <h2 className='page-title text-4xl font-bold pb-6 mb-9'>Add Collection</h2>
+        <p className="mb-7">
             There are currently ({totalCollections} of 100) collections.
         </p>
 
@@ -59,7 +59,7 @@ const page = () => {
             className="page-input"
             ref={inputRef} // Use the ref here
             />
-            <p>Limit 40 characters. e.g. (My Books, Movie Wishlist, Console Games, Family CD Collection).</p>
+            <p>Limit 40 characters. e.g. (My Books, Action Books, Politics, Fiction).</p>
             <Button 
             width="w-auto"
             title={"Add Collection"}

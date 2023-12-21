@@ -228,7 +228,7 @@ const getBooksList = (booksList) =>{
     <div className='border rounded-md mb-10 hover:shadow-xl relative'>
        {/* {console.log(book)} */}
        <FontAwesomeIcon
-       className="absolute right-10 top-10 border-2 p-3 rounded-full 
+       className="absolute right-2 top-2 md:right-10 md:top-10 border-2 p-3 rounded-full 
        cursor-pointer hover:bg-slate-100 transition duration-300"
        onClick={()=>handleEditIcon(book.bookid)}
        icon={faPen} />
@@ -236,13 +236,15 @@ const getBooksList = (booksList) =>{
       <BookResult 
       book={book}
       collection={selectedCollection}
-      titleCss={"!text-2xl border-black hover:border-b-[3px] w-fit cursor-pointer"}
-      imgCss={"w-[8rem] min-w-[4rem] h-[140px] cursor-pointer hover:shadow-2xl hover:-translate-y-2 hover:brightness-75 transition duration-300 ease-in-out "}
+      titleCss={"!text-xl md:!text-2xl border-black hover:border-b-[3px] w-fit cursor-pointer"}
+      imgCss={"w-[8rem] min-w-[7rem] h-[140px] cursor-pointer hover:shadow-2xl hover:-translate-y-2 hover:brightness-75 transition duration-300 ease-in-out "}
       starSize={"20px"}
       descReviewCss={"!-mt-[0.3rem] font-semibold"}
       isBookEdit={false}
       handleEditIcon={handleEditIcon}
       starContainerCss={"ml-2"}
+      // bookContainerCss={`${windowWidth<=543?"flex flex-wrap":""}`}
+      isMobileMenu={windowWidth<=543?true:false}
       />:(layoutStyle==="1")? //------------List Layout Style-----------------
       <BookResult 
       book={book}
@@ -301,6 +303,7 @@ const getLayoutStyleIcon = ()=>{
       handleSearchWriting={handleSearchWriting}
       handleBooksSearch={handleBooksSearch}
       value={searchTerm}
+      isMobileMenu = {(windowWidth<=768)?true:false}
       />
       {/* profile/logout */}
       {(windowWidth>768)?<Profile />:""}
@@ -308,9 +311,10 @@ const getLayoutStyleIcon = ()=>{
 
       </div>
       {/* Collection, layouts and filtering features */}
-      {/* collection selecting */}
-      <div className='flex place-items-baseline w-full space-x-4'>
-        <div className="selectDropdown relative w-full">
+     
+      <div className={`flex place-items-baseline w-full space-x-4 flex-wrap md:flex-nowrap mb-10 md:mb-0`}>
+         {/* collection selecting */}
+        <div className={`selectDropdown relative w-full`}>
         <FontAwesomeIcon 
           icon={faCaretDown} 
           className='text-black absolute right-5 text-2xl top-5 cursor-pointer'
@@ -324,20 +328,22 @@ const getLayoutStyleIcon = ()=>{
         </div>
 
         {/* Layouts */}
-        <div className="w-auto flex-none relative cursor-pointer">
+        <div className="w-auto flex-none relative cursor-pointer ">
         <p className='absolute left-3 top-[0.37rem] cursor-pointer'>{getLayoutStyleIcon()}</p>
         <LayoutStyles 
         onChange={(e)=>setLayoutStyle(e.target.value)}
         value={layoutStyle}
+        isMobileMenu = {(windowWidth<=334)?true:false}
         />
         </div>
 
         {/* --Filters-- */}
-        <div className="w-auto flex-none relative cursor-pointer">
+        <div className="w-auto flex-none relative cursor-pointer ">
       
         <Filterselect
         onChange={(e)=>setFilter(e.target.value)}
         value={filter}
+        isMobileMenu = {(windowWidth<=334)?true:false}
         />
         {/* filter up and down arrows */}
         <FilterUpDown 
