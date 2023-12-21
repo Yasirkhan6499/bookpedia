@@ -29,7 +29,7 @@ const BookResult = ({book,collection,titleCss,authorCss,descCss, imgCss,
   // image
   let image = volumeInfo.imageLinks?.thumbnail || book.image;
 // ------------extra Css-----------------
-let title_css =  `book-title ${titleCss} ${isMobileMenu?"mt-3 ":""}`;
+let title_css =  `book-title ${titleCss} ${isMobileMenu && !isCoverStyle?"mt-3 ":""}`;
 let author_css = `book-author ${authorCss}`;
 let desc_css = `book-desc ${descCss}`;
 let img_css = `rounded-md object-cover ${imgCss}` 

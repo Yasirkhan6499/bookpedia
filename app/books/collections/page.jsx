@@ -2,6 +2,7 @@
 
 import Button from '@/components/Button';
 import Input from '@/components/Input';
+import { useToast } from '@/context/ToastContext';
 import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -9,6 +10,9 @@ const page = () => {
     const [inputText, setInputText] = useState("");
     const [collection, setCollection] = useState("");
     const [totalCollections, setTotalCollections] = useState(0);
+
+    // toast
+    const { triggerToast } = useToast();
 
     const inputRef = useRef(null); // Add this reference
 
@@ -32,13 +36,23 @@ const page = () => {
         try{
         const res = await axios.post("/api/books/collections",{name: inputRef.current.value});
 
-        if(res.data){
-            alert("New Collection Added");
+        if(res.data.success){
+            triggerToast("Collection Added!", "success");
         }
-        }catch(error){
-            console.log("Collection adding Error:",error);
+        else{
+            triggerToast(res.data.message, "error");
         }
+        }catch (error) {
+            if (error.response && error.response.status === 409) {
+                // Handle the conflict case
+                triggerToast(error.response.data.message, "error");
+            } else {
+                // Handle other errors
+                triggerToast("An error occured!", "error");
+                console.log("Collection adding Error:", error);
+            }
     }
+}
 
   return (
     <section className='collection-section'>

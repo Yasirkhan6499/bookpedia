@@ -28,18 +28,31 @@ export async function POST(req, res){
          )
         //  console.log("cookiesssssssssssss4444444444444");
         console.log("decoded tokeeeennnnnn :",decodedToken.id);
-    const newCollection = new Collection({
+        let newCollection="";
+
+        // Check if a collection with the given name already exists
+        const existingCollection = await Collection.findOne({ name });
+
+        if(existingCollection){
+            return NextResponse.json({
+                message: "Collection name already exists in this account!",
+                success:false
+            }, {status: 409})
+        }
+        else{
+        newCollection = new Collection({
         userId: decodedToken.id,
         name 
     });
-
+    }
     const result = await newCollection.save();
 
     return NextResponse.json({
         message: "New Collection Added",
-        success: "true"
+        success: true
     });
 }catch(error){
+    console.log("Errorrrrrrr: ",error);
     return NextResponse.json({error:error.message},
         {status:500})
 }

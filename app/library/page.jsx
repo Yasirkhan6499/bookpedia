@@ -242,7 +242,7 @@ const getBooksList = (booksList) =>{
       descReviewCss={"!-mt-[0.3rem] font-semibold"}
       isBookEdit={false}
       handleEditIcon={handleEditIcon}
-      starContainerCss={"ml-2"}
+      starContainerCss={"ml-0 custom-md:ml-2"}
       // bookContainerCss={`${windowWidth<=543?"flex flex-wrap":""}`}
       isMobileMenu={windowWidth<=543?true:false}
       />:(layoutStyle==="1")? //------------List Layout Style-----------------
@@ -260,7 +260,7 @@ const getBooksList = (booksList) =>{
       <BookResult //------------Cover Layout Style------------------------
       book={book}
       collection={selectedCollection}
-      titleCss={"!text-base border-none w-fit text-slate-500 -mb-2 mt-3 "}
+      titleCss={"!text-base border-none w-fit text-slate-500 -mb-2 mt-8 custom-md:mt-3  "}
       imgCss={"w-[8rem] -mb-9 min-w-[7rem] h-[190px] cursor-pointer hover:shadow-2xl hover:-translate-y-2 hover:brightness-75 transition duration-300 ease-in-out "}
       starSize={"20px"}
       descReviewCss={"!-mt-[0.3rem] font-semibold"}
