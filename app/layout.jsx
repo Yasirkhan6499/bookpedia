@@ -7,6 +7,7 @@ import { ToastProvider } from '@/context/ToastContext';
 import { AuthContextProvider } from '@/context/authContext';
 import { BodyContainerProvider } from '@/context/bodyContainerContext';
 import { BooksProvider } from '@/context/booksContext';
+import { WindowDimensionsProvider } from '@/context/windowDimensionsContext';
 
 export const metadata = {
   title: 'Create Next App',
@@ -18,6 +19,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body >
+      <WindowDimensionsProvider>
       <ToastProvider>
       <BodyContainerProvider>
         <AuthContextProvider>
@@ -30,6 +32,7 @@ export default function RootLayout({ children }) {
         </AuthContextProvider>
         </BodyContainerProvider>
         </ToastProvider>
+        </WindowDimensionsProvider>
       </body>
     </html>
   )

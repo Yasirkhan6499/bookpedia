@@ -78,7 +78,7 @@ const ResultsSearch = ({booksList, onClick}) => {
                  
                  <BookResult 
                 book={book}
-                imgCss={"w-full min-w-[12rem] h-[250px]"}
+                imgCss={"w-fit md:w-full min-w-[12rem] h-[250px]"}
                 />
                 {isBookAdded?
                 <div className='flex flex-col gap-5'>
@@ -90,11 +90,13 @@ const ResultsSearch = ({booksList, onClick}) => {
                 onClick={()=>handleDelete(bookId)}
                 addedAlready={addedAlready}
                 />
+
                 <Button 
                 title={"View/Edit Item"}
                 width={"w-fit "}
-                className={"ml-[3.2rem] px-8 -mt-6 -translate-y-8 text-base  "}
+                className={"ml-[3.2rem] px-8 !-mt-2  -translate-y-8 text-base  "}
                 onClick={()=>handleBookEdit(bookId)}
+                isEditBtn={true}
                 />
                </div>
                 

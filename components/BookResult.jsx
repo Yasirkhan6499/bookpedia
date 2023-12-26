@@ -3,15 +3,19 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLayerGroup } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import StarRatings from 'react-star-ratings';
 import Copies from './Copies';
+import WindowDimensionsContext from '@/context/windowDimensionsContext';
 
 const BookResult = ({book,collection,titleCss,authorCss,descCss, imgCss,
   starSize,descReviewCss,isBookEdit,handleEditIcon, isListStyle, isCoverStyle, bookContainerCss
 ,starContainerCss, setIsbnPresent, isMobileMenu}) => {
 
   const [activeTab, setActiveTab] = useState('Description');
+
+  // for optimzation in different screens
+  const { windowWidth } = useContext(WindowDimensionsContext);
 
   let volumeInfo = book?.volumeInfo || book;
     // const {volumeInfo} = book;
@@ -39,7 +43,7 @@ let bookContainer_css = `book-container z-0 ${bookContainerCss}`;
 let starCont_css = ` mt-3 ${starContainerCss}`;
 
     // Helper function to truncate the description
-    const truncateDescription = (description, length = 600) => {
+    const truncateDescription = (description, length = (windowWidth<1045)?200:600) => {
       if (!description) return '';
       if (description.length > length) {
           return description.slice(0, length) + '...';

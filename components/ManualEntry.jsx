@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Select from '@/components/Select';
 import Input from './Input';
 import { DateInput } from './DateInput';
@@ -11,6 +11,7 @@ import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import { useToast } from '@/context/ToastContext';
+import WindowDimensionsContext from '@/context/windowDimensionsContext';
 
 const ManualEntry = ({collections, handleAddIem}) => {
     const [collection, setCollection] = useState(undefined);
@@ -28,6 +29,9 @@ const ManualEntry = ({collections, handleAddIem}) => {
     const [image, setImage] = useState("");
      // Add a new state to track form errors
 const [formErrors, setFormErrors] = useState({});
+
+  // for optimzation in different screens
+  const { windowWidth } = useContext(WindowDimensionsContext);
     
 const { triggerToast } = useToast();
     // useEffect(()=>{
@@ -276,7 +280,7 @@ const resetAllFields = ()=>{
           placeholder="Description..."
           className="p-2 mt-1 mb-5 border rounded-md block w-100%"
           rows="6"
-          cols="100"
+          cols={windowWidth>1105?"100": windowWidth<426?"30":"50"}
           value={description}
           onChange={(e) => setDescription(e.currentTarget.value)}
         ></textarea>
@@ -339,7 +343,7 @@ const resetAllFields = ()=>{
       </div>
 
       {/* pages, price & image */}
-      <div className="flex gap-8">
+      <div className={`flex  ${windowWidth<1050?"flex-col":"gap-8"}`}>
         {/* pages */}
         <div>
         <label className='manual-label' htmlFor="pages">Pages</label>
@@ -349,7 +353,7 @@ const resetAllFields = ()=>{
           placeholder="Pages"
           value={pages}
           onChange={(e) => handlePagesChange(e)}
-          className={"m-0 mb-5"}
+          className={`m-0 mb-5 `}
           
         />  
         {formErrors.pages && <p className="text-red-500 text-sm italic -mt-5">{formErrors.pages}</p>}
@@ -364,21 +368,21 @@ const resetAllFields = ()=>{
           placeholder="Price"
           value={price}
           onChange={(e) => handlePriceChange(e)}
-          className={"m-0 mb-5"}
+          className={`m-0 mb-5 `}
           
         />  
         {formErrors.price && <p className="text-red-500 text-sm italic -mt-5">{formErrors.price}</p>}
         </div>
 
         {/* Image */}
-        <div className='mt-8 -ml-4 flex flex-row'>
+        <div className={`mt-8 -ml-4 flex flex-row ${windowWidth<1050?"!mt-2 mb-10":""}`}>
             {/* cover image */}
         <div className="relative ">
         <FontAwesomeIcon 
         className="absolute left-6 top-[0.26rem]"
         icon={faImage} />
           <label
-            className='bookEdit-label bg-slate-200 p-2 px-8 rounded-md cursor-pointer'
+            className='bookEdit-label bg-slate-200 p-2 pl-6 md:px-8 rounded-md cursor-pointer'
             htmlFor="coverImage">Cover Image
           </label>
           <p className='mt-2 -mb-8 italic  text-xs'>Upload jpg, png or gif files. 20MB max.</p>
@@ -394,7 +398,6 @@ const resetAllFields = ()=>{
               if (file) {
                 const imageUrl = await uploadToS3(file);
                 setImage(imageUrl);
-
               }
             }}
           />

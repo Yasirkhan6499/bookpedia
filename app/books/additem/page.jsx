@@ -165,7 +165,7 @@ const AddItem = () => {
     
     <section className='addItem-section'>
       <div className='page-title'>
-        <h2 className='text-4xl font-bold' >Add Item</h2>
+        <h2 className='text-4xl font-bold pt-10 md:pt-0' >Add Item</h2>
         {/* Add item options */}
         <div className='flex gap-10 mt-9'>
           <h3 onClick={()=>setActiveTab("search")}

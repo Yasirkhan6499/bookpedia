@@ -3,7 +3,7 @@
 import BookResult from '@/components/BookResult';
 import { useBodyContainerContext } from '@/context/bodyContainerContext';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/navigation';
@@ -18,6 +18,7 @@ import Filterselect from '@/components/Filterselect';
 import FilterUpDown from '@/components/FilterUpDown';
 import { sortBooks } from '@/helpers/sortBooks';
 import Profile from '@/components/Profile';
+import WindowDimensionsContext from '@/context/windowDimensionsContext';
 
 const Library = () => {
 
@@ -34,7 +35,7 @@ const [searchTerm, setSearchTerm] = useState("");
 const [layoutStyle, setLayoutStyle] = useState([]);
 const [filter, setFilter] = useState("1");
 const [arrowFilter, setArrowFilter] = useState("up");
-const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+const { windowWidth } = useContext(WindowDimensionsContext);
 
 // body container Context :=> to change the css of bodyContainer
 const {bodyContainerCss, setBodyContainerCss} = useBodyContainerContext();
@@ -47,17 +48,17 @@ useEffect(() => {
    
 }, []);
 // set the screen width
-useEffect(()=>{
-   // Handle window resize
-   const handleResize = () => {
-    setWindowWidth(window.innerWidth);
-  };
+// useEffect(()=>{
+//    // Handle window resize
+//    const handleResize = () => {
+//     setWindowWidth(window.innerWidth);
+//   };
 
-  window.addEventListener("resize", handleResize);
+//   window.addEventListener("resize", handleResize);
 
-// Clean up the event listener
-  return () => window.removeEventListener("resize", handleResize);
-},[]);
+// // Clean up the event listener
+//   return () => window.removeEventListener("resize", handleResize);
+// },[]);
 
 // fetching books
 useEffect(() => {

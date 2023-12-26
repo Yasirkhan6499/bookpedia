@@ -55,14 +55,14 @@ const page = () => {
 }
 
   return (
-    <section className='collection-section'>
-        <h2 className='page-title text-4xl font-bold pb-6 mb-9'>Add Collection</h2>
+    <section className='collection-section '>
+        <h2 className='page-title text-4xl font-bold pb-6 mb-9 pt-10 md:pt-0'>Add Collection</h2>
         <p className="mb-7">
             There are currently ({totalCollections} of 100) collections.
         </p>
 
         <form onSubmit={handleAddCollection}>
-            <label className='page-label' htmlFor="title">Collection Title</label>
+            <label className='page-label  mt-4 md:mt-0' htmlFor="title">Collection Title</label>
             {/* <input className="page-input" onChange={(e)=>setCollection(e.target.value)} type="text" /> */}
             <Input
             type="text"
@@ -70,14 +70,14 @@ const page = () => {
             placeholder="Collection Title"
             onChange={(e)=>setInputText(e.target.value)}
             value={inputText}
-            className="page-input"
+            className="page-input mb-3  md:mb-4"
             ref={inputRef} // Use the ref here
             />
             <p>Limit 40 characters. e.g. (My Books, Action Books, Politics, Fiction).</p>
             <Button 
             width="w-auto"
             title={"Add Collection"}
-            className="page-btn"
+            className="page-btn mt-6 md:mt-[1.2rem]"
             />
         </form>
 
