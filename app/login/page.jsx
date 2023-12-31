@@ -105,6 +105,7 @@ const { triggerToast } = useToast();
               title={!loading?"Login":"Processing..."}
               type={"submit"}
               disabled={disabledValue}
+              className={"text-xl custom-sm2:text-2xl"}
               />
           </div>
           {/* forgot password */}

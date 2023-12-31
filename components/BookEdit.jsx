@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import BookEditingOptions from './BookEditingOptions';
 import BookResult from './BookResult';
 import CloseButton from './CloseButton';
@@ -9,12 +9,17 @@ import ReviewBookForm from './ReviewBookForm';
 import { useBodyContainerContext } from '@/context/bodyContainerContext';
 import { useToast } from '@/context/ToastContext';
 import Copies from './Copies';
+import WindowDimensionsContext from '@/context/windowDimensionsContext';
 
   const BookEdit = ({book, collection, cancelBtnUrl}) => {
   
     const [showEditForm, setShowEditForm] = useState(null);
     const [showBookReviewForm, setShowBookReviewForm] = useState(null);
 
+      // for optimzation in different screens
+  const { windowWidth } = useContext(WindowDimensionsContext);
+
+    // const editingOptionsRef = useRef(null); // Create a ref
      // we will set the bodyContainer css to set the layout for <BookEdit.jsx>
      const {setBodyContainerCss} = useBodyContainerContext();
 
@@ -63,34 +68,39 @@ import Copies from './Copies';
    }
 
   return (
-    <div className="relative h-[100vh]">
+    <div className={`${windowWidth<=512?"pl-10":""} relative h-[100vh]`}>
 
-      <div className='flex justify-between sticky xl:w-[126.79%] top-0 p-4 pl-14 
-      -ml-[4.4rem] -mt-7 shadow-md bg-white/100 z-50'>
+      <div className={`flex ${windowWidth<=768?"justify-center items-center":"justify-between"}  ${windowWidth<=768?"fixed bottom-0 w-[110.79%] -ml-[1rem] ":"sticky top-0 -ml-[4.4rem]"}  xl:w-[126.79%] p-4 pl-14 
+      -ml-[4.4rem] -mt-7 shadow-md bg-white/100 z-10`}>
       <BookEditingOptions 
        bookid={book.bookid}
        collectionid = {book.collectionId}
        handleEditBook={handleEditBook}
        handleBookReview = {handleBookReview}
        cancelBtnUrl = {cancelBtnUrl}
+       isMobileMenu={windowWidth<=512?true:false}
       />
+
+      {windowWidth>768?
       <CloseButton
       url={cancelBtnUrl}
-      />
+      />:""}
+      
       </div>
 
       <div className='-ml-14'>
       {(!showEditForm && !showBookReviewForm) && <BookResult 
       book={book}
       collection={collection}
-      titleCss={"!text-4xl"}
-      authorCss={"!text-2xl"}
+      titleCss={`${windowWidth<=512?"!text-3xl":"!text-4xl"}`}
+      authorCss={`${windowWidth<=512?"!text-xl":"!text-2xl"}`}
       descCss={"!text-[1rem]"}
       imgCss={"w-full min-w-[12rem] h-[250px]"}
       starSize={"30px"}
       descReviewCss={"text-2xl"}
       isBookEdit={true}
       starContainerCss={"text-center"}
+      isMobileMenu = {windowWidth<=512?true:false}
       />}
 
       {/* Edit book */}

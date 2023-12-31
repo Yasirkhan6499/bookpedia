@@ -59,7 +59,7 @@ const Menu = ({isMobileMenu, isMenuActive, onMenuItemClick}) => {
     },[])
 
     // css variables
-    const menu_section = `menu-section ${!isMobileMenu ? "w-1/6 min-w-[250px]" : (isMenuActive)?"menu-slide-in w-full z-10 text-center ":"menu-slide-out w-full z-10 text-center"}`;
+    const menu_section = `menu-section ${!isMobileMenu ? "w-1/6 min-w-[250px]" : (isMenuActive)?"menu-slide-in w-full z-20 text-center ":"menu-slide-out w-full z-20 text-center"}`;
 
     const main_menu_item_css = (!isMobileMenu?"main-menu-item":"main-menu-item text-3xl ")
     const item_icon_css = (!isMobileMenu?"item-icon text-xl":"item-icon text-3xl") ;

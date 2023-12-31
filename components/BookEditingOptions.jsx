@@ -6,18 +6,24 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faRightLeft } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useBooks } from '@/context/booksContext';
 import PomptWindow from './PomptWindow';
 import { useToast } from '@/context/ToastContext';
+import WindowDimensionsContext from '@/context/windowDimensionsContext';
+import CloseButton from './CloseButton';
 
-const BookEditingOptions = ({bookid, collectionid, handleEditBook, handleBookReview, cancelBtnUrl}) => {
+const BookEditingOptions = ({bookid, collectionid, handleEditBook, handleBookReview, cancelBtnUrl, isMobileMenu}) => {
     const router = useRouter();
     const { addBookIdArr,setAddBookIdArr } = useBooks();
     const [showPrompt, setShowPrompt] = useState(null);
     
+
+      // for optimzation in different screens
+  const { windowWidth } = useContext(WindowDimensionsContext);
+
     // toast 
   const {triggerToast} = useToast();
     
@@ -69,9 +75,13 @@ const BookEditingOptions = ({bookid, collectionid, handleEditBook, handleBookRev
   return (
     
     <div>
+         {windowWidth<768?
+         <div className='fixed top-20 right-2'>
+      <CloseButton
+      url={cancelBtnUrl}
+      /></div>:""}
         
-        <ul className="editOptions flex gap-20   
-             ">
+        <ul className={`editOptions flex ${isMobileMenu?"gap-5 text-xs":"gap-20"} `}>
                 {/* Edit page  */}
             <li onClick={handleEditBook}
              className="editOption"><FontAwesomeIcon className='mb-[0.1rem]' icon={faPen} /> Edit</li>

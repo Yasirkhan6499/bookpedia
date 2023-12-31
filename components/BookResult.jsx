@@ -36,7 +36,7 @@ const BookResult = ({book,collection,titleCss,authorCss,descCss, imgCss,
 let title_css =  `book-title ${titleCss} ${isMobileMenu && !isCoverStyle?"mt-3 ":""}`;
 let author_css = `book-author ${authorCss}`;
 let desc_css = `book-desc ${descCss}`;
-let img_css = `rounded-md object-cover ${imgCss}` 
+let img_css = `rounded-md ${isMobileMenu?"object-contain":"object-cover"} ${imgCss}` 
 let descReview_css = `flex gap-8 text-stone-400  font-bold mb-4 mt-9 cursor-pointer 
 border-b-2 xl:w-[120%] ${descReviewCss}`;
 let bookContainer_css = `book-container z-0 ${bookContainerCss}`;
@@ -53,7 +53,7 @@ let starCont_css = ` mt-3 ${starContainerCss}`;
   }
 
   useEffect(()=>{
-   
+  //  alert(isMobileMenu);
     // if(!isbn10 || !isbn13)
     // setIsbnPresent(false);
     // if (isbn10 && isbn10.includes(':')) {
@@ -116,7 +116,7 @@ let starCont_css = ` mt-3 ${starContainerCss}`;
     <div className={`book-content ${isMobileMenu?"flex flex-wrap":""}`}>
       {/* book collection */}
       {(collection && isBookEdit) ? (
-    <div className="flex items-center">
+    <div className={`${isMobileMenu?"mt-6":""} flex items-center`}>
       <FontAwesomeIcon icon={faLayerGroup} className="text-blue-300 mr-2 pb-3" />
       <p className='book-collection'>{collection.name}</p>
     </div>

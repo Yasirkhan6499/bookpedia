@@ -238,7 +238,7 @@ const getBooksList = (booksList) =>{
       book={book}
       collection={selectedCollection}
       titleCss={"!text-xl md:!text-2xl border-black hover:border-b-[3px] w-fit cursor-pointer"}
-      imgCss={"w-[8rem] min-w-[7rem] h-[140px] cursor-pointer hover:shadow-2xl hover:-translate-y-2 hover:brightness-75 transition duration-300 ease-in-out "}
+      imgCss={"w-[8rem] min-w-[7rem] cursor-pointer hover:shadow-2xl hover:-translate-y-2 hover:brightness-75 transition duration-300 ease-in-out "}
       starSize={"20px"}
       descReviewCss={"!-mt-[0.3rem] font-semibold"}
       isBookEdit={false}
@@ -334,7 +334,7 @@ const getLayoutStyleIcon = ()=>{
         <LayoutStyles 
         onChange={(e)=>setLayoutStyle(e.target.value)}
         value={layoutStyle}
-        isMobileMenu = {(windowWidth<=334)?true:false}
+        isMobileMenu = {(windowWidth<=358)?true:false}
         />
         </div>
 
@@ -344,7 +344,7 @@ const getLayoutStyleIcon = ()=>{
         <Filterselect
         onChange={(e)=>setFilter(e.target.value)}
         value={filter}
-        isMobileMenu = {(windowWidth<=334)?true:false}
+        isMobileMenu = {(windowWidth<=358)?true:false}
         />
         {/* filter up and down arrows */}
         <FilterUpDown 
