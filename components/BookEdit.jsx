@@ -68,9 +68,11 @@ import WindowDimensionsContext from '@/context/windowDimensionsContext';
    }
 
   return (
-    <div className={`${windowWidth<=512?"pl-10":""} relative h-[100vh]`}>
+    <div className={`${windowWidth<=512?"pl-10":""} relative ${windowWidth<=768?"":"h-[100vh]"}`}>
 
-      <div className={`flex ${windowWidth<=768?"justify-center items-center":"justify-between"}  ${windowWidth<=768?"fixed bottom-0 w-[110.79%] -ml-[1rem] ":"sticky top-0 -ml-[4.4rem]"}  xl:w-[126.79%] p-4 pl-14 
+      <div className={`flex ${windowWidth<=768?"justify-center items-center":"justify-between"}  
+      ${windowWidth<=768?"fixed bottom-0 w-[110.79%] -ml-[1rem] mt-10 ":"sticky top-0 -ml-[4.4rem]"}  
+      xl:w-[126.79%] p-4 ${windowWidth<=512?"pl-6":"pl-14"} 
       -ml-[4.4rem] -mt-7 shadow-md bg-white/100 z-10`}>
       <BookEditingOptions 
        bookid={book.bookid}

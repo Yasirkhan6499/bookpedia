@@ -60,7 +60,7 @@ const EditBookForm = ({ book, handleCancleForm }) => {
   }
 
   return (
-    <div>
+    <div className='custom-md:pl-10'>
       <h2 className='ml-4 text-4xl mt-6'>Edit Item</h2>
       <div className='flex flex-col mt-4'>
         <label className='bookEdit-label mt-6' htmlFor="title">Title</label>
@@ -98,7 +98,7 @@ const EditBookForm = ({ book, handleCancleForm }) => {
         {/* price */}
         <label className='bookEdit-label mt-6 -mb-3' htmlFor="price">Price</label>
         {/* price and cover image in flex */}
-        <div className='flex gap-8 items-center mb-8'>
+        <div className='flex flex-wrap gap-8 items-center mb-8'>
           <Input
             className="w-[20%] min-w-[130px]"
             id="price"
@@ -113,10 +113,10 @@ const EditBookForm = ({ book, handleCancleForm }) => {
         className="absolute left-6 top-[0.26rem]"
         icon={faImage} />
           <label
-            className='bookEdit-label bg-slate-200 p-2 px-8 rounded-md cursor-pointer'
+            className='bookEdit-label bg-slate-200 p-2 pl-8 md:px-8 rounded-md cursor-pointer'
             htmlFor="coverImage">Cover Image
           </label>
-          <p className='mt-2 -mb-8 italic  text-xs'>Upload jpg, png or gif files. 20MB max.</p>
+          <p className='mt-2 ml-2 md:ml-0 -mb-8 italic  text-xs'>Upload jpg, png or gif files. 20MB max.</p>
         </div>
           <Input
             id="coverImage"
@@ -136,7 +136,7 @@ const EditBookForm = ({ book, handleCancleForm }) => {
 
           {/* // if image is selected from the browser then show it on the side */}
           {image && <Image
-            className="rounded-md h-[6rem] object-fill"
+            className="rounded-md h-[6rem] object-fill ml-4 md:ml-0"
             src={image}
             width={120}
             height={120}
@@ -148,7 +148,7 @@ const EditBookForm = ({ book, handleCancleForm }) => {
       <SaveAndCancelBtns 
         handleSaveEditForm={handleSaveEditForm}
         handleCancleForm={handleCancleForm}
-        classes={"xl:w-[120.1%] sm:w-[101.7%] md:w-[101.26%]"}
+        classes={"sm:w-[101.7%] md:w-[108.70%] lg:w-[105.76%] xl:w-[125.1%] "}
       />
       </div>
     </div>

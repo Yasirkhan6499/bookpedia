@@ -3,9 +3,9 @@ import Button from './Button'
 
 const SaveAndCancelBtns = ({handleSaveEditForm, handleCancleForm, classes}) => {
 
-  const class_names = `flex gap-4 sticky bottom-0 p-4  
-  shadow-md bg-white/100  w-full    
-  -ml-3 mt-2 shadow-black ${classes}`
+  const class_names = `flex gap-4 custom-md2:sticky bottom-0 p-4  
+  custom-md2:shadow-md bg-white/100  w-full    
+   md:-ml-[3.3rem] mt-2 custom-md2:shadow-black ${classes}`
   return (
     <div className={class_names}>
   <Button

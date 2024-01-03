@@ -81,7 +81,7 @@ const BookEditingOptions = ({bookid, collectionid, handleEditBook, handleBookRev
       url={cancelBtnUrl}
       /></div>:""}
         
-        <ul className={`editOptions flex ${isMobileMenu?"gap-5 text-xs":"gap-20"} `}>
+        <ul className={`editOptions flex ${isMobileMenu?"gap-5 text-xs":"gap-20 text-sm  custom-lg:!text-base"} `}>
                 {/* Edit page  */}
             <li onClick={handleEditBook}
              className="editOption"><FontAwesomeIcon className='mb-[0.1rem]' icon={faPen} /> Edit</li>

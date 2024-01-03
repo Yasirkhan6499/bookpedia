@@ -76,7 +76,7 @@ let starCont_css = ` mt-3 ${starContainerCss}`;
   return (
     <React.Fragment>
       
-    <div className={bookContainer_css}>
+    <div className={`${bookContainer_css} custom-md:pl-10`}>
       
     <div className={`book-pic`}>
     

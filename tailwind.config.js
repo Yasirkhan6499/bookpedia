@@ -16,6 +16,8 @@ module.exports = {
         'custom-sm2': '350px',
         'custom-sm': '334px',
         'custom-md': '513px',
+        'custom-md2': '768px',
+        'custom-lg': '830px',
         
       },
     },

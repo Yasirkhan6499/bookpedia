@@ -126,7 +126,7 @@ p{
   @apply absolute left-80 top-8 right-0 ;
 }
 .body-container-mobile{
-  @apply mt-[4.2rem] pl-3 pr-3 mb-[6rem];
+  @apply mt-[4.2rem]  pl-3  pr-3 mb-[4rem];
 }
 
 /* Collection-section */

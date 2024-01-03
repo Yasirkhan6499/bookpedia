@@ -30,7 +30,7 @@ const MenuMobile = () => {
     <div>
       <div className='flex justify-between shadow-md py-4 p-2 fixed top-0 w-full z-30 bg-white'>
       <FontAwesomeIcon className='logo-icon w-8 h-8 ml-2 mt-1' icon={faBook} />
-      <FontAwesomeIcon className='md:hidden w-8 h-8 mr-2 mt-1 cursor-pointer' icon={faBars} onClick={toggleMenu} />
+      <FontAwesomeIcon className=' w-8 h-8 mr-2 mt-1 cursor-pointer' icon={faBars} onClick={toggleMenu} />
       </div>
       
       <div>

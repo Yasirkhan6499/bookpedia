@@ -38,7 +38,7 @@ const ReviewBookForm = ({book,handleCancleForm}) => {
     }
   
     return (
-      <div >
+      <div className='custom-md:pl-10'>
         <h2 className='text-4xl m-6 mt-9'>User Details</h2>
         <div className='m-8'>
         <div className="mb-4 mt-8 flex gap-2 items-center">
@@ -80,7 +80,7 @@ const ReviewBookForm = ({book,handleCancleForm}) => {
       <SaveAndCancelBtns 
         handleCancleForm={handleCancleForm}
         handleSaveEditForm = {handleSaveEditForm}
-        classes={"translate-y-4 xl:w-[120.1%] sm:w-[101.7%] md:w-[101.26%]"}
+        classes={"custom-md2:translate-y-4 xl:w-[120.1%] sm:w-[101.7%] md:w-[101.26%]"}
         />
 
       </div>
