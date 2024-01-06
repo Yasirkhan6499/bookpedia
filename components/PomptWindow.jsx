@@ -1,13 +1,17 @@
 "use client";
 
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Select from './Select';
+import WindowDimensionsContext from '@/context/windowDimensionsContext';
 
 const PromptWindow = ({ heading, action, handlePromptAction, handlePromptCancel, collectionId }) => {
 
   const [collectionsArr, setCollectionsArr] = useState(null);
   const [collection, setCollection] = useState();
+
+   // for optimzation in different screens
+   const { windowWidth } = useContext(WindowDimensionsContext);
 
   let actionBtnCss = "text-white rounded-md px-4 py-2 mr-2 ";
   actionBtnCss += action==="Delete"?"bg-red-400 hover:bg-red-500":"bg-blue-400 hover:bg-blue-500";
@@ -33,7 +37,7 @@ const PromptWindow = ({ heading, action, handlePromptAction, handlePromptCancel,
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center">
-      <div className="bg-white p-6 rounded-md shadow-lg w-[33.33%] min-w-[450px]">
+      <div className="bg-white p-6 rounded-md shadow-lg w-full custom-md2:w-[33.33%] custom-md2:min-w-[450px]">
         <h2 className="text-2xl font-bold mb-4">{heading}</h2>
         <div className={collectionsArr?"flex justify-between":"flex justify-end"}>
           {/* if the move option is selected */}
@@ -44,7 +48,7 @@ const PromptWindow = ({ heading, action, handlePromptAction, handlePromptCancel,
           classes={"shadow-lg w-[60%] min-w-[7rem]"}
           defaultValue={collection}
           />}
-          <div>
+          <div className={`${windowWidth<=465?"flex":""}`}>
           <button onClick={(collectionsArr)?()=>handlePromptAction(collection)
             :handlePromptAction} className={actionBtnCss}>
             {action}
