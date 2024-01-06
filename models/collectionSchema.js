@@ -11,6 +11,10 @@ const CollectionSchema = new mongoose.Schema({
         type: String,
         requeired: true // Makes the 'name' field mandatory
     },
+    public: {
+        type: Boolean,
+        default: false // collections are private by default
+    },
 });
 
 // 'Collection' is the name of the model. It'll appear as 'collections' in the MongoDB database
