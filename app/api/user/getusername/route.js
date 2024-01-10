@@ -16,7 +16,8 @@ export const GET = async (req,res)=>{
         return NextResponse.json({
             success:true,
             username: user.username,
-            email: user.email
+            email: user.email,
+            userId
         })
 
     }

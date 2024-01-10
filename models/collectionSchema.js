@@ -9,7 +9,7 @@ const CollectionSchema = new mongoose.Schema({
     },
     name:{
         type: String,
-        requeired: true // Makes the 'name' field mandatory
+        required: true // Makes the 'name' field mandatory
     },
     public: {
         type: Boolean,
