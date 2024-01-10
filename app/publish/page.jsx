@@ -14,7 +14,9 @@ const PublishCollection = () => {
     const [fullUrl, setFullUrl] = useState("");
     const [CollectionSearch, setCollectionSearch] = useState("");
 
+    // refs
     const collectionsListRef = useRef(null);
+    const inputRef = useRef(null);
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -62,19 +64,22 @@ const PublishCollection = () => {
             setCollectionSearch(value);
         }
 
-    function handleSelectCollection(collectionId) {
-        console.log('Collection clicked:', collectionId); // Debugging
+   // Updated handleSelectCollection function
+    function handleSelectCollection(collectionId, collectionName) {
+        // alert("handleSelection")
         setSelectedCollections(prevSelected => {
-            const isSelected = prevSelected.includes(collectionId);
-            if (isSelected) {
-                return prevSelected.filter(id => id !== collectionId);
-            } else {
-                return [...prevSelected, collectionId];
-            }
-        });
-        // hide the collections list 
-        setIsInputFocused(false);
-    }
+        const index = prevSelected.findIndex(item => item.id === collectionId);
+        if (index !== -1) {
+            // Remove the collection if it's already selected
+            return [...prevSelected.slice(0, index), ...prevSelected.slice(index + 1)];
+        } else {
+            // Add the new collection to the array
+            return [...prevSelected, { id: collectionId, name: collectionName }];
+        }
+    });
+    // hide the collections list 
+    setIsInputFocused(false);
+}
 
     async function handlePublish() {
         try{
@@ -109,6 +114,12 @@ const PublishCollection = () => {
             setFullUrl(`http://localhost:3000/publish/${userId}/${userUrl}`);
             setUrlInput(userUrl);
         }
+
+        // handling ul clicked so that the collection list is shown and the input is focused
+        const handleUlClick = () => {
+            setIsInputFocused(true);
+            inputRef.current?.focus(); // Focus the input
+        };
 
     return (
         <section className="publish-section">
@@ -154,19 +165,31 @@ const PublishCollection = () => {
         <label htmlFor='collections-input' className="mt-2 -mb-2 block w-fit">Publish Collections</label>
         
         {/* input for collections and collections list */}
-        <ul className="relative">
+        <ul onClick={handleUlClick}
+        
+        className="relative w-[70%] flex gap-2 items-center border-2 rounded-md ">
             {/* dynamic collections list */}
            {selectedCollections && selectedCollections.map((col)=>{
-                return(<li>{col}</li>)
+                return(
+                <li className="border-2 bg-slate-200 px-1 cursor-default">
+                <div className='flex w-fit'>
+                <p>{col.name}</p>
+                <p className="font-bold cursor-pointer text-slate-600"
+                onClick={()=>handleSelectCollection(col.id,col.name)}
+                ref={collectionsListRef}
+                >X</p>
+                </div>
+                </li>
+                )
            })} 
-         <li>
+         <li className="w-full">
         <Input 
-            ref={collectionsListRef}
+            ref={inputRef}
             type="text" 
             id="collections-input" 
             onChange={(e)=>handleCollectionSelection(e.target.value)}
             value={CollectionSearch}
-            className={"w-[70%] ml-0"}
+            className={" ml-0 !my-0 border-none outline-none"}
             onFocus={()=>setIsInputFocused(true)}
             
         />
@@ -174,22 +197,26 @@ const PublishCollection = () => {
             {/* if input is clicked, then show the collections below it */}
             {isInputFocused &&
             <div ref={collectionsListRef}
-            className='shadow-xl -mt-4  w-[70%] border-2 absolute bg-white z-20 rounded-sm'
+            className='shadow-xl w-full border-2 absolute top-[3rem] bg-white z-20 rounded-sm'
             >  
-                {collections.map(collection => {
-                  if(!selectedCollections.includes(collection._id)){
-                    return(
-                    <div key={collection._id}>
+            {collections.map(collection => {
+                // Check if the collection is already selected
+                const isAlreadySelected = selectedCollections.some(selected => selected.id === collection._id);
+                
+                // Only render collections that are not already selected
+                if (!isAlreadySelected) {
+                    return (
+                        <div key={collection._id}>
                         <p
                         className="cursor-pointer py-1 pl-2 hover:bg-cyan-500 hover:text-white"
-                        onClick={()=> handleSelectCollection(collection._id)}
+                        onClick={() => handleSelectCollection(collection._id, collection.name)}
                         >
                             {collection.name}
                         </p>
-                    </div>
-                    )
-                    }
-                })}
+                        </div>
+                    );
+                }
+            })}
                 </div>
             }
             </ul>
