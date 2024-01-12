@@ -5,9 +5,13 @@ import React, { createContext, useState, useEffect } from 'react';
 const WindowDimensionsContext = createContext(null);
 
 export const WindowDimensionsProvider = ({ children }) => {
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [windowWidth, setWindowWidth] = useState(0);
 
     useEffect(() => {
+         // Ensure window object is available (this means we're on the client side)
+         if (typeof window !== "undefined") {
+            setWindowWidth(window.innerWidth);
+            
         const handleResize = () => {
             setWindowWidth(window.innerWidth);
         };
