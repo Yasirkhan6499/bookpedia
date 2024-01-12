@@ -13,23 +13,28 @@ const AuthContext = createContext();
     
 export const AuthContextProvider = ({children}) => {
     const [userToken, setUserToken] = useState("");
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [windowWidth, setWindowWidth] = useState(0);
 
 
     // To set the bodyContainer CSS
     const { bodyContainerCss } = useBodyContainerContext();
 
-    useEffect(()=>{
-          // Handle window resize
-          const handleResize = () => {
+    useEffect(() => {
+        // Check if window is defined (client-side)
+        if (typeof window !== "undefined") {
             setWindowWidth(window.innerWidth);
-        };
 
-        window.addEventListener("resize", handleResize);
+            // Handle window resize
+            const handleResize = () => {
+                setWindowWidth(window.innerWidth);
+            };
 
-        // Clean up the event listener
-        return () => window.removeEventListener("resize", handleResize);
-    },[])
+            window.addEventListener("resize", handleResize);
+
+            // Clean up the event listener
+            return () => window.removeEventListener("resize", handleResize);
+        }
+    }, []);
 
     useEffect(()=>{
         const checkTokenData = async ()=>{
