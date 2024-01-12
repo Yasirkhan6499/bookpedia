@@ -7,6 +7,7 @@ export const GetDataFromToken = (request) => {
         console.log("token: ", token);
 
         if(token){    
+        
         const decodedToken= jwt.verify(token, process.env.TOKEN_SECRET);
         console.log("decoded Token : ", decodedToken)
         return decodedToken.id;
@@ -14,7 +15,7 @@ export const GetDataFromToken = (request) => {
      
         return null;
     } catch (error) {
-        throw new Error(error.message);
+        throw new Error("Errori is within the Env variable,:",error.message);
     }
 
 }
