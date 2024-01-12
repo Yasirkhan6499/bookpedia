@@ -52,11 +52,11 @@ const { triggerToast } = useToast();
 
       const res = await axios.get("/api/users/myprofile");
       // const resData = await res.json();
-      console.log("res.data.data :",res.data.data)
+      console.log("res.data.data :",res.data.data._id)
       setUserToken(res.data.data._id);
       
       // alert("Login", res.data); // cookie is null, why??
-      console.log("Login:",resData);
+      // console.log("Login:",resData);
       router.push("/library");
     }
     else{

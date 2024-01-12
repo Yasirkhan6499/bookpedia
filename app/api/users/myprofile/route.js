@@ -25,7 +25,7 @@ export const GET = async (request)=>{
        else{
         // console.log("reach 5, error");
         // return NextResponse.json("User not found", {status: 400});
-        return new Response(JSON.stringify("Myprofile not found"), { status: 200 })
+        return new Response(JSON.stringify("Myprofile not founddd"), { status: 200 })
        
        }
     } catch (error) {
