@@ -12,6 +12,13 @@ export const GET = async (req,res)=>{
          
         const user = await User.findById(userId);
         
+         // Check if the user was found
+         if (!user) {
+            return NextResponse.json({ 
+                success: false, 
+                message: "User not found" 
+            }, { status: 404 });
+        }
         
         return NextResponse.json({
             success:true,
