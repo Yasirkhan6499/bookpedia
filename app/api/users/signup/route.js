@@ -35,9 +35,14 @@ export const POST = async (request)=>{
         // console.log("REACHED POST555")
         await newUser.save();
         // console.log("Reached Verify666");
+        // Before sending email
+        console.log("Sending verification email to:", email);
         // send verification email
         await sendEmail({email, emailType: "VERIFY", //<= ISSUE HERE! 
         userId: newUser._id});
+
+        // If the email is sent successfully
+    console.log("Verification email sent successfully");
 
         // console.log("after verify")
 
