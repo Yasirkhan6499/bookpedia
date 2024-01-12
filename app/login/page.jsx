@@ -49,13 +49,12 @@ const { triggerToast } = useToast();
       // const token = getCookie("token");
      setDisabledValue(true);
       triggerToast("Successfully Logged in!", "success");
-    //  console.log("process.env.TOKEN_SECRET :",process.env.TOKEN_SECRET);
-    //  console.log("process.env.MONGO_URL :",process.env.MONGO_URL);
-    //  console.log("process.env.BASE_URL :",process.env.BASE_URL);
+
       const res = await axios.get("/api/users/myprofile");
       // const resData = await res.json();
+      console.log("res.data.data :",res.data.data)
       setUserToken(res.data.data._id);
-      console.log(res.data.data._id)
+      
       // alert("Login", res.data); // cookie is null, why??
       console.log("Login:",resData);
       router.push("/library");
