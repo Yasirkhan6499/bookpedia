@@ -49,7 +49,7 @@ const { triggerToast } = useToast();
       // const token = getCookie("token");
      setDisabledValue(true);
       triggerToast("Successfully Logged in!", "success");
-     
+     console.log("process.env.TOKEN_SECRET :",process.env.TOKEN_SECRET);
       const res = await axios.get("/api/users/myprofile");
       // const resData = await res.json();
       setUserToken(res.data.data._id);
