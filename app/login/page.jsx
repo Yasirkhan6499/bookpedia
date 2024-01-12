@@ -55,7 +55,7 @@ const { triggerToast } = useToast();
       setUserToken(res.data.data._id);
       console.log(res.data.data._id)
       // alert("Login", res.data); // cookie is null, why??
-      // console.log(resData);
+      console.log("Login:",resData);
       router.push("/library");
     }
     else{
