@@ -50,6 +50,8 @@ const { triggerToast } = useToast();
      setDisabledValue(true);
       triggerToast("Successfully Logged in!", "success");
      console.log("process.env.TOKEN_SECRET :",process.env.TOKEN_SECRET);
+     console.log("process.env.MONGO_URL :",MONGO_URL);
+     console.log("process.env.BASE_URL :",process.env.BASE_URL);
       const res = await axios.get("/api/users/myprofile");
       // const resData = await res.json();
       setUserToken(res.data.data._id);
