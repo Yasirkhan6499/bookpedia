@@ -49,7 +49,7 @@ const { triggerToast } = useToast();
       // const token = getCookie("token");
      setDisabledValue(true);
       triggerToast("Successfully Logged in!", "success");
-      console.log("resutl back from res:",res)
+      console.log("just checking!!!!")
       const res = await axios.get("/api/users/myprofile");
       // const resData = await res.json();
       console.log("resutl back from res222, ",res);
