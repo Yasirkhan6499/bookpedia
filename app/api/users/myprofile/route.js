@@ -11,7 +11,7 @@ await connectDB();
 export const GET = async (request)=>{
     try {
         // console.log("reach 1");
-       const userID = await GetDataFromToken(request);
+       const userID = await GetDataFromToken(request); //<= issue here
        console.log("reach 2, userId:",userID);
        if(userID){
         // console.log("reach 3");

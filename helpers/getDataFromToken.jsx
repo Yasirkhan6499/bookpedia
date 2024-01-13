@@ -12,7 +12,7 @@ export const GetDataFromToken = (request) => {
         console.log("decoded Token : ", decodedToken)
         return decodedToken.id;
         }
-     
+        console.log("didnt get token!!!")
         return null;
     } catch (error) {
         throw new Error("Errori is within the Env variable,:",error.message);

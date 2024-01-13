@@ -50,7 +50,7 @@ const { triggerToast } = useToast();
      setDisabledValue(true);
       triggerToast("Successfully Logged in!", "success");
       console.log("just checking!!!!")
-      const res = await axios.get("/api/users/myprofile");
+      const res = await axios.get("/api/users/myprofile"); //<= Issue here
       // const resData = await res.json();
       console.log("resutl back from res222, ",res);
       
