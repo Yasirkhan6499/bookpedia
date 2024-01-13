@@ -52,6 +52,7 @@ const { triggerToast } = useToast();
 
       const res = await axios.get("/api/users/myprofile");
       // const resData = await res.json();
+      console.log("resutl back from res, ",res);
       console.log("res.data.data :",res.data.data._id)
       setUserToken(res.data.data._id);
       
