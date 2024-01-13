@@ -49,11 +49,11 @@ const { triggerToast } = useToast();
       // const token = getCookie("token");
      setDisabledValue(true);
       triggerToast("Successfully Logged in!", "success");
-
+      console.log("resutl back from res:",res)
       const res = await axios.get("/api/users/myprofile");
       // const resData = await res.json();
-      console.log("resutl back from res, ",res);
-      console.log("res.data.data :",res.data.data._id)
+      console.log("resutl back from res222, ",res);
+      
       setUserToken(res.data.data._id);
       
       // alert("Login", res.data); // cookie is null, why??
