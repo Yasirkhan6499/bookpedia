@@ -39,12 +39,13 @@ export const POST =  async(request)=>{
             email: user.email
         }
         //create token
-        const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET, {expiresIn: "1d"})
+        const token = jwt.sign(tokenData, process.env.TOKEN_SECRET, {expiresIn: "1d"})
 
         const response = NextResponse.json({
             message: "Login successful",
             success: true,
           });
+          console.log("cookie token set,:",token)
         response.cookies.set("token", token, {
             httpOnly: true, 
             
