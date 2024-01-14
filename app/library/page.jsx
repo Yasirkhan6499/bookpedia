@@ -82,7 +82,7 @@ useEffect(()=>{
   const fetchCollectionsArr = async ()=>{
     try{
       
-    const response = await axios.get("/api/books/collections/getCollectionsArray");
+    const response = await axios.POST("/api/books/collections/getCollectionsArray");
     const CollectionsList = response.data.collections;
     setCollections(CollectionsList);
     // setting a default collection
