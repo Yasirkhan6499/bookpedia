@@ -8,7 +8,7 @@ const { connectDB } = require("@/dbConfig/database");
 
 await connectDB();
 
-export const GET = async (request)=>{
+export const POST = async (request)=>{
     try {
         // console.log("reach 1");
        const userID = await GetDataFromToken(request); //<= issue here
