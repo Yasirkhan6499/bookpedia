@@ -19,7 +19,7 @@ const Profile = ({isMobileMenu}) => {
 
     useEffect(() => {
         const getUserName = async () => {
-            const response = await axios.get("/api/user/getusername");
+            const response = await axios.post("/api/user/getusername");
             
             if (response.data.success) {
                 setUserName(response.data.username);

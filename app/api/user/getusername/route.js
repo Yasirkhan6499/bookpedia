@@ -3,7 +3,7 @@ import { GetDataFromToken } from "@/helpers/getDataFromToken";
 import User from "@/models/userModel";
 import { NextResponse } from "next/server";
 
-export const GET = async (req,res)=>{
+export const POST = async (req,res)=>{
     try{
       
         await connectDB();
