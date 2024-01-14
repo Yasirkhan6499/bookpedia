@@ -46,9 +46,12 @@ export const POST =  async(request)=>{
             success: true,
           });
           console.log("cookie token set,:",token)
-        response.cookies.set("token", token, { 
-            httpOnly: true, 
-        })
+          response.cookies.set("token", token, { 
+            httpOnly: true,
+            secure: process.env.NODE_ENV !== 'development', // true in production
+            sameSite: 'None', // 'Strict' or 'Lax' in development
+            path: '/'
+          });
         // setCookie("token", token);
          // Set the cookie in the response with the appropriate attributes
         // response.headers.set("Set-Cookie", `token=${token}; HttpOnly; Path=/; Secure; SameSite=None`);
