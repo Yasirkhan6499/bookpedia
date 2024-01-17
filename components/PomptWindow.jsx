@@ -20,7 +20,7 @@ const PromptWindow = ({ heading, action, handlePromptAction, handlePromptCancel,
     
     const getCollections =async ()=>{
       try {
-        const response = await axios.get("/api/books/collections/getCollectionsArray");
+        const response = await axios.post("/api/books/collections/getCollectionsArray");
         const collections = response.data.collections.filter((col)=>col._id!==collectionId);
         console.log("new collections ",collections); 
         setCollectionsArr(collections);
