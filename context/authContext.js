@@ -39,7 +39,7 @@ export const AuthContextProvider = ({children}) => {
     useEffect(()=>{
         const checkTokenData = async ()=>{
             try{
-            const res = await axios.get("/api/users/myprofile");
+            const res = await axios.post("/api/users/myprofile");
             setUserToken(res.data.data?._id || null);
             }catch (error) {
                 if (error.response && error.response.data) {

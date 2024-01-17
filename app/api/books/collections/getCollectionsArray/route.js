@@ -6,7 +6,7 @@ export const POST = async (req,res)=>{
     try {
         // console.log("getCollectionsArrrrrrrrrrrr")
         const userId = GetDataFromToken(req);
-        
+    
         // console.log("userrrIDDDDDD : ",userId);
 
         const collectionsArr = await Collection.find({userId});
