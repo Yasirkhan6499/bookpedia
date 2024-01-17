@@ -152,7 +152,7 @@ const AddItem = () => {
       
       const getCollectionsArr = async ()=>{
         try{
-        const response = await axios.get("/api/books/collections/getCollectionsArray");
+        const response = await axios.post("/api/books/collections/getCollectionsArray");
         setCollections(response.data.collections);
         }catch(error){
           console.log("Couldnt get the collections Array", error.message);
