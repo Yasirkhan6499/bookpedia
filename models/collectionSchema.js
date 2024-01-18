@@ -21,4 +21,7 @@ const CollectionSchema = new mongoose.Schema({
 const Collection = mongoose.models.Collection || 
 mongoose.model('Collection',CollectionSchema);
 
+
+CollectionSchema.index({ userId: 1 }); // Add this line for indexing (Server response time will reduce. Adding it so that 504 error is resolved )
+
 export default Collection;
