@@ -13,6 +13,7 @@ import { MdLibraryBooks, MdCollectionsBookmark, MdExitToApp } from 'react-icons/
 import { AiOutlinePlus, AiOutlineQuestionCircle } from 'react-icons/ai';
 import Cookies from 'js-cookie';
 import Profile from './Profile';
+import axios from 'axios';
 
 const Menu = ({isMobileMenu, isMenuActive, onMenuItemClick}) => {
 
@@ -38,15 +39,18 @@ const Menu = ({isMobileMenu, isMenuActive, onMenuItemClick}) => {
 
     const handleLogout = async()=>{
         try{
-        const response = await fetch("/api/users/logout");
+          const response = await fetch("api/users/logout",{method: "POST"});
         if(response.ok){
 
             Cookies.remove('activeMenuItem'); // Remove the cookie on logout
-            await fetch("/api/users/myprofile");
-            setUserToken(null);
-            router.push("/login");
+           await fetch("/api/users/myprofile",{method: "POST"});
+
+                setUserToken(null);
+                router.push("/login");
+          
+            
             // alert("logout");
-           
+
         }
         }catch(error){
             console.log("Logout Failed", error.message);

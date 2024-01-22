@@ -1,4 +1,5 @@
 import { connectDB } from "@/dbConfig/database"
+import { GetDataFromToken } from "@/helpers/getDataFromToken";
 import Book from "@/models/bookSchema";
 import { NextResponse } from "next/server";
 
@@ -9,8 +10,9 @@ export const POST = async (req, res)=>{
     await connectDB();  
     console.log("itemExistsss11111111");
     const {bookid} = await req.json();
-   
-    const existingBook = await Book.findOne({bookid});
+    const userId = GetDataFromToken(req);
+
+    const existingBook = await Book.findOne({userId,bookid});
     console.log("existingbook: ",existingBook);
     if(existingBook)
     return NextResponse.json({

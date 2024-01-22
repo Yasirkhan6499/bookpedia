@@ -38,6 +38,8 @@ const page = () => {
 
         if(res.data.success){
             triggerToast("Collection Added!", "success");
+            setCollection("");
+            setInputText("");
         }
         else{
             triggerToast(res.data.message, "error");
