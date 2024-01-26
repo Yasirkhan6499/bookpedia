@@ -39,7 +39,7 @@ const Menu = ({isMobileMenu, isMenuActive, onMenuItemClick}) => {
 
     const handleLogout = async()=>{
         try{
-          const response = await fetch("api/users/logout",{method: "POST"});
+          const response = await fetch("/api/users/logout",{method: "POST"});
         if(response.ok){
 
             Cookies.remove('activeMenuItem'); // Remove the cookie on logout

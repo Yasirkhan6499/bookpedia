@@ -44,7 +44,7 @@ const Profile = ({isMobileMenu}) => {
     // handle logging out
 
     const handleLogout = async()=>{
-        const response = await fetch("api/users/logout",{method: "POST"});
+        const response = await fetch("/api/users/logout",{method: "POST"});
         if(response.ok){
             setUserToken(null);
             router.push("/login");

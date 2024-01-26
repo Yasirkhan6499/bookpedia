@@ -131,7 +131,10 @@ p{
 
 /* Collection-section */
 .page-title{
-  @apply  border-b-2 border-gray-200 mb-12;
+  @apply  border-b-2 border-gray-200 mb-12 flex justify-between items-center;
+}
+.page-title-profile{
+  @apply -mt-20 mr-6;
 }
 .page-label{
   @apply text-2xl font-bold;

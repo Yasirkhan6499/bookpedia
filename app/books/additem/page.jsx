@@ -9,10 +9,12 @@ import { useBookListContext } from '@/context/BookListContext';
 import { useBooks } from '@/context/booksContext';
 import { isOnlyNumbers } from '@/helpers/helperMethods';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useBodyContainerContext } from '@/context/bodyContainerContext';
 import ManualEntry from '@/components/ManualEntry';
 import { useToast } from '@/context/ToastContext';
+import Profile from '@/components/Profile';
+import WindowDimensionsContext from '@/context/windowDimensionsContext';
 
 const AddItem = () => {
 
@@ -30,6 +32,8 @@ const AddItem = () => {
 
     // toast
     const { triggerToast } = useToast();
+
+    const { windowWidth } = useContext(WindowDimensionsContext);
 
     // Change the bodyContainerCss here for Library layout
     useEffect(() => {
@@ -165,6 +169,7 @@ const AddItem = () => {
     
     <section className='addItem-section'>
       <div className='page-title'>
+        <div>
         <h2 className='text-4xl font-bold pt-10 md:pt-0' >Add Item</h2>
         {/* Add item options */}
         <div className='flex gap-10 mt-9'>
@@ -175,7 +180,13 @@ const AddItem = () => {
            className={activeTab === 'manual' ? 'border-b-2 text-black border-cyan-500 pb-4  cursor-pointer':" cursor-pointer"} 
           onClick={()=>setActiveTab("manual")}
           >Manual Entry</h3>
-        </div>
+          </div>
+          </div>
+          {/* Profile icon and logout */}
+          <div className="page-title-profile">
+          {(windowWidth>768)?<Profile />:""}
+          </div>
+        
       </div>
         <p className="mb-8"></p>
 
@@ -215,7 +226,7 @@ const AddItem = () => {
             className="page-btn"
             />
         </form>
-        {console.log(booksList)}
+        {/* {console.log(booksList)} */}
         {booksList?<div>
           <h2 className="border-t border-gray-200 pt-6 mt-6 text-5xl">Results</h2>
 
