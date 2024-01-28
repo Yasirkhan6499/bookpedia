@@ -143,7 +143,7 @@ let starCont_css = ` mt-3 ${starContainerCss}`;
         <p className='book-publishDate'>{publishDate}</p>
         <p className='book-pageCount'><span className='text-black font-semibold text-base'>
           </span> 
-        {volumeInfo.pages} Pages</p>
+        {volumeInfo.pageCount} Pages</p>
         <p className='book-publisher'>{volumeInfo.publisher?`(${volumeInfo.publisher})`:""}</p>
         </div>
  

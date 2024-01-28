@@ -7,7 +7,7 @@ import Menu from './Menu';
 import Profile from './Profile';
 
 const MenuMobile = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
   // const [itemNotClicked, setItemNotClicked] = useState(false);
 
   const toggleMenu = () => {

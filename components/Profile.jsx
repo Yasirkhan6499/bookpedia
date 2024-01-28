@@ -3,6 +3,7 @@ import { FaUser } from 'react-icons/fa';
 import axios from 'axios';
 import { useAuthContext } from '@/context/authContext';
 import { useRouter } from 'next/navigation'
+import Cookies from 'js-cookie';
 
 const Profile = ({isMobileMenu}) => {
     const [userName, setUserName] = useState("");
@@ -47,6 +48,8 @@ const Profile = ({isMobileMenu}) => {
         const response = await fetch("/api/users/logout",{method: "POST"});
         if(response.ok){
             setUserToken(null);
+
+            Cookies.remove('activeMenuItem'); // Remove the cookie on logout
             router.push("/login");
         }
     }

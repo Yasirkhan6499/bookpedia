@@ -23,7 +23,7 @@ const Menu = ({isMobileMenu, isMenuActive, onMenuItemClick}) => {
 
     const handleMenuItemClick = (itemName) => {
         setActiveItem(itemName);
-        Cookies.set('activeMenuItem', itemName, { expires: 1 }); // Set the cookie to expire in 1 day
+        Cookies.set('activeMenuItem', itemName); // Set the cookie to expire in 1 day
 
         if(onMenuItemClick) //it is for mobile menu
         onMenuItemClick(); // Call the function passed as a prop
