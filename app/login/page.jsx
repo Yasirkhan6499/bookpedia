@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Input from '@/components/Input';
 import FormHeader from '@/components/FormHeader';
 import Button from '@/components/Button';
@@ -73,6 +73,10 @@ const { triggerToast } = useToast();
 
 
   }
+
+  useEffect(()=>{
+    Cookies.remove('activeMenuItem'); // Remove the cookie
+  },[]);
 
   return (
     <section className="login-section">
