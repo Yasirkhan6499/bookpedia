@@ -6,12 +6,13 @@ import FormHeader from '@/components/FormHeader';
 import Button from '@/components/Button';
 import SwitchAccount from '@/components/SwitchAccount';
 import { useAuthContext } from '@/context/authContext';
-import { getCookie } from "cookies-next";
+
 
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useToast } from '@/context/ToastContext';
+import Cookies from 'js-cookie';
 
 
 const LoginPage = () => {
