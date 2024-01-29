@@ -4,11 +4,12 @@ import Input from '@/components/Input';
 import axios from 'axios';
 import Link from 'next/link';
 import React, { useState, useEffect, useRef } from 'react'
+import { useToast } from '@/context/ToastContext';
 
 const PublishCollection = () => {
     const [collections, setCollections] = useState([]);
     const [selectedCollections, setSelectedCollections] = useState([]);
-    const [urlInput,setUrlInput] = useState("");
+    const [urlInput,setUrlInput] = useState(null);
     const [isInputFocused, setIsInputFocused] = useState(false);
     const [userId, setUserId] = useState("");
     const [fullUrl, setFullUrl] = useState("");
@@ -17,6 +18,9 @@ const PublishCollection = () => {
     // refs
     const collectionsListRef = useRef(null);
     const inputRef = useRef(null);
+
+    // toast
+        const { triggerToast } = useToast();
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -37,7 +41,7 @@ const PublishCollection = () => {
     //   Fetch collections from database 
         const getCollectionsArr = async ()=>{
           try{
-          const response = await axios.get("/api/books/collections/getCollectionsArray");
+          const response = await axios.post("/api/books/collections/getCollectionsArray");
           setCollections(response.data.collections);
           }catch(error){
             console.log("Couldnt get the collections Array", error.message);
@@ -50,7 +54,7 @@ const PublishCollection = () => {
     //   Get user ID
         useEffect(()=>{
             const getUserId = async ()=>{
-                const response = await axios.get("/api/user/getusername");
+                const response = await axios.post("/api/user/getusername");
                 if(response.data.success) 
                     setUserId(response.data.userId);
             }
@@ -65,7 +69,8 @@ const PublishCollection = () => {
         }
 
    // Updated handleSelectCollection function
-    function handleSelectCollection(collectionId, collectionName) {
+    function handleSelectCollection(collectionId, collectionName, event) {
+        event.stopPropagation(); // Add this line to stop event propagation
         // alert("handleSelection")
         setSelectedCollections(prevSelected => {
         const index = prevSelected.findIndex(item => item.id === collectionId);
@@ -82,11 +87,26 @@ const PublishCollection = () => {
 }
 
     async function handlePublish() {
-        try{
-            // alert("publish")
-        const response = await axios.post("/api/publish",{
-            collections: selectedCollections
-        });
+        if(!urlInput){
+            triggerToast("Please input the url!","error");
+            return;
+        }
+        try {
+            // Map over selectedCollections to get just the IDs
+            const selectedCollectionIds = selectedCollections.map(col => col.id);
+    
+            // Map over the collections to get the IDs for the remaining collections
+            let remainingCollectionIds = collections
+                .filter(col => !selectedCollectionIds.includes(col._id))
+                .map(col => col._id);
+    
+            console.log("selected collection IDs: ", selectedCollectionIds);
+            console.log("remaining collection IDs: ", remainingCollectionIds);
+    
+            const response = await axios.post("/api/publish", {
+                selectedCollections: selectedCollectionIds,
+                remainingCollections: remainingCollectionIds
+            });
         // const response = await fetch('/api/publish', {
         //     method: 'POST',
         //     headers: {
@@ -125,6 +145,7 @@ const PublishCollection = () => {
         <section className="publish-section">
             
         <div className='page-title' >
+        <div>
         <h2 className='text-4xl font-bold pt-10 md:pt-0' >Publish</h2>
         {/* Add item options */}
         <div className='flex gap-10 mt-9'>
@@ -132,6 +153,7 @@ const PublishCollection = () => {
           className='border-b-2 text-black border-cyan-500 pb-4 cursor-pointer'>
             Site</h3>
 
+        </div>
         </div>
         </div>
 
@@ -162,7 +184,7 @@ const PublishCollection = () => {
 
         {/*--------------- Select Collections---------------*/}
         <h2 className="text-2xl mt-3">Select Collections to Publish</h2>
-        <label htmlFor='collections-input' className="mt-2 -mb-2 block w-fit">Publish Collections</label>
+        <label htmlFor='collections-input' className="mt-2  block w-fit">Publish Collections</label>
         
         {/* input for collections and collections list */}
         <ul onClick={handleUlClick}
@@ -175,7 +197,7 @@ const PublishCollection = () => {
                 <div className='flex w-fit'>
                 <p>{col.name}</p>
                 <p className="font-bold cursor-pointer text-slate-600"
-                onClick={()=>handleSelectCollection(col.id,col.name)}
+                onClick={(event)=>handleSelectCollection(col.id,col.name,event)}
                 ref={collectionsListRef}
                 >X</p>
                 </div>
@@ -209,7 +231,7 @@ const PublishCollection = () => {
                         <div key={collection._id}>
                         <p
                         className="cursor-pointer py-1 pl-2 hover:bg-cyan-500 hover:text-white"
-                        onClick={() => handleSelectCollection(collection._id, collection.name)}
+                        onClick={(event) => handleSelectCollection(collection._id, collection.name,event)}
                         >
                             {collection.name}
                         </p>
