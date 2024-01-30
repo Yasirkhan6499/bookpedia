@@ -22,6 +22,29 @@ const PublishCollection = () => {
     // toast
         const { triggerToast } = useToast();
 
+        // get the Public collections list
+    useEffect(()=>{
+        const getPublicCollections = async ()=>{
+            try{
+            const res = await axios.get("/api/books/collections/getPublicCollections");
+
+            if(res.data.success){
+                setSelectedCollections(res.data.publicCollections);
+                console.log("publicCollections : ",res.data.publicCollections)
+            }
+            }
+            catch(error){
+                console.log("Error getting the public collections ",error);
+            }
+        }
+        getPublicCollections();
+        
+    },[]);
+
+    useEffect(()=>{
+        console.log("publicCollectionsss : ",selectedCollections)
+    },[selectedCollections])
+
     useEffect(() => {
         function handleClickOutside(event) {
           if (collectionsListRef.current && !collectionsListRef.current.contains(event.target)) {
@@ -73,13 +96,13 @@ const PublishCollection = () => {
         event.stopPropagation(); // Add this line to stop event propagation
         // alert("handleSelection")
         setSelectedCollections(prevSelected => {
-        const index = prevSelected.findIndex(item => item.id === collectionId);
+        const index = prevSelected.findIndex(item => item._id === collectionId);
         if (index !== -1) {
             // Remove the collection if it's already selected
             return [...prevSelected.slice(0, index), ...prevSelected.slice(index + 1)];
         } else {
             // Add the new collection to the array
-            return [...prevSelected, { id: collectionId, name: collectionName }];
+            return [...prevSelected, { _id: collectionId, name: collectionName }];
         }
     });
     // hide the collections list 
@@ -93,7 +116,7 @@ const PublishCollection = () => {
         }
         try {
             // Map over selectedCollections to get just the IDs
-            const selectedCollectionIds = selectedCollections.map(col => col.id);
+            const selectedCollectionIds = selectedCollections.map(col => col._id);
     
             // Map over the collections to get the IDs for the remaining collections
             let remainingCollectionIds = collections
@@ -196,8 +219,8 @@ const PublishCollection = () => {
                 <li className="border-2 bg-slate-200 px-1 cursor-default">
                 <div className='flex w-fit'>
                 <p>{col.name}</p>
-                <p className="font-bold cursor-pointer text-slate-600"
-                onClick={(event)=>handleSelectCollection(col.id,col.name,event)}
+                <p className="font-bold cursor-pointer text-slate-600 pl-1 pb-2"
+                onClick={(event)=>handleSelectCollection(col._id,col.name,event)}
                 ref={collectionsListRef}
                 >X</p>
                 </div>
@@ -223,7 +246,7 @@ const PublishCollection = () => {
             >  
             {collections.map(collection => {
                 // Check if the collection is already selected
-                const isAlreadySelected = selectedCollections.some(selected => selected.id === collection._id);
+                const isAlreadySelected = selectedCollections.some(selected => selected._id === collection._id);
                 
                 // Only render collections that are not already selected
                 if (!isAlreadySelected) {
