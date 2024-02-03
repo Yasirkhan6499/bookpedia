@@ -14,12 +14,15 @@ import { AiOutlinePlus, AiOutlineQuestionCircle } from 'react-icons/ai';
 import Cookies from 'js-cookie';
 import Profile from './Profile';
 import axios from 'axios';
+import { useVisitor } from '@/context/visitorContext';
 
 const Menu = ({isMobileMenu, isMenuActive, onMenuItemClick}) => {
 
     const {userToken, setUserToken} = useAuthContext();
     const router = useRouter();
     const [activeItem, setActiveItem] = useState("library");
+
+    const { isVisitor } = useVisitor();
 
     const handleMenuItemClick = (itemName) => {
         setActiveItem(itemName);
@@ -80,7 +83,7 @@ const Menu = ({isMobileMenu, isMenuActive, onMenuItemClick}) => {
         </div>
         </>:""}
         {/* main menu */}
-        <ul className='main-menu'>
+       {!isVisitor && <ul className='main-menu'>
 
             {/* Library */}
             <div className={isMobileMenu?"-mt-[4rem]":""}>
@@ -139,6 +142,8 @@ const Menu = ({isMobileMenu, isMenuActive, onMenuItemClick}) => {
             isMobileMenu={isMobileMenu}
             />:""}
         </ul>
+      }
+
         </div>
          {/* all rights reserved */}
          <div className={isMobileMenu?"text-center -ml-8 mb-16":"text-center -ml-8 mb-10"}>

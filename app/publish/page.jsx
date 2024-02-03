@@ -5,6 +5,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import React, { useState, useEffect, useRef } from 'react'
 import { useToast } from '@/context/ToastContext';
+import Button from '@/components/Button';
 
 const PublishCollection = () => {
     const [collections, setCollections] = useState([]);
@@ -140,7 +141,7 @@ const PublishCollection = () => {
 
         if (response.data.success) {
            
-            
+            triggerToast("Collections published!","success");
             console.log("public urls:",response.data.publicUrls);
             // TODO: Do something with the public URLs, such as displaying them
         }
@@ -186,7 +187,7 @@ const PublishCollection = () => {
         <div className="flex flex-wrap mt-3">
              <p className="italic text-base">View or share your published library URL : </p>
             <Link className="text-cyan-700" href={fullUrl} target='_blank' rel="noopener noreferrer">
-                {` http://localhost:3000/publish/${userId}/${urlInput}`} 
+                {` http://localhost:3000/publish/${userId}/${urlInput || ""}`} 
             </Link>
         </div>
             
@@ -266,7 +267,13 @@ const PublishCollection = () => {
             }
             </ul>
             
-            <button onClick={handlePublish}>Publish Selected</button>
+            <Button
+            width="w-auto"
+            title={"Publish"}
+            onClick={handlePublish}
+            className="page-btn !mt-5"
+            />
+            {/* <button onClick={handlePublish}>Publish Selected</button> */}
         </section>
     );
 

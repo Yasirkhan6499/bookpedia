@@ -7,6 +7,7 @@ import { ToastProvider } from '@/context/ToastContext';
 import { AuthContextProvider } from '@/context/authContext';
 import { BodyContainerProvider } from '@/context/bodyContainerContext';
 import { BooksProvider } from '@/context/booksContext';
+import { VisitorProvider } from '@/context/visitorContext';
 import { WindowDimensionsProvider } from '@/context/windowDimensionsContext';
 
 export const metadata = {
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
       <WindowDimensionsProvider>
       <ToastProvider>
       <BodyContainerProvider>
+        <VisitorProvider>
         <AuthContextProvider>
         <BookListProvider>
         <BooksProvider>
@@ -30,6 +32,7 @@ export default function RootLayout({ children }) {
         </BooksProvider>
         </BookListProvider>
         </AuthContextProvider>
+        </VisitorProvider>
         </BodyContainerProvider>
         </ToastProvider>
         </WindowDimensionsProvider>
