@@ -7,7 +7,14 @@ export const POST = async (req,res)=>{
     connectDB();
     try {
         console.log("reacheddddddddddddddddddddddddddddddd")
-        const userId = GetDataFromToken(req);
+
+        let userId;
+        const reqBody = await req.json(); 
+        if(reqBody && reqBody.userId)
+        userId = reqBody.userId; //For Published books to be viewed for the visitor
+        else
+        userId = GetDataFromToken(req); //online user getting his books
+
         console.log("userIddddddddddddddd", userId)
         const books = await Book.find({userId})
 
@@ -18,6 +25,7 @@ export const POST = async (req,res)=>{
             books
         })
     } catch (error) {
+        console.log("error: ",error);
         return NextResponse.json({error:error.message},{status:500});
     }
 }

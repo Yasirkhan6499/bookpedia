@@ -15,6 +15,7 @@ import Cookies from 'js-cookie';
 import Profile from './Profile';
 import axios from 'axios';
 import { useVisitor } from '@/context/visitorContext';
+import VisitorMenu from './VisitorMenu';
 
 const Menu = ({isMobileMenu, isMenuActive, onMenuItemClick}) => {
 
@@ -143,6 +144,9 @@ const Menu = ({isMobileMenu, isMenuActive, onMenuItemClick}) => {
             />:""}
         </ul>
       }
+
+      {/* visitor menu */}
+      {isVisitor &&  <VisitorMenu />}
 
         </div>
          {/* all rights reserved */}

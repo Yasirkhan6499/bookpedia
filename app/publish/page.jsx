@@ -27,7 +27,9 @@ const PublishCollection = () => {
     useEffect(()=>{
         const getPublicCollections = async ()=>{
             try{
-            const res = await axios.get("/api/books/collections/getPublicCollections");
+            const res = await axios.post("/api/books/collections/getPublicCollections",{
+                viewedUserId: null
+            });
 
             if(res.data.success){
                 setSelectedCollections(res.data.publicCollections);

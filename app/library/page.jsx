@@ -64,7 +64,9 @@ useEffect(() => {
 useEffect(() => {
   
   const fetchBooksArr = async () => {
-    const response = await axios.post("/api/books/getBooks");
+    const response = await axios.post("/api/books/getBooks",{
+      userId: null
+    });
     if (response.data.success){
       // alert("Data fetched!")
       setAllBooks(response.data.books);

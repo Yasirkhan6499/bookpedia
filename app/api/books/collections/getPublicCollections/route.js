@@ -5,12 +5,19 @@ import Collection from './../../../../../models/collectionSchema';
 import { GetDataFromToken } from "@/helpers/getDataFromToken";
 
 
-export const GET = async (req,res)=>{
+export const POST = async (req,res)=>{
 
     try{
         connectDB();
         // userId
-      const userId = GetDataFromToken(req);  
+        let userId;
+        const requestBody = await req.json(); // //if a visitor is viewing the public collections do this
+        if (requestBody && requestBody.viewedUserId) {
+            userId = requestBody.viewedUserId; // Extract the id from the request body
+        } else { //if user is accessing his public collections to be showing in the select input on /publish page
+            userId = GetDataFromToken(req); // Fallback to getting userId from token
+        }
+    
       const publicCollections = await Collection.find({userId,public: true });
 
       return NextResponse.json({
