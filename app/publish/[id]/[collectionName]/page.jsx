@@ -4,13 +4,30 @@ import { useVisitor } from "@/context/visitorContext";
 import WindowDimensionsContext from "@/context/windowDimensionsContext";
 import { useContext, useEffect, useState } from "react";
 
+const groupBooksByAlphabet = (books)=>{
+  return books.reduce((acc, book)=>{
+    // get the first letter of title, uppercased
+    const firstLetter = book.title[0].toUpperCase();
+    // if there is no property of this letter, created an empty array
+    if(!acc[firstLetter])
+    acc[firstLetter]=[];
+
+    // push the current book whose first alphabaet in title is same as the prperty
+    acc[firstLetter].push(book);
+
+    return acc;
+
+  },{});
+}
+
 
 const PublishedCollectionsPage = ({params})=>{
 
   const [books, setBooks] = useState(null);  
+  const [groupedBooks, setGroupedBooks] = useState({});
           // for optimzation in different screens
   const { windowWidth } = useContext(WindowDimensionsContext);
-  const { setIsVisitor, setViewedUserId, viewedUserBooks } = useVisitor();
+  const { setIsVisitor, setViewedUserId, viewedUserBooks,visitorSelectedCol   } = useVisitor();
 
   useEffect(() => {
     setIsVisitor(true);
@@ -22,11 +39,16 @@ const PublishedCollectionsPage = ({params})=>{
     return () => setIsVisitor(false);
   }, []);
 
-  // set books
+  //Group and set books
   useEffect(()=>{
-    setBooks(viewedUserBooks);
+    // setBooks(viewedUserBooks);
+    if(viewedUserBooks){
+      const filteredBooks = viewedUserBooks.filter(book=>book.collectionId===visitorSelectedCol);
+      const grouped = groupBooksByAlphabet(filteredBooks);
+      setGroupedBooks(grouped);
+    }
     console.log("viewedUserBooks: ",viewedUserBooks);
-  },[viewedUserBooks]);
+  },[viewedUserBooks, visitorSelectedCol]);
 
     return(
       <div>
@@ -41,27 +63,46 @@ const PublishedCollectionsPage = ({params})=>{
             
         </div>
 
-        // book results
-        <div>
-              {books && books.map(book=>{
+        {/* book results */}
+
+        <div className="mt-10">
+              {Object.keys(groupedBooks).sort().map(letter=>{
+
                 return(
-                 <BookResult //------------Cover Layout Style------------------------
-                 book={book}
-                //  collection={selectedCollection}
-                 titleCss={"!text-base border-none w-fit text-slate-500 -mb-2 mt-8 custom-md:mt-3  "}
-                 imgCss={"w-[8rem] -mb-9 min-w-[7rem] h-[190px] cursor-pointer hover:shadow-2xl hover:-translate-y-2 hover:brightness-75 transition duration-300 ease-in-out "}
-                 starSize={"20px"}
-                 descReviewCss={"!-mt-[0.3rem] font-semibold"}
-                 isBookEdit={false}
-                //  handleEditIcon={handleEditIcon}
-                 isListStyle={false}
-                 isCoverStyle={true}
-                 bookContainerCss={"!flex-col "}
-                 authorCss={"text-xs"}
-                 starContainerCss={"hidden"}
-                 />
+                <div key={letter}> 
+                <h2 className="border-b-2 border-slate-200 text-cyan-500">
+                  {letter}
+                </h2>
+                <div className="flex flex-wrap ">
+                {groupedBooks[letter].map(book=>{
+                  return(
+                  
+                    <BookResult //------------Cover Layout Style------------------------
+                    book={book}
+                    key={book._id}
+                   //  collection={selectedCollection}
+                    titleCss={"!text-base border-none w-fit text-slate-500 -mb-2 mt-8 custom-md:mt-3  "}
+                    imgCss={"w-[8rem] -mb-9 min-w-[7rem] h-[190px] cursor-pointer hover:shadow-2xl hover:-translate-y-2 hover:brightness-75 transition duration-300 ease-in-out "}
+                    starSize={"20px"}
+                    descReviewCss={"!-mt-[0.3rem] font-semibold"}
+                    isBookEdit={false}
+                   //  handleEditIcon={handleEditIcon}
+                    isListStyle={false}
+                    isCoverStyle={true}
+                    bookContainerCss={"!flex-col "}
+                    authorCss={"text-xs"}
+                    starContainerCss={"hidden"}
+                    />
+                   
+                   )
+                })} </div>
+                  
+                </div>
                 )
+                
               })}
+                
+              
             </div>
 
           </div>
