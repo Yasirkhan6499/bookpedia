@@ -8,11 +8,11 @@ const groupBooksByAlphabet = (books)=>{
   return books.reduce((acc, book)=>{
     // get the first letter of title, uppercased
     const firstLetter = book.title[0].toUpperCase();
-    // if there is no property of this letter, created an empty array
+    // if there is no property of this letter, create an empty array
     if(!acc[firstLetter])
     acc[firstLetter]=[];
 
-    // push the current book whose first alphabaet in title is same as the prperty
+    // push the current book whose first alphabaet in title is same as the property
     acc[firstLetter].push(book);
 
     return acc;

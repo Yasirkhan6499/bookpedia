@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/dbConfig/database";
 import Collection from './../../../../../models/collectionSchema';
 import { GetDataFromToken } from "@/helpers/getDataFromToken";
+import Book from "@/models/bookSchema";
 
 
 export const POST = async (req,res)=>{
@@ -20,10 +21,29 @@ export const POST = async (req,res)=>{
     
       const publicCollections = await Collection.find({userId,public: true });
 
+      console.log("publicCollections :",publicCollections);
+    //   Now get the totla number of books in each collection
+
+    // Use Promise.all to wait for all promises from the map to resolve
+        const booksInCollectionArr = await Promise.all(
+        publicCollections.map(async (col) => {
+          const totalBooks = await Book.count({ collectionId: col._id });
+          return totalBooks;
+        })
+      );
+
+       // Combine the publicCollections with their respective totalBooks count
+    const publicCollectionsWithBookCount = publicCollections.map((collection, index) => ({
+        ...collection.toObject(), // Assuming Mongoose documents, convert to plain object
+        totalBooks: booksInCollectionArr[index]
+      }));
+
+       console.log("BooksInCollectionArr :",booksInCollectionArr);
+
       return NextResponse.json({
         message: "Found Public Collections",
         success: true,
-        publicCollections
+        publicCollections:publicCollectionsWithBookCount
       })
 
 

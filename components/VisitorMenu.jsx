@@ -82,8 +82,13 @@ const VisitorMenu = () => {
               else bg_color=""; 
 
               return(
-                <p className={`${borderClass} ${bg_color}`}
-                 onClick={()=>handleCollectionClick(col._id)}>{col.name}</p>
+                <div onClick={()=>handleCollectionClick(col._id)} 
+                className={`${borderClass} ${bg_color} flex justify-between`}>
+                  {/* collection name */}
+                <p>{col.name}</p>
+                  {/* total number of books in collection */}
+                <p>({col.totalBooks})</p>  
+                </div>
               );
            })}
         </div>

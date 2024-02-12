@@ -27,6 +27,9 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    publishCollectionsTitle:{
+        type: String
+    },
 
     forgotPasswordToken: String,
     forgotPasswordTokenExpiry: Date,

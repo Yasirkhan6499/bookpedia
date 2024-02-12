@@ -44,9 +44,23 @@ const PublishCollection = () => {
         
     },[]);
 
+    // get the Publish Collections title
     useEffect(()=>{
-        console.log("publicCollectionsss : ",selectedCollections)
-    },[selectedCollections])
+        const getPublishCollectionsTitle = async ()=>{
+            try{
+            const res = await axios.get("/api/publish/getPublishTitle");
+            
+            if(res.data.success){
+                setUrlInput(res.data.publishTitle);
+            }
+        }catch(error){
+            console.log("Error getting the publish title, ",error);
+        }
+        }
+
+        getPublishCollectionsTitle();
+
+    },[])
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -131,7 +145,8 @@ const PublishCollection = () => {
     
             const response = await axios.post("/api/publish", {
                 selectedCollections: selectedCollectionIds,
-                remainingCollections: remainingCollectionIds
+                remainingCollections: remainingCollectionIds,
+                publishCollectionsTitle: urlInput
             });
         // const response = await fetch('/api/publish', {
         //     method: 'POST',
