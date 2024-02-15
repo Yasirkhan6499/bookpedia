@@ -23,7 +23,7 @@ const groupBooksByAlphabet = (books)=>{
 
 const PublishedCollectionsPage = ({params})=>{
 
-  const [books, setBooks] = useState(null);  
+  // const [books, setBooks] = useState(null);  
   const [groupedBooks, setGroupedBooks] = useState({});
           // for optimzation in different screens
   const { windowWidth } = useContext(WindowDimensionsContext);
@@ -54,9 +54,9 @@ const PublishedCollectionsPage = ({params})=>{
       <div>
         <div className={`flex ${windowWidth<=768?"justify-center items-center":"justify-between"}  
       ${windowWidth<=768?"fixed bottom-0 w-[120.79%] -ml-[1rem] mt-10 ":"sticky top-0 -ml-[4.4rem]"}  
-      xl:w-[106%] p-4 ${windowWidth<=512?"pl-6":"pl-14"} 
+      xl:w-[106%] p-2 sm:p-4 ${windowWidth<=512?"pl-6":"pl-14"} 
       -ml-[4.4rem] -mt-7 shadow-md bg-cyan-500  z-10`}>
-            <p className="text-white">
+            <p className="text-white text-lg sm:text-xl">
                 {decodeURIComponent(params.collectionName)}
 
             </p>   

@@ -7,10 +7,10 @@ export const POST = async (req,res)=>{
         console.log("getCollectionsArrrrrrrrrrrr")
         const userId = GetDataFromToken(req);
     
-        console.log("userrrIDDDDDD : ",userId);
+        // console.log("userrrIDDDDDD : ",userId);
 
         const collectionsArr = await Collection.find({userId});
-        console.log("collectionssssARRRRR : ",collectionsArr);
+        // console.log("collectionssssARRRRR : ",collectionsArr);
         return NextResponse.json({
             message:"Successfully got the collections array",
             collections: collectionsArr

@@ -10,11 +10,12 @@ import Button from '@/components/Button';
 const PublishCollection = () => {
     const [collections, setCollections] = useState([]);
     const [selectedCollections, setSelectedCollections] = useState([]);
-    const [urlInput,setUrlInput] = useState(null);
+    const [urlInput,setUrlInput] = useState("");
     const [isInputFocused, setIsInputFocused] = useState(false);
     const [userId, setUserId] = useState("");
     const [fullUrl, setFullUrl] = useState("");
     const [CollectionSearch, setCollectionSearch] = useState("");
+    const [inputSize, setInputSize] = useState(1);
 
     // refs
     const collectionsListRef = useRef(null);
@@ -52,6 +53,7 @@ const PublishCollection = () => {
             
             if(res.data.success){
                 setUrlInput(res.data.publishTitle);
+                // setFullUrl(fullUrl+res.data.publishTitle);
             }
         }catch(error){
             console.log("Error getting the publish title, ",error);
@@ -89,8 +91,8 @@ const PublishCollection = () => {
         }
         getCollectionsArr();
         // setting full url
-        setFullUrl(`http://localhost:3000/publish/${userId}/`);
-      },[userId]);
+        setFullUrl(`http://localhost:3000/publish/${userId}/${urlInput?urlInput:""}`);
+      },[userId,urlInput]);
     //   Get user ID
         useEffect(()=>{
             const getUserId = async ()=>{
@@ -169,11 +171,17 @@ const PublishCollection = () => {
     }
     }
 
+    // setting the size of the input field containing "Public Collections name"
+    useEffect(()=>{
+        setInputSize(urlInput?.length > 0 ? urlInput.length + 1 : 1);
+    },[urlInput]);
    
 //   Handling URL Input
         const handleUrlInput = (userUrl)=>{
             setFullUrl(`http://localhost:3000/publish/${userId}/${userUrl}`);
             setUrlInput(userUrl);
+            // alert(urlInput.length);
+             
         }
 
         // handling ul clicked so that the collection list is shown and the input is focused
@@ -181,6 +189,10 @@ const PublishCollection = () => {
             setIsInputFocused(true);
             inputRef.current?.focus(); // Focus the input
         };
+
+          // Calculate the size based on the input length
+         //  adjust the base size and the increment factor as needed
+        
 
     return (
         <section className="publish-section">
@@ -201,24 +213,26 @@ const PublishCollection = () => {
         {/* -----Publish Site URL------------ */}
 
         <h2 className="text-2xl">Your Public Site URL</h2>
-        <div className="flex flex-wrap mt-3">
-             <p className="italic text-base">View or share your published library URL : </p>
-            <Link className="text-cyan-700" href={fullUrl} target='_blank' rel="noopener noreferrer">
-                {` http://localhost:3000/publish/${userId}/${urlInput || ""}`} 
+        <div className="flex flex-wrap mt-3 custom-sm:text-sm">
+             <p className="italic text-base custom-sm:text-sm">View or share your published library URL : </p>
+            <Link className="text-cyan-700 custom-sm:text-sm w-100" href={fullUrl} target='_blank' rel="noopener noreferrer">
+                {` http://localhost:3000/publish/u/${urlInput || ""}`} 
             </Link>
         </div>
             
-        <div className='flex flex-wrap items-center gap-0'>     
-            <div className='border-2 p-2 rounded-mds bg-slate-200'>
-             <p>{`http://localhost:3000/publish/${userId}/`}</p>   
+        <div className='flex flex-wrap custom-sm3:flex-nowrap items-center gap-0 '>     
+            <div className='border-2 p-2 rounded-mds bg-slate-200 '>
+             <p className="custom-sm:text-sm">
+                {`http://localhost:3000/publish/u/`}
+            </p>   
             </div>
             <Input 
             type="text" 
             id="userUrl" 
             onChange={(e)=>handleUrlInput(e.target.value)}
             value={urlInput}
-            className={"w-fit -ml-2 font-bold"}
-        
+            className={`w-[120px] sm:w-fit text-sm sm:text-base -ml-2 font-bold`}
+            maxLength={15}
             />
         </div>
         {/* ---------------------------------------------- */}
@@ -230,7 +244,7 @@ const PublishCollection = () => {
         {/* input for collections and collections list */}
         <ul onClick={handleUlClick}
         
-        className="relative w-[70%] flex gap-2 items-center border-2 rounded-md ">
+        className="relative w-[70%] flex flex-wrap gap-2 items-center border-2 rounded-md ">
             {/* dynamic collections list */}
            {selectedCollections && selectedCollections.map((col)=>{
                 return(
@@ -296,4 +310,4 @@ const PublishCollection = () => {
 
 }
 
-export default PublishCollection
+export default PublishCollection;

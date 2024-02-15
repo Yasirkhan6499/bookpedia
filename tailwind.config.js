@@ -15,6 +15,7 @@ module.exports = {
       screens: {
         'custom-sm2': '350px',
         'custom-sm': '334px',
+        'custom-sm3': '355px',
         'custom-md': '513px',
         'custom-md2': '768px',
         'custom-lg': '830px',

@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-const Input = forwardRef(({ type, id, placeholder, onChange, value, className,maxLength, maxDigits, onFocus, onBlur }, ref) => {
+const Input = forwardRef(({ type, id, placeholder, onChange, value, className,maxLength, maxDigits, onFocus, onBlur,size }, ref) => {
   return (
     <React.Fragment>
       <input
@@ -17,6 +17,7 @@ const Input = forwardRef(({ type, id, placeholder, onChange, value, className,ma
         max={maxDigits}
         onFocus={onFocus}
         onBlur={onBlur}
+        size={size}
       />
     </React.Fragment>
   );
