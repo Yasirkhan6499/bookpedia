@@ -216,14 +216,14 @@ const PublishCollection = () => {
         <div className="flex flex-wrap mt-3 custom-sm:text-sm">
              <p className="italic text-base custom-sm:text-sm">View or share your published library URL : </p>
             <Link className="text-cyan-700 custom-sm:text-sm w-100" href={fullUrl} target='_blank' rel="noopener noreferrer">
-                {` https://booklib-rho.vercel.app/publish/u/${urlInput || ""}`} 
+                {` booklib-rho.vercel.app/publish/u/${urlInput || ""}`} 
             </Link>
         </div>
             
         <div className='flex flex-wrap custom-sm3:flex-nowrap items-center gap-0 '>     
             <div className='border-2 p-2 rounded-mds bg-slate-200 '>
              <p className="custom-sm:text-sm">
-                {`https://booklib-rho.vercel.app/publish/u/`}
+                {`booklib-rho.vercel.app/publish/u/`}
             </p>   
             </div>
             <Input 
