@@ -91,7 +91,7 @@ const PublishCollection = () => {
         }
         getCollectionsArr();
         // setting full url
-        setFullUrl(`http://localhost:3000/publish/${userId}/${urlInput?urlInput:""}`);
+        setFullUrl(`https://booklib-rho.vercel.app/publish/${userId}/${urlInput?urlInput:""}`);
       },[userId,urlInput]);
     //   Get user ID
         useEffect(()=>{
@@ -178,7 +178,7 @@ const PublishCollection = () => {
    
 //   Handling URL Input
         const handleUrlInput = (userUrl)=>{
-            setFullUrl(`http://localhost:3000/publish/${userId}/${userUrl}`);
+            setFullUrl(`https://booklib-rho.vercel.app/publish/${userId}/${userUrl}`);
             setUrlInput(userUrl);
             // alert(urlInput.length);
              
@@ -216,14 +216,14 @@ const PublishCollection = () => {
         <div className="flex flex-wrap mt-3 custom-sm:text-sm">
              <p className="italic text-base custom-sm:text-sm">View or share your published library URL : </p>
             <Link className="text-cyan-700 custom-sm:text-sm w-100" href={fullUrl} target='_blank' rel="noopener noreferrer">
-                {` http://localhost:3000/publish/u/${urlInput || ""}`} 
+                {` https://booklib-rho.vercel.app/publish/u/${urlInput || ""}`} 
             </Link>
         </div>
             
         <div className='flex flex-wrap custom-sm3:flex-nowrap items-center gap-0 '>     
             <div className='border-2 p-2 rounded-mds bg-slate-200 '>
              <p className="custom-sm:text-sm">
-                {`http://localhost:3000/publish/u/`}
+                {`https://booklib-rho.vercel.app/publish/u/`}
             </p>   
             </div>
             <Input 
