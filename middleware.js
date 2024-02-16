@@ -18,6 +18,7 @@ export const config = {
   matcher: [
    
     '/library',
+    '/publish',
     '/profile/:path*',
     '/login/:path*',
     '/signup/:path*',

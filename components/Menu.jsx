@@ -120,12 +120,14 @@ const Menu = ({isMobileMenu, isMenuActive, onMenuItemClick}) => {
            </Link>
            
            {/* support */}
-           <div className={activeItem==="support"?"active-item":'item-container'}  
-           onClick={()=>handleMenuItemClick("support")}>
+           <Link href="/publish">
+           <div className={activeItem==="publish"?"active-item":'item-container'}  
+           onClick={()=>handleMenuItemClick("publish")}>
             <FaLifeRing className={item_icon_css}/> 
             <li className={main_menu_item_css}>
-                Support</li>
+                Publish</li>
             </div>
+            </Link>
 
             {/* logout */}
             {!isMobileMenu && 
@@ -146,7 +148,10 @@ const Menu = ({isMobileMenu, isMenuActive, onMenuItemClick}) => {
       }
 
       {/* visitor menu */}
-      {isVisitor &&  <VisitorMenu />}
+      {isVisitor &&  
+      <VisitorMenu 
+      onMenuItemClick={onMenuItemClick}
+      />}
 
         </div>
          {/* all rights reserved */}

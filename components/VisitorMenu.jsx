@@ -5,7 +5,7 @@ import { useVisitor } from "@/context/visitorContext";
 import axios from 'axios';
 
 
-const VisitorMenu = () => {
+const VisitorMenu = ({onMenuItemClick}) => {
     const [publishCollections, setPublishCollections] = useState();
     // const [books, setBooks] = useState();
     // const [selectedCollectionId,setSelectedCollectionId] = useState("");
@@ -62,6 +62,10 @@ const VisitorMenu = () => {
 
   const handleCollectionClick = (collectionId)=>{
     setVisitorSelectedCol(collectionId);
+
+    if(onMenuItemClick) //it is for mobile menu
+    onMenuItemClick(); // Call the function passed as a prop
+
     console.log("selected col",collectionId);
   }
 
