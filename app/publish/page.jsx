@@ -3,9 +3,11 @@
 import Input from '@/components/Input';
 import axios from 'axios';
 import Link from 'next/link';
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import { useToast } from '@/context/ToastContext';
 import Button from '@/components/Button';
+import Profile from '@/components/Profile';
+import WindowDimensionsContext from '@/context/windowDimensionsContext';
 
 const PublishCollection = () => {
     const [collections, setCollections] = useState([]);
@@ -23,6 +25,8 @@ const PublishCollection = () => {
 
     // toast
         const { triggerToast } = useToast();
+    // secreen width
+    const { windowWidth } = useContext(WindowDimensionsContext);
 
         // get the Public collections list
     useEffect(()=>{
@@ -208,6 +212,10 @@ const PublishCollection = () => {
 
         </div>
         </div>
+           {/* Profile icon and logout */}
+           <div className="page-title-profile">
+          {(windowWidth>768)?<Profile />:""}
+          </div>
         </div>
 
         {/* -----Publish Site URL------------ */}
