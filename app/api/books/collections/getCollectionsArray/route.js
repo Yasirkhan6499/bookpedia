@@ -1,9 +1,11 @@
+import { connectDB } from "@/dbConfig/database";
 import { GetDataFromToken } from "@/helpers/getDataFromToken";
 import Collection from "@/models/collectionSchema";
 import { NextResponse } from "next/server"
 
 export const POST = async (req,res)=>{
     try {
+        connectDB();
         console.log("getCollectionsArrrrrrrrrrrr")
         const userId = GetDataFromToken(req);
     

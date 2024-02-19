@@ -84,7 +84,10 @@ useEffect(()=>{
   const fetchCollectionsArr = async ()=>{
     try{
       
-    const response = await axios.post("/api/books/collections/getCollectionsArray");
+    // Note: Adding a timeout of 10000 milliseconds (10 seconds)
+    const response = await axios.post("/api/books/collections/getCollectionsArray", {}, {
+      timeout: 10000
+    });
     const CollectionsList = response.data.collections;
     setCollections(CollectionsList);
     // setting a default collection
@@ -93,6 +96,15 @@ useEffect(()=>{
     
     }catch(error){
       console.log(error.message);
+
+      // Handling a timeout specifically
+      if (error.code === 'ECONNABORTED') {
+        console.log('The request took too long and was aborted.');
+        // Handle the timeout specifically (e.g., retry the request, alert the user, etc.)
+      } else {
+        // Handle other errors
+        console.log('An error occurred while fetching collections:', error);
+      }
     }
   }
   fetchCollectionsArr();
