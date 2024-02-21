@@ -222,15 +222,15 @@ const PublishCollection = () => {
 
         <h2 className="text-2xl">Your Public Site URL</h2>
         <div className="flex flex-wrap mt-3 custom-sm:text-sm">
-             <p className="italic text-base custom-sm:text-sm">View or share your published library URL : </p>
-            <Link className="text-cyan-700 custom-sm:text-sm w-100" href={fullUrl} target='_blank' rel="noopener noreferrer">
-                {` booklib-rho.vercel.app/publish/u/${urlInput || ""}`} 
+             <p className="italic text-sm sm:text-base ">View or share your published library URL : </p>
+            <Link className="text-cyan-700 text-xs custom-sm4:text-sm sm:text-base" href={fullUrl} target='_blank' rel="noopener noreferrer">
+                {` booklib-rho.vercel.app/publish/${userId}/${urlInput || ""}`} 
             </Link>
         </div>
             
         <div className='flex flex-wrap custom-sm3:flex-nowrap items-center gap-0 '>     
             <div className='border-2 p-2 rounded-mds bg-slate-200 '>
-             <p className="custom-sm:text-sm">
+             <p className="text-sm sm:text-base">
                 {`booklib-rho.vercel.app/publish/u/`}
             </p>   
             </div>
