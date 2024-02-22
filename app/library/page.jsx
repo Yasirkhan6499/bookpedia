@@ -19,6 +19,8 @@ import FilterUpDown from '@/components/FilterUpDown';
 import { sortBooks } from '@/helpers/sortBooks';
 import Profile from '@/components/Profile';
 import WindowDimensionsContext from '@/context/windowDimensionsContext';
+import { ColorRing } from 'react-loader-spinner';
+import { useToast } from '@/context/ToastContext';
 
 const Library = () => {
 
@@ -39,6 +41,9 @@ const { windowWidth } = useContext(WindowDimensionsContext);
 
 // body container Context :=> to change the css of bodyContainer
 const {bodyContainerCss, setBodyContainerCss} = useBodyContainerContext();
+// toast
+const { triggerToast } = useToast(); 
+
 // Change the bodyContainerCss here for Library layout
 useEffect(() => {
    setBodyContainerCss("xl:right-12");
@@ -62,8 +67,12 @@ useEffect(() => {
 
 // fetching books
 useEffect(() => {
-  
+ 
   const fetchBooksArr = async () => {
+
+    setIsLoading(true);
+
+    try{
     const response = await axios.post("/api/books/getBooks",{
       userId: null
     });
@@ -74,6 +83,14 @@ useEffect(() => {
 
       
     }
+    else setIsLoading(false);
+  }catch(error){
+    triggerToast("Books Fetching Failed. Try Refreshing The Page!",'error');
+    console.log("error message",error);
+  } finally{
+
+    setIsLoading(false);
+  }
   };
   fetchBooksArr();
 }, []);
@@ -370,7 +387,18 @@ const getLayoutStyleIcon = ()=>{
       </div>
 
       {/* books in library */}
-      {(booksUpdated?getBooksList(booksUpdated):
+      {isLoading?
+        <div className="flex justify-center">
+        <ColorRing
+            visible={true}
+            height="150"
+            width="150"
+            ariaLabel="color-ring-loading"
+            wrapperStyle={{}}
+            wrapperClass="color-ring-wrapper"
+            colors={['#22d3ee', '#22d3ee', '#22d3ee', '#22d3ee', '#22d3ee']}
+          /></div>
+        :(booksUpdated?getBooksList(booksUpdated):
       <p className='text-center font-semibold text-xl'>No Books Available!</p>
       )}
         

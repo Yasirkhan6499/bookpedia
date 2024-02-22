@@ -15,6 +15,7 @@ import ManualEntry from '@/components/ManualEntry';
 import { useToast } from '@/context/ToastContext';
 import Profile from '@/components/Profile';
 import WindowDimensionsContext from '@/context/windowDimensionsContext';
+import {ColorRing, Loader} from 'react-loader-spinner';
 
 const AddItem = () => {
 
@@ -35,6 +36,9 @@ const AddItem = () => {
 
     const { windowWidth } = useContext(WindowDimensionsContext);
 
+    // loading state
+    const [isLoading, setIsLoading] = useState(false);
+
     // Change the bodyContainerCss here for Library layout
     useEffect(() => {
       setBodyContainerCss("xl:right-2");
@@ -46,6 +50,8 @@ const AddItem = () => {
     // search the books
     const handleSearch = async (e)=>{
       e.preventDefault();
+
+      setIsLoading(true);
 
       if (searchTitle) {
        
@@ -68,11 +74,16 @@ const AddItem = () => {
                 // console.log(books)
               } catch (err) {
                   if(err.response && err.response.status === 429) {
-                    alert('You have made too many requests. Please wait a while and try again.');
+                    triggerToast('You have made too many requests. Please wait a while and try again.',"error");
                     } else {
                         console.log(err.message);
                     }
+              } finally {
+                setIsLoading(false); //end loading
               }
+            }
+            else{
+              setIsLoading(false); //ensure loading is false if searchTitle is not valid
             }
     }
 
@@ -227,7 +238,19 @@ const AddItem = () => {
             />
         </form>
         {/* {console.log(booksList)} */}
-        {booksList?<div>
+        {isLoading ? (
+        <div className="flex justify-center items-center">
+          <ColorRing
+            visible={true}
+            height="150"
+            width="150"
+            ariaLabel="color-ring-loading"
+            wrapperStyle={{}}
+            wrapperClass="color-ring-wrapper"
+            colors={['#22d3ee', '#22d3ee', '#22d3ee', '#22d3ee', '#22d3ee']}
+          />
+        </div>
+        ) :booksList?<div>
           <h2 className="border-t border-gray-200 pt-6 mt-6 text-5xl">Results</h2>
 
 
