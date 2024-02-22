@@ -13,6 +13,7 @@ export const POST = async (req,res)=>{
 
        return NextResponse.json({
         message: "Book fetched successfully!",
+        success: true,
         bookData: existingBook
        })
     } catch (error) {

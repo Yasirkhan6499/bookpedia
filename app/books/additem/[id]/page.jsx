@@ -4,7 +4,8 @@ import BookEdit from "@/components/BookEdit";
 import axios from "axios";
 import { useEffect, useState } from "react"
 import { useRouter } from 'next/navigation'; // Importing useRouter
-
+import { useToast } from "@/context/ToastContext";
+import {ColorRing, Loader} from 'react-loader-spinner';
 const page = ({params}) => {
 
   const router = useRouter(); // Initializing useRouter
@@ -32,8 +33,13 @@ const page = ({params}) => {
 
   const [book, setBook] = useState();
   const [collection, setCollection] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
+  // taost
+  const { triggerToast } = useToast();
   useEffect( ()=>{
+    setIsLoading(true);
+
     try{
       // get the book
     const getBookData = async ()=>{
@@ -42,6 +48,7 @@ const page = ({params}) => {
     });
     // alert("book data")
     console.log("bookData :",response.data.bookData);
+    if(response.data.success){
     setBook(response.data.bookData);
 
     // get the collection of the book
@@ -51,20 +58,35 @@ const page = ({params}) => {
     console.log("Single Book Collection:", response2.data.collection);
 
     setCollection(response2.data.collection);
+  }else{
+    setIsLoading(false);
+  }
   }
   getBookData();
 }catch(error){
+  triggerToast("Couldn't Fetch The Book. Try Refreshing The Page!")
   console.log(error);
+} finally{
+  setIsLoading(false);
 }
   },[])
 
   return (
     <div>
-      {book?<BookEdit 
-      book={book}
-      collection={collection}
-      cancelBtnUrl={returnUrl?returnUrl:"/books/additem"}
-      />:""}
+      {isLoading?<ColorRing
+            visible={true}
+            height="150"
+            width="150"
+            ariaLabel="color-ring-loading"
+            wrapperStyle={{}}
+            wrapperClass="color-ring-wrapper"
+            colors={['#22d3ee', '#22d3ee', '#22d3ee', '#22d3ee', '#22d3ee']}
+          />
+        :book?<BookEdit 
+          book={book}
+          collection={collection}
+          cancelBtnUrl={returnUrl?returnUrl:"/books/additem"}
+          />:""}
       
     </div>
   )
