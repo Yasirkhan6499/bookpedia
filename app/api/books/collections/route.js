@@ -28,6 +28,17 @@ export async function POST(req, res){
          )
         //  console.log("cookiesssssssssssss4444444444444");
         console.log("decoded tokeeeennnnnn :",decodedToken.id);
+
+    //  checking whether the collections are less than 10, if yes then we will
+    //allow to make another collection
+      const collectionAmount = await Collection.count({userId:decodedToken.id});
+      console.log("CollectionAmount :",collectionAmount);
+      if(collectionAmount>=10)
+      return NextResponse.json({
+        message: "Collections limit reached!",
+        success:false
+    }, {status: 409})
+//-------------------------------------------
         let newCollection="";
 
         // Check if a collection with the given name already exists

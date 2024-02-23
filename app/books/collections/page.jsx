@@ -71,7 +71,7 @@ const page = () => {
             </div>
 
             <p className="mb-7">
-                There are currently ({totalCollections} of 100) collections.
+                There are currently ({totalCollections} of 10) collections.
             </p>
 
             <form onSubmit={handleAddCollection}>
