@@ -8,18 +8,29 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useBookListContext } from "./BookListContext";
 import { useBodyContainerContext } from "./bodyContainerContext";
 import MenuMobile from "@/components/MenuMobile";
+import { useVisitor } from "./visitorContext";
 
 const AuthContext = createContext();
     
 export const AuthContextProvider = ({children}) => {
     const [userToken, setUserToken] = useState("");
     const [windowWidth, setWindowWidth] = useState(0);
-
+    const { isVisitor } = useVisitor();
 
     // To set the bodyContainer CSS
     const { bodyContainerCss } = useBodyContainerContext();
 
     useEffect(() => {
+
+        // if a visitor is visiting to check someones public collections, 
+        //then just set the "userToken" to some number or otherwise the
+        //public collections will not be shown unless he is logged in
+        //so to avoid logging in, we will just set it to 1.
+        if(isVisitor)
+        setUserToken("1");
+
+        alert("isVisitor :",isVisitor);
+
         // Check if window is defined (client-side)
         if (typeof window !== "undefined") {
             setWindowWidth(window.innerWidth);
