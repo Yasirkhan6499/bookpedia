@@ -1,6 +1,7 @@
 "use client";
 import BookResult from "@/components/BookResult";
-import { AuthContextProvider } from "@/context/authContext";
+import { useAuthContext } from "@/context/authContext";
+
 import { useVisitor } from "@/context/visitorContext";
 import WindowDimensionsContext from "@/context/windowDimensionsContext";
 import { useContext, useEffect, useState } from "react";
@@ -27,7 +28,7 @@ const PublishedCollectionsPage = ({params})=>{
   // const [books, setBooks] = useState(null);  
   const [groupedBooks, setGroupedBooks] = useState({});
   // to get the menu we need to update the setCheckVisitor, which will affect the "authContext"
-  const { setCheckVisitor } = useContext(AuthContextProvider);
+  const { setCheckVisitor } = useAuthContext();
           // for optimzation in different screens
   const { windowWidth } = useContext(WindowDimensionsContext);
   const { setIsVisitor, setViewedUserId, viewedUserBooks,visitorSelectedCol   } = useVisitor();
