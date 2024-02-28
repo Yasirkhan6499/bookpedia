@@ -5,31 +5,32 @@ import Menu from "@/components/Menu";
 import { Nav } from "@/components/Nav";
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
-import { useBookListContext } from "./BookListContext";
 import { useBodyContainerContext } from "./bodyContainerContext";
 import MenuMobile from "@/components/MenuMobile";
-import { useVisitor } from "./visitorContext";
+
 
 const AuthContext = createContext();
     
 export const AuthContextProvider = ({children}) => {
     const [userToken, setUserToken] = useState("");
     const [windowWidth, setWindowWidth] = useState(0);
-    const { isVisitor } = useVisitor();
+    const { checkVisitor, setCheckVisitor } = useState(false);
 
     // To set the bodyContainer CSS
     const { bodyContainerCss } = useBodyContainerContext();
 
+     // if a visitor is visiting to check someones public collections, 
+    //then just set the "userToken" to some number or otherwise the
+    //public collections will not be shown unless he is logged in
+    //so to avoid logging in, we will just set it to 1.
+    useEffect(()=>{
+        if(checkVisitor)
+        setUserToken("1");
+    },[checkVisitor]);
+
+
     useEffect(() => {
 
-        // if a visitor is visiting to check someones public collections, 
-        //then just set the "userToken" to some number or otherwise the
-        //public collections will not be shown unless he is logged in
-        //so to avoid logging in, we will just set it to 1.
-        if(isVisitor)
-        setUserToken("1");
-
-        alert("isVisitor :",isVisitor);
 
         // Check if window is defined (client-side)
         if (typeof window !== "undefined") {
@@ -69,7 +70,7 @@ export const AuthContextProvider = ({children}) => {
      const containerClass = windowWidth <= 768 ? "body-container-mobile" : `body-container-pc ${bodyContainerCss}`;
 
     return(
-        <AuthContext.Provider value={{userToken, setUserToken}}>
+        <AuthContext.Provider value={{userToken, setUserToken,checkVisitor, setCheckVisitor}}>
             {!userToken?<><Nav /> <Hero /></> :(windowWidth <= 768 )?<MenuMobile />:<Menu />  }
             <div className={userToken?`${containerClass} ${bodyContainerCss} `:""}>
             {children}
