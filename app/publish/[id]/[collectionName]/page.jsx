@@ -27,17 +27,18 @@ const PublishedCollectionsPage = ({params})=>{
 
   // const [books, setBooks] = useState(null);  
   const [groupedBooks, setGroupedBooks] = useState({});
-  // to get the menu we need to update the setCheckVisitor, which will affect the "authContext"
-  const { setCheckVisitor } = useAuthContext();
+  // // to get the menu we need to update the setCheckVisitor, which will affect the "authContext"
+  // const { setCheckVisitor } = useAuthContext();
           // for optimzation in different screens
   const { windowWidth } = useContext(WindowDimensionsContext);
   const { setIsVisitor, setViewedUserId, viewedUserBooks,visitorSelectedCol   } = useVisitor();
 
   useEffect(() => {
-    setIsVisitor(true);
-    setCheckVisitor(true);
+    setIsVisitor(true); //for overall website
     setViewedUserId(params.id);
+    // setCheckVisitor(true); //for authContext
     
+
     console.log("collectionName: ", params.collectionName, " id: ", params.id);
 
     // Reset when component unmounts

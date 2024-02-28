@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 const VisitorMenu = ({onMenuItemClick}) => {
-    const [publishCollections, setPublishCollections] = useState();
+    const [publishCollections, setPublishCollections] = useState([]);
     // const [books, setBooks] = useState();
     // const [selectedCollectionId,setSelectedCollectionId] = useState("");
 
@@ -33,30 +33,30 @@ const VisitorMenu = ({onMenuItemClick}) => {
    },[]);
 
   //  get the books
-  useEffect(()=>{
-    
-
-    const getUserBooks = async ()=>{
-      try{
-        const res = await axios.post("/api/books/getBooks",{
-          userId: viewedUserId
-        })
-
-        if(res.data.success){
-          setViewedUserBooks(res.data.books);
-          // set the first collection to the Visitor-selected-collection
-          setVisitorSelectedCol(publishCollections[0]._id);
-
-          console.log("books: ",res.data.books);
+  useEffect(() => {
+    const getUserBooks = async () => {
+      // Ensure there's at least one collection to proceed
+      if (publishCollections.length > 0) {
+        try {
+          const res = await axios.post("/api/books/getBooks", {
+            userId: viewedUserId,
+          });
+  
+          if (res.data.success) {
+            setViewedUserBooks(res.data.books);
+            // Set the first collection as the selected one for the visitor
+            setVisitorSelectedCol(publishCollections[0]._id);
+  
+            console.log("books: ", res.data.books);
+          }
+        } catch (error) {
+          console.log("Couldn't Fetch the Published Books: ", error);
         }
-      }catch(error){
-        console.log("Couldn't Fetch the Published Books: ",error);
       }
-    }
-
+    };
+  
     getUserBooks();
-
-  },[publishCollections])
+  }, [publishCollections]);
 
   // handleCollectionClick
 
