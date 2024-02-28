@@ -14,7 +14,7 @@ const AuthContext = createContext();
 export const AuthContextProvider = ({children}) => {
     const [userToken, setUserToken] = useState("");
     const [windowWidth, setWindowWidth] = useState(0);
-    const { checkVisitor, setCheckVisitor } = useState(false);
+    const [ checkVisitor, setCheckVisitor ] = useState(false);
 
     // To set the bodyContainer CSS
     const { bodyContainerCss } = useBodyContainerContext();
