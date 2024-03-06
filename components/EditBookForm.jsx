@@ -62,7 +62,7 @@ const EditBookForm = ({ book, handleCancleForm }) => {
   return (
     <div className='custom-md:pl-10'>
       <h2 className='ml-4 text-4xl mt-4'>Edit Item</h2>
-      <div className='flex flex-col '>
+      <div className='flex flex-col mt-2'>
         <label className='bookEdit-label mt-6' htmlFor="title">Title</label>
         <Input
           id="title"
