@@ -44,7 +44,7 @@ p{
   @apply text-4xl;
 }
 .nav-items li{
-  @apply text-xl cursor-pointer mt-1;
+  @apply text-base sm:text-lg cursor-pointer py-2;
 }
 .nav-item{
   @apply px-2 px-10 sm:p-2 sm:px-4 hover:bg-cyan-600 hover:text-white

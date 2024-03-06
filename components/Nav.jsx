@@ -3,17 +3,27 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook, faBars } from '@fortawesome/free-solid-svg-icons'; // faBars is for the menu icon
 import Link from 'next/link';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import WindowDimensionsContext from '@/context/windowDimensionsContext';
 
 export const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState("");
 
-  const borderBottom = "border-b-4 border-cyan-300";
+  const { windowWidth } = useContext(WindowDimensionsContext);
+
+  const borderBottom = (windowWidth<640)?"bg-cyan-500 text-white":"border-b-4 border-cyan-300";
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  
+  const makeItemActive = (item)=>{
+      setActiveItem(item);
+      if(windowWidth<640)
+      toggleMenu();
+  }
+
 
   return (
     <section className='nav-section relative'>
@@ -29,12 +39,16 @@ export const Nav = () => {
 
         <div className={`sm:block ${isMenuOpen ? 'block absolute top-10 right-0 bg-white  cursor-pointer'
          : 'hidden'}`}>
-          <ul className='nav-items flex flex-col sm:flex-row gap-3'> 
+          <ul className='nav-items flex flex-col sm:flex-row '> 
             {/* <li className='nav-item'> <Link href='/support'> Support </Link></li> */}
+            <Link href='/contact' onClick={()=>makeItemActive("contact")}>
             <li className={`nav-item ${activeItem==="contact"?borderBottom:""}`}>
-               <Link href='/contact' onClick={()=>setActiveItem("contact")}> Contact </Link></li>
+               Contact </li>
+            </Link>
+            <Link href='/about' onClick={()=>makeItemActive("about")}>
             <li className={`nav-item ${activeItem==="about"?borderBottom:""}`}> 
-            <Link href='/about' onClick={()=>setActiveItem("about")}> About </Link></li>
+             About </li>
+            </Link>
           </ul>
         </div>
       </div>
