@@ -239,7 +239,7 @@ const PublishCollection = () => {
             id="userUrl" 
             onChange={(e)=>handleUrlInput(e.target.value)}
             value={urlInput}
-            className={`w-[120px] sm:w-fit text-sm sm:text-base -ml-2 font-bold`}
+            className={`w-[120px] sm:w-fit text-sm sm:text-base -ml-2 font-bold mt-[1rem]`}
             maxLength={15}
             />
         </div>
