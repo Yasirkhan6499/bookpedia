@@ -155,8 +155,8 @@ const Menu = ({isMobileMenu, isMenuActive, onMenuItemClick}) => {
 
         </div>
          {/* all rights reserved */}
-         <div className={isMobileMenu?"text-center -ml-8 mb-16":"text-center -ml-8 mb-10"}>
-         <p>Copyright© 2023 Booklib.</p> 
+         <div className={isMobileMenu?"text-center -ml-8 mb-32 sm:mb-16":"text-center -ml-8 mb-10"}>
+         <p>Copyright© 2024 Booklib.</p> 
          <p>All rights reserved.</p>
          </div>
     </div>
