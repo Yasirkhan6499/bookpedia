@@ -113,7 +113,7 @@ let starCont_css = ` mt-3 ${starContainerCss}`;
     {/* book content container */}
     
     {/* added these classes for mobile optimization */}
-    <div className={`book-content ${isMobileMenu?"flex flex-wrap":""}`}>
+    <div className={`book-content ${isMobileMenu?"flex flex-wrap gap-x-32":""}`}>
       {/* book collection */}
       {(collection && isBookEdit) ? (
     <div className={`${isMobileMenu?"mt-6":""} flex items-center`}>
