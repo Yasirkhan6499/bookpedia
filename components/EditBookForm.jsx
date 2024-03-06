@@ -61,12 +61,12 @@ const EditBookForm = ({ book, handleCancleForm }) => {
 
   return (
     <div className='custom-md:pl-10'>
-      <h2 className='ml-4 text-4xl mt-6'>Edit Item</h2>
-      <div className='flex flex-col mt-4'>
+      <h2 className='ml-4 text-4xl mt-4'>Edit Item</h2>
+      <div className='flex flex-col '>
         <label className='bookEdit-label mt-6' htmlFor="title">Title</label>
         <Input
           id="title"
-          className="w-[98%]"
+          className="w-[98%] input-ml-class"
           type="text"
           placeholder="Title"
           value={title}
@@ -76,7 +76,7 @@ const EditBookForm = ({ book, handleCancleForm }) => {
         <label className='bookEdit-label' htmlFor="authors">Authors</label>
         <Input
           id="authors"
-          className="w-[98%]"
+          className="w-[98%] input-ml-class"
           type="text"
           placeholder="Authors"
           value={author}
@@ -88,7 +88,7 @@ const EditBookForm = ({ book, handleCancleForm }) => {
         <textarea
           id="description"
           placeholder="Description..."
-          className="p-2 mt-1 border rounded-md ml-4"
+          className="p-2 mt-1 border rounded-md input-ml-class "
           rows="4"
           value={description}
           onChange={(e) => setDescription(e.currentTarget.value)}
@@ -96,11 +96,11 @@ const EditBookForm = ({ book, handleCancleForm }) => {
         
 
         {/* price */}
-        <label className='bookEdit-label mt-6 -mb-3' htmlFor="price">Price</label>
+        <label className='bookEdit-label mt-6 ' htmlFor="price">Price</label>
         {/* price and cover image in flex */}
         <div className='flex flex-wrap gap-8 items-center mb-8'>
           <Input
-            className="w-[20%] min-w-[130px]"
+            className="w-[20%] min-w-[130px] input-ml-class"
             id="price"
             type="number"
             placeholder="£0.00"

@@ -167,7 +167,10 @@ p{
   @apply md:w-[70%] w-full;
 }
 .bookEdit-label{
-  @apply ml-4 -mb-3;
+  @apply ml-4 ;
+}
+.input-ml-class{
+  @apply ml-3 sm:ml-0
 }
 /* .manual-label{
   @apply  !w-[40%];
