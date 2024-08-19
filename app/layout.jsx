@@ -37,6 +37,18 @@ export default function RootLayout({ children }) {
             type="image/<generated>"
             sizes="<generated>"
           />
+            {/* Open Graph Meta Tags */}
+        <meta property="og:title" content="Booklib - Manage Your Online Library" />
+        <meta property="og:description" content="The best way to manage your online books library" />
+        <meta property="og:image" content="https://www.booklib.cloud/apple-touch-icon.png" />
+        <meta property="og:url" content="https://www.booklib.cloud" />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter Card Meta Tags (Optional) */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Booklib - Manage Your Online Library" />
+        <meta name="twitter:description" content="The best way to manage your online books library" />
+        <meta name="twitter:image" content="https://www.booklib.cloud/apple-touch-icon.png" />
       </Head>
       <body >
       <WindowDimensionsProvider>
